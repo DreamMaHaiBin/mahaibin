@@ -1,0 +1,591 @@
+.headset{
+    float: right;
+   
+}
+.outersphere{
+    width: 66.875rem;
+    height: 58.25rem;
+    border: 1px solid #7596c1;
+    float: left;
+    position: relative;
+    top:-17px;
+}
+
+.tableone{
+    width: 1051px;
+    height: 625px;
+    border: 1px solid #999;
+    margin-top:15px;
+    margin-left: 8px;
+}
+/*配煤成本优化*/
+.tablemeifen{
+    width: 1070px;
+    height: 510px;
+    border:  1px solid #7596c1;
+    float: left;
+    position: relative;
+}
+.table_mei{
+    width: 1051px;
+    height: 300px;
+    border: 1px solid #999;
+    margin-top: 15px;
+    margin-left: 8px;
+  
+}
+.tabletwo{
+    width: 1051px;
+    height: 186px;
+    margin-left: 8px;
+    margin-top: 20px;
+ 
+}
+.setcanshu{
+    float: left;
+    width: 339px;
+    height: 264px;
+    font-size:12px;  
+    border: 1px solid #999;
+    position: relative;
+    padding-top:10px;
+}
+.setcanshu>span{
+    position: absolute;
+    top:-10px;
+    left: 10px;
+    background: #fff;
+    padding: 0 3px;
+    font-size: 14px;
+    color: #0077d6;
+    font-weight: 800;
+}
+.setcanshu>button{
+    width: 22px;
+   
+    margin-top: 5px;
+    height: 22px;
+    position: relative;
+}
+.setcanshu>button>img{
+    position: relative;
+    width: 20px;
+    left:-10px;
+    top: -1px;
+  
+}
+
+.tabletwo>div>label{
+    margin: 0;
+    width: 154PX;
+    font-size: 14px;
+    margin-left: 40px;
+    margin-right: 20px;
+    line-height: 20px;
+}
+.tabletwo>div>input{
+    margin: 0;
+    width: 62PX;
+    height: 22px;
+    margin-bottom: 2px;
+}
+
+.tabletwo_one{
+    padding-top:20px; 
+    width: 702px;
+    height:90px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    position: relative;
+    background: #e8eefa;
+    
+}
+.tabletwo_one_table{
+    width: 680px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    background: #fff;
+   
+}
+.tabletwo_one>span{
+    position: absolute;
+    color: #0077d6;
+    background: #fff;
+    font-weight: 800;
+    font-size:14px;
+    top: -10px;
+    left: 10px;
+}
+.tabletwo_two{
+    padding-top:15px; 
+    position: relative;
+    width: 702px;
+    height:164px;
+    margin-left: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+.tabletwo_two>span{
+    color: #0077d6;
+    font-size:14px; 
+    font-weight: 800;
+    position: absolute;
+    background: #fff;
+    padding: 0 3px;
+    top: -10px;
+    left: 10px;
+}
+.nametd{
+    font-size: 14px;
+}
+.nametd td{
+    width: 113px;
+}
+.tableoneGaolu{
+    width: 1050px;
+    height:420px;
+    margin-top:15px;
+    margin-left: 8px;
+    border:1px solid #999 ;
+}
+.setalse{
+    float: right;
+    width: 100px !important;
+    height: 25px !important;
+    text-align: center;
+    margin-top: 40px;
+    margin-right: 15px;
+}
+.setcanshugaolu{
+    float: left;
+    width: 339px;
+    height: 425px;
+    font-size:12px;
+    border: 1px solid #999;
+    padding-top: 20px;
+    position: relative;
+}
+.setcanshugaolu>span{
+    color: #0077d6;
+    padding: 0 5px;
+    font-weight: 800px;
+    font-size: 14px;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #fff;
+}
+.setcanshugaolu>.ant-radio-group{
+    margin-left: 40px !important; 
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+h5{
+    text-align: center;
+    font-weight: 100;
+    font-size: 14px;
+    color: #000;
+}
+.tabletwo_one_gaolu{
+    padding-top:20px; 
+    width: 702px;
+    height:425px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    position: relative;
+    background: #e8eefa;
+}
+.tabletwo_one_gaolu>span{
+    color: #0077d6;
+    position: absolute;
+    top:-13px;
+    left:10px;
+    background: #fff;
+    padding: 0 3px;
+    font-size: 14px;
+}
+.footersbutton>label{
+    margin-left: 10px;
+    margin-top: 15px;
+    color: #000;
+}
+.footersbutton>input{
+  width: 80px;
+  margin-left: 20px;
+  height: 25px;
+}
+.footersbutton>span{
+    float: right;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+.footersbutton>span>button{
+    margin-left: 5px;
+}
+
+/*表头序号*/
+.table-th{
+    width: 1029px;
+    margin: auto;
+    text-align: center;
+    font-size: 14px;
+    color:#333;
+}
+.table-th-tr{
+    /* border: 1px solid #7596c1; */
+    text-align: center;
+   
+}
+.table-th-tr>td{
+    border: 1px solid #7596c1;
+    width: 1.5625rem;
+    
+}
+.table-th-tr>td>input{
+    border-radius: 0;
+    border:none;
+    padding: 0;
+    height: 20px;
+    padding-left: 5px !important;
+}
+.gufei{
+    background: #e3fdd8;
+    border: 1px solid #7596c1;
+}
+.gufei>td{
+    text-align: left;
+    padding-left:5px ;
+    border: 1px solid #7596c1;
+}
+.gaofan{
+    border: 1px solid #7596c1;
+    background: #fdd8e9;
+}
+.gaofan>td{
+    border: 1px solid #7596c1;
+}
+.gaofan>td>input{
+    padding: 0;
+    border:none;
+    background: #fdd8e9;
+    height: 22px;
+    padding-left: 3px !important;
+}
+.shihui{
+    border: 1px solid #7596c1;
+    background: #f7fdd9;
+}
+.shihui>td{
+    border: 1px solid #7596c1;
+    background: #f7fdd9;
+    color: #000;
+}
+.shihui>td>input{
+    padding: 0;
+    border:none;
+    background: #f7fdd9;
+    height: 22px;
+    padding-left:3px !important;
+}
+.else>td>input{
+    padding: 0;
+    border:none;
+    background: #d8fbfd;
+    height: 22px;
+    padding-left:3px ;
+}
+.else{
+    border: 1px solid #7596c1;
+    background: #d8fbfd;
+}
+.else>td{
+    border: 1px solid #7596c1;
+    background: #d8fbfd;
+  
+}
+.tishixinxi{
+    margin-top: 19px;
+    font-size: 14px;
+    margin-left: 12px;
+    line-height: 50px;
+}
+.work>button{
+    font-size: 14px !important;
+}
+.work{
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.work>button{
+    margin-left: 8px;
+}
+.tableGufei{
+    width: 625px;
+    background:#fff;
+    font-size: 12px;
+    text-align: center;
+  
+}
+.tableGufei>td{
+    width: 34.7px;
+}
+.trgufei>td>input{
+    /* border: 1px solid #999;    */
+    border: none;
+    /* width: 110px !important; */
+    padding: 0;
+    margin: 0%;
+    height: 20px !important;
+    border-radius: 0;
+    padding-left: 10px;
+    
+}
+.childrens{
+    width:300px;
+    /* border: 1px solid #999;   */
+    
+}
+.trgufei>td{
+    border: 1px solid #999; 
+    height: 20px !important;
+}
+
+.trgufeit24{
+    border: 1px solid #999; 
+    background: green;
+}
+.trgufeit24>td{
+    border: 1px solid #999; 
+    width: 100px;
+    overflow: auto;
+}
+.daoru{
+    width: 625px;
+}
+.titles{
+    line-height: 50px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+.daoru>div>span{
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    margin-right: 20px;
+}
+.trrl{
+    border: 1px solid #999; 
+    background: #d8fbfd;
+}
+.trrl>td{
+    border: 1px solid #999; 
+}
+.trrj{
+    border: 1px solid #999; 
+    background: #ccc;
+}
+.trrj>td{
+    border: 1px solid #999; 
+   
+}
+.trrrj{
+    border: 1px solid #999; 
+    background: #f7fdd9;
+    
+}
+.trrrj>td{
+    border: 1px solid #999; 
+}
+.jiachu{
+    font-weight: 800;
+    border: 1px solid #999; 
+    /* background: #ccc; */
+   
+}
+
+.jiachu>td{
+    border: 1px solid #999; 
+   
+}
+.gufeiquest>td{
+   width: 40px;
+   padding: 0;margin: 0;
+   border: 1px solid #999;
+
+}
+.gufeiquest>td>input{
+    padding: 0;margin: 0;
+    height: 21px;
+    font-size: 12px;
+    border-radius: 0;
+    border:none;
+    border-color: #999;
+ }
+ .gaolumodel{
+     background: #fff;
+    
+     padding-top: 15px;
+ }
+ .gaolumodel>label{
+    width: 200px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    color: #000;
+}
+.gaolumodel>label>button{
+    width: 24px;
+    margin-left: 20px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+}
+ .gaolumodel>input{
+     width: 60px;
+     margin-right: 20px;
+     border-radius: 0;
+     border-color:#999;
+     height: 26px; 
+ }
+ .color-title{
+  
+     color: #0077d6;
+     
+     font-weight: 600;
+   
+ }
+ .jiachuKebian{
+    font-weight: 800;
+    border: 1px solid #999; 
+    background: #ccc;
+}
+.jiachuKebian>td{
+    border: 1px solid #999; 
+}
+
+.qingkong{
+    position: absolute;
+    top:-40px;
+    left: 858px;
+}
+.qingkong>button:nth-child(1){
+    margin-right:10px ;
+}
+.qingkong>button{
+    line-height: 32px;
+}
+.qingkong>button>img{
+ margin-bottom:5px ;
+}
+.computed{
+    position: absolute;
+    left:10px;
+    bottom: -43px;
+  
+}
+.import{
+        position: absolute;
+        right: 150px;
+        bottom: -43px;
+}
+.Names{
+    width: 80px !important;
+}
+.xuhao{
+    width: 150px !important;
+}
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active{
+    background: rgb(254, 232, 149);
+    color: #333;
+}
+.ant-tooltip-inner{
+    background: rgb(255, 255, 255) ;
+    color: #000;
+
+}
+.btnsan{
+    cursor: pointer;
+    text-align: center,;
+    padding: 0 ;
+    width:100%;
+    height:100%;
+    background:#7db466;
+}
+.colors{
+    background-color: #fdd8e9;
+    z-index: 100;
+}
+.ganshimodel{
+    width: 640px;
+    height: 230px;
+    
+    position: fixed;
+   
+    top: 0;
+    bottom: 0;left: 0;right: 0;
+    margin: auto;
+    padding: 8px;
+    z-index: 1000;
+   background: #e7ecf4;
+}
+.ganshimodel_h2{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #5591d4;
+    color: #fff;
+    font-size: 16px;
+}
+.ganshimodel_ulone,.ganshimodel_ultwo{
+    float: left;
+   
+}
+
+.ganshimodel_ulone li{
+   
+    width: 94px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #999;
+
+}
+
+.ganshimodel_ulone li:nth-child(2){
+    border-top: none;
+    height: 31px;
+}
+.ganshimodel_ulone li:nth-child(3){
+    border-top: none;
+    height: 29px;
+}
+.ganshimodel_ulone li:nth-child(4){
+    border-top: none;
+}
+
+.ganshimodel_ultwo li div{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+   
+  
+}
+.ganshimodel_ultwo li input{
+    width: 52px;
+    height: 25px;
+    border-radius: 0;
+    background: #fff;
+	outline:none;  
+    border:none; 
+    text-align: center;
+}
+.computedpeibi{
+  float: right;
+  margin-left: 15px;
+  
+}
+.qingkongs{
+    float: right;
+}

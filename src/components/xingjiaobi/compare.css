@@ -1,0 +1,419 @@
+.yongtu{
+    padding: .125rem .625rem;
+     margin-left: .25rem;
+     font-size: .75rem;
+     background:url("../../img/btn_normal.png");
+     margin-bottom: 2px;
+}
+.xinxi1{
+    padding: 0 10px;
+    font-size: .875rem;
+    background: #e3ebf6 ;
+    /* background: url("../../img/pagebg.png"); */
+    font-size: 14px;
+    border: 1px solid #7695c3;
+    text-align: center;
+    line-height: 32px; 
+    border-bottom: none;
+}
+/* .xinxi1:hover{
+    background: url("../../img/tab_hover.png")
+} */
+.right{
+    float:right;  
+    margin-bottom: 5px;
+}
+.has{
+    float: right;
+}
+.yongtu>img{
+    width: .9375rem;
+    height: .9375rem;
+    margin-right: .125rem;
+}
+.xingjiabi{
+    width: 66.875rem;
+    height: 51.25rem;
+    border: 1px solid #7596c1;
+    float: left;
+    position: relative;
+
+}
+.dongxi,.paixu,.jieguo{
+    width: 18.4375rem;
+    height: 35.625rem;
+    border: 1px solid #a9c0df;
+    margin-bottom: 1.875rem;
+    overflow: auto;
+    padding: 20px;
+    float: left;
+}
+.jieguo{
+    float: left;
+}
+.title{
+    display: block;
+    margin-top: 30px;
+}
+.title_liao{
+    width: 18.4375rem;
+    margin-left: 20px;;
+    margin-bottom: .625rem;
+}
+.dongxi{
+    margin-left: 20px;
+    float: left;
+}
+.anniu{
+   width: 4.375rem;
+   float: left;
+   
+}
+.anniu>button{
+    text-align: left;
+    line-height: 20px;
+    text-align: center;
+}
+.anniu>button>img{
+    margin-bottom: 2px;
+}
+h1{
+    width: 4.375rem;
+    height: 12.5rem;
+}
+.anniu>button{
+    display: block;
+    width: 2.775rem;
+    height: 1.525rem;
+    text-align: center;
+    line-height: 1.525rem;
+    margin: auto;
+    margin-bottom: .3125rem;
+    background:#d6e7fb ;
+    border-color: #396aa2;
+    border-radius: 0;
+    
+}
+.title_paixu{
+    width: 4.375rem;  
+    margin: auto;
+    text-align: center;
+    float: left;
+}
+.title_paixu>button{
+    display: block;
+    text-align: center;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: auto;
+    
+    background:#d6e7fb ;
+    border-color: #396aa2;
+    border-radius: 0;
+}
+h2{
+    widows: 4.375rem;
+    height:16.25rem;
+}
+.kuangfeng{
+    display: inline-block;
+    margin-left: 4.1875rem;
+    color: #0178d4;
+    margin-right: .3125rem;
+    width: 293px;
+}
+.kuangfeng>button{
+    padding: 0;
+    float: right;
+    width: 50px;
+    height: 26px;
+    text-align: center;
+    line-height:26px;
+    border-color: #396aa2;
+    border-radius: 0;
+    /* background: url(".../../../../img/btn_normal.png") */
+}
+.kuangfeng>button>img{
+    margin-bottom: 5px;
+}
+.tablexinxi{
+    width: 1025px;
+    border:1px solid #333;
+    margin-left:20px;;
+  
+}
+.nametd{
+    border: 1px solid #333;
+    background: #e5e5e5;
+    color: #000;
+    font-size:12px; 
+    text-align: center;
+   
+}
+.xingjiaobi_tr{
+    border: 1px solid #333;
+    background: #e5e5e5;
+    color: #000;
+    font-size:12px; 
+    text-align: center;
+    width: 100%;
+}
+.nametd td,.xingjiaobi_tr td{
+    border: 1px solid #333; 
+    padding: 5px;
+}
+.shujutd{
+    border: 1px solid #333;
+    font-size:12px; 
+    text-align: center;
+    overflow: hidden;
+    height: 20px;
+}
+.shujutd td{
+    border: 1px solid #333;
+    padding: 5px;
+    
+}
+.click_set label{
+    display: inline-block;
+    padding: 5px 20px 5px 30px;
+    margin-right: .6875rem;
+    font-size: .875rem;
+    line-height: .8125rem;
+    color: black;
+}
+.click_set input{
+    width:45px;
+    height: 22px;
+    margin-right:20px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    border-color: #ababab
+}
+.ant-modal-header{ /*控制表头的颜色样式*/
+    background: #6590c8 !important;
+    height:30px ;
+}
+.click_show_one{
+    position: relative;
+}
+.click_show_one>span{
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    color: #0178d4;
+    font-size: 14px;
+    background: #fff;
+    font-weight: 800;
+}
+.click_show_one>span>label{
+    display: inline-block;
+    width: 220px;
+    height: 25px;
+    line-height: 25px;
+    margin-right:10px;
+    font-size: 12px;
+    font-family: "宋体";
+
+}
+.click_show_one>span>input{
+    width:35px;
+    height: 22px;
+    margin-right:10px;
+    border-radius: 0;
+    border-color: #ababab;
+    font-family: "宋体";
+}
+
+.ant-modal-title{  /* 控制表头的参数设置的颜色宽高和大小*/
+    margin: 0;padding: 0;
+    color: white !important;
+    position: absolute;
+    top:5px;
+}
+.ant-modal-close-x{ /*控制x号的样式*/
+    line-height: 30px;
+    color: #fff;
+    width: 0;
+    height: 0;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    padding: 0 !important;
+    text-align: center;
+    line-height: 60px;
+    font-size: 14px;
+}
+.fotter-btn{
+    position: absolute;
+    bottom: 8px;
+}
+.fotter-btn>button{ /*模态窗底部的三个按钮*/
+    float: left;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #40609d;
+    border:1px solid #728cba;
+    background: url("../../img/btn-zy.png");
+    background-size: 104px 32px;
+    margin-right: .1875rem;
+}
+.ant-btn{/*取消和确认按钮按钮*/
+    background: url("../../img/btn-zy.png");
+    color: #40609d;
+    font-size: 12px;
+    background-size: 59px 32px;
+}
+.creat{/*建立新的测算表*/
+    height: 50px;
+    text-align: center;
+    padding-top: 10PX;
+}
+.creat>input{
+    width: 60px;
+    margin-right: 10PX;
+}
+.creat>span{
+    color: #000;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.ant-table-placeholder{/*显示没有数据*/
+    position: absolute;
+    top:50px;
+    width: 590px;
+}
+.ant-table-column-title{
+    width: 30px !important;
+    
+}
+.ant-table-header-column{
+    border-radius: 0;
+    width: 80px;
+}
+.anticon-question-circle{
+    display: none;
+}
+
+.computedtable{
+    background: #fff;
+    width: 900px;
+}
+.computedtable>span{
+    margin-right: 10px;
+}
+.ant-modal-confirm .ant-modal-body{
+    padding:20px;
+    width: 600px;
+    padding: 10px;;
+    position: absolute;
+
+}
+.ant-modal-confirm-cont{
+    margin: 0;
+}
+.abc{
+    text-align: right;
+    }
+.abc>td>input>{
+    width: 100px !important; 
+}
+/*qiutuan*/
+.ant-drawer-wrapper-body{
+    position: absolute;
+    height: 500px !important;
+}
+
+.tuoliu{
+    border: 1px solid  #999;
+    background: #fff;
+    width: 620px;
+    margin: 0;
+    padding: 10px;
+}
+.tuoliu>tbody>tr{
+    border: 1px solid  #999;
+    text-align: center;
+    font-size: 14px;
+    color: #000;
+}
+.tuoliu>tbody>tr>td{
+    border: 1px solid #999;
+}
+.tuoliu>tbody>tr>td>input{
+    width: 100px;
+    border: 1px solid #999;
+}
+.models{
+    background: #fff;
+}
+.touliukuang{
+    width: 620px;
+    color: #000;
+    margin-top:10px;
+}
+.touliukuang>label{
+    font-size: 14px;
+    width: 180px;
+    margin-right: 30px;
+}
+.touliukuang>input{
+    font-size: 14px;
+    width: 60px;
+    margin-right: 30px;
+}
+
+.foot{
+    border: 1px solid #999;
+    text-align: center;
+}
+.foot>td{
+    border: 1px solid #999;
+    font-weight: 800;
+    height: 20px;
+}
+.foot>td>input{
+    border-radius: 0;
+    border: none;
+    padding: 0 ;
+    padding-left: 4px;
+    font-size: 12px;
+}
+.colors{
+    color: #fff;
+    background: #0178d4;
+}
+.name{
+    text-align: center;;
+}
+.rj{
+    border: 1px solid #999;
+}
+.rj>td{
+    border: 1px solid #999;
+    
+}
+.rj>td>input{
+    border:none;
+    border-radius: 0;
+    padding:0 ;
+    padding-left: 2px;
+}
+.OnepaiList{
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 1rem;
+
+}
+.colcors{
+    background: red;
+}
+.listpai{
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    /* background:url("../../img/update_ok.png") no-repeat;
+    background-position: right; */
+    background: #608dff;
+    color: #fff;
+}

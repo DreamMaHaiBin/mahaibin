@@ -1,0 +1,242 @@
+
+.kuang{
+        width: 1070px;
+        height: 726px;   
+}
+.xinxi{
+    float: left;
+    padding: 0 10px;
+    height: 32px ;
+    background: #e3ebf6 ;
+    /* url("../../img/pagebg.png"); */
+    font-size: 14px;
+    border: 1px solid #7695c3;
+    text-align: center;
+    line-height: 32px; 
+    border-bottom: none;
+
+}
+/* .xinxi:hover{
+    background: url("../../img/tab_hover.png")
+} */
+.gongneng_big{
+    float: right;
+}
+.gongneng{
+        float: left;
+        padding: 0 2px 0  2px;
+        margin-left: 3px;
+        padding: 0 7px;
+        height: 28px;
+        font-size: 14px;
+        color: "#15428b";
+        font-family: initial;
+        background-size: 28px;
+        background: url("../../img/btn_normal.png");
+        text-align: center;
+        line-height: 28px; 
+        margin-bottom: 0;
+        border: 1px solid #cccccc;
+        cursor:pointer;
+}
+.gongneng:hover{
+    background: url("../../img/btn_hover.png");
+}
+.gongneng>img{
+    width: 24px;
+    height: 24px;
+    margin-right: 2px;
+    margin-bottom: 5px;
+}
+.biaodan{
+    width: 1070px;
+    height: 800px;
+    margin-top:8px;
+    border-radius: 0;
+    border: 1px solid #7695c3;
+}
+.ant-table-fixed{
+    margin: 0;
+    width: 1145px !important;
+}
+.ant-table{
+    margin-left: .625rem;
+    margin-top: 10px;
+    margin-right: 1.25rem; 
+    
+}
+.ant-table-tbody > tr > td {
+    padding-left: 4px !important;
+    height: 22px;
+}
+.ant-table-tbody > tr > td>a{
+    font-size: 14px;
+    font-family: "宋体";
+    color: #333;
+    line-height: 20px;
+}
+.ant-table-thead > tr > th{
+  text-align: center;
+  padding-left: 4px !important;
+  background: #e5e5e5;
+  
+}
+
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+    padding: 0;
+    border-right: 1px solid #c2c2c2;
+    border-bottom: 1px  solid #c2c2c2;
+    font-size: 12px;
+    font-family: "宋体";
+    /* line-height: 22px;
+    width: 20px; */
+}
+.ant-table-body{
+    height: 690px ;  
+    border: 1px solid #e3ebf6;
+}
+.ant-modal-body{
+    position: relative;
+    background: #e7ecf4;
+    padding:0 10px;
+   width: 650px;
+   padding-top: 10px;
+   
+}
+.ant-modal-footer{
+    background: #e7ecf4;
+    width: 650px;
+    
+}
+.ant-modal-header{
+    width: 650px;
+}
+.click_show_one{
+    border: 1px solid #6590c8;
+   margin-top: 15px;
+    padding: 5px;
+    position: relative;
+    background: #fff;
+ 
+}
+.ant-modal-close-x{
+    position: absolute;
+    right:-100px;
+}
+
+.click_show_one>label{
+        display: inline-block;
+        width: 90px;
+        height: 18px;
+        text-align: left;
+        line-height: 18px;
+        margin-right:5px;
+        font-size: 12px;
+        font-family: "宋体";
+}
+.click_show_one>input{
+    width:35px;
+    height: 18px;
+    margin-right:10px;
+    border-radius: 0;
+    border-color: #ababab;
+    font-family: "宋体";
+    font-size: 12px;
+}
+.click_show_two{
+    border: 1px solid #6590c8;
+    position: relative;
+    background: #fff;
+}
+.click_show_two>label{
+    display: inline-block;
+    width: 61px;
+    height: 25px;
+    text-align: left;
+    line-height: 25px;
+    margin-right:10px;
+    font-size: 12px;
+    font-family: "宋体";
+}
+.click_show_two>input{
+    width:35px;
+    height: 22px;
+    margin-right:10px;
+    border-radius: 0;
+    border-color: #ababab;
+    font-family: "宋体";
+}
+.jibenxinxi{
+    color: #6590c8;
+    font-weight: 800;
+    font-size:16px;
+    position: absolute;
+    top: -14px;
+    left: 15px;
+    background: #fff;
+}
+/*formitem外层的div*/
+.ant-form-item{
+       display: inline-block;
+       margin: 0;
+       
+}
+/*label外层的div*/
+.ant-form-item-label{
+    float: left;
+    width:130px;
+    margin: 0;
+    text-align: right;
+    
+}
+/*inpu外层div*/
+.ant-form-item-control-wrapper{
+    float: left;
+    width: 70px;
+}
+.ant-form-item-control-wrapper {
+    width: 60px;
+    padding: 0;
+  
+}
+.ant-table-selection-column{
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 60px !important;
+   border-top-left-radius: 0px;
+
+}
+/*控制from-item的input的矿*/
+.ant-input{
+    /* width: 90px; */
+    padding: 0;
+    padding-left: 2px;
+}
+#addcomponent_name{
+    font-size: 12px;;
+}
+element.style {
+    width: -13px;
+    position: relative;
+    left: 0px !important;
+    padding: 0;
+}
+.pagition{
+    float: right;
+}
+.pagition>li{
+    float: left;
+    margin-right: 20px;
+    margin-top: 15px;
+    background: #6590c8;
+}
+
+.addKuang{
+    color: #6590c8;
+    font-weight: 800;
+    position: absolute;
+    font-size: 14px;
+    top: -10px;
+    left: 20px;
+    background: #fff;
+}
