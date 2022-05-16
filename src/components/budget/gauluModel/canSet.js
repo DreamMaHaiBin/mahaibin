@@ -38,7 +38,8 @@ export default class EditerComponent extends Component {
   }
   UNSAFE_componentWillMount() {
     //最近参数设置信息
-    axios.get(`/api/estimate-para-gl/recent/?purpose=${this.props.tabKeys === "2" ? 159 : this.props.tabKeys === "3" ? 179 : 9}`, {
+    const url = window.location.search ? 203 : this.props.tabKeys === "2" ? 159 : this.props.tabKeys === "3" ? 179 : 9
+    axios.get(`/api/estimate-para-gl/recent/?purpose=${url}`, {
       headers: {
         Authorization: sessionStorage.getItem("token")
       }
@@ -58,8 +59,8 @@ export default class EditerComponent extends Component {
       res.data.rslag = Number(res.data.rslag).toFixed(2);
       res.data.cmr = Number(res.data.cmr).toFixed(2);
       res.data.bashBurdenFe = Number(res.data.bashBurdenFe).toFixed(2);
-       res.data.cmd = Number(res.data.cmd).toFixed(4);
-       res.data.fcms = Number(res.data.fcms).toFixed(4);
+      res.data.cmd = Number(res.data.cmd).toFixed(4);
+      res.data.fcms = Number(res.data.fcms).toFixed(4);
       this.setState({
         setInter: res.data
       }, () => {
@@ -79,24 +80,24 @@ export default class EditerComponent extends Component {
       const newData = this.state.setInter;
       const newSanFang = Object.assign(this.state.kebianFei);
       newData.cmd = newSanFang;
-       if(this.state.kebianFei===""){
+      if (this.state.kebianFei === "") {
         this.setState({
           visible: true,
         })
         message.warning("导入不能为空，请先计算！")
-       }else{
+      } else {
         this.setState({
           setInter: newData,
           visible: false,
         })
-       }
+      }
     } else if (this.state.model === "guding") {
-      if(this.state.buBianFei===""){
+      if (this.state.buBianFei === "") {
         this.setState({
           visible: true,
         })
         message.warning("导入不能为空，请先计算！")
-       }else{
+      } else {
         const newData = this.state.setInter;
         const newSanFang = Object.assign(this.state.buBianFei);
         newData.fcms = newSanFang;
@@ -106,7 +107,7 @@ export default class EditerComponent extends Component {
         })
 
       }
-    
+
 
     }
   };
@@ -197,7 +198,7 @@ export default class EditerComponent extends Component {
               defaultValue={this.state.setInter.cmr}
               onChange={this.setList("cmr").bind(this)}
             /><br></br>
-              <label>高炉灰生产量，kg/吨铁</label>
+            <label>高炉灰生产量，kg/吨铁</label>
             <Input
               value={this.state.setInter.dustB}
               defaultValue={this.state.setInter.dustB}
@@ -221,7 +222,7 @@ export default class EditerComponent extends Component {
               defaultValue={this.state.setInter.bashBurdenFe}
               onChange={this.setList("bashBurdenFe").bind(this)}
             /><br></br>
-              <label>铁水产量，万吨/月</label>
+            <label>铁水产量，万吨/月</label>
             <Input
               value={this.state.setInter.outS}
               onChange={this.setList("outS").bind(this)}
@@ -231,14 +232,14 @@ export default class EditerComponent extends Component {
               value={this.state.setInter.f13}
               defaultValue={this.state.setInter.f13}
               onChange={this.setList("f13").bind(this)}
-            /><br/>
-           <label>入炉品位升降1%影响煤比，%</label>
+            /><br />
+            <label>入炉品位升降1%影响煤比，%</label>
             <Input
               value={this.state.setInter.f14}
               defaultValue={this.state.setInter.f14}
               onChange={this.setList("f14").bind(this)}
             />
-          <label>入炉品位升降1%影响产量，%</label>
+            <label>入炉品位升降1%影响产量，%</label>
             <Input
               value={this.state.setInter.f15}
               defaultValue={this.state.setInter.f15}
@@ -249,19 +250,19 @@ export default class EditerComponent extends Component {
           <div className="gaolumodel">
 
             <label>高炉可变加工费，元/吨
-                          <button onClick={this.GaoLuKeBianjgf.bind(this)}>...</button>
+              <button onClick={this.GaoLuKeBianjgf.bind(this)}>...</button>
             </label>
             <Input
-             onChange={this.setList("cmd").bind(this)}
+              onChange={this.setList("cmd").bind(this)}
               value={this.state.setInter.cmd}
               defaultValue={this.state.setInter.cmd}
             />
 
             <label>高炉固定加工费，万元/月
-                          <button onClick={this.GaoLuGuDingjgf.bind(this)}>...</button>
+              <button onClick={this.GaoLuGuDingjgf.bind(this)}>...</button>
             </label>
             <Input
-            onChange={this.setList("fcms").bind(this)}
+              onChange={this.setList("fcms").bind(this)}
               value={this.state.setInter.fcms}
               defaultValue={this.state.setInter.fcms}
             />

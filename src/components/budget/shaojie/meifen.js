@@ -61,7 +61,8 @@ for (let i = 0; i < 10; i++) {
     }
     componentWillMount() {
          //   //console.log(this.props.tabKeys)
-        axios.get(`/api/estimate-ore/recent/?purpose=${this.props.tabKeys==="2" ? 422 : this.props.tabKeys==="3" ? 423 : 421}`, {
+         const newurl = window.location.search ? 2013 : this.props.tabKeys==="2" ? 422 : this.props.tabKeys==="3" ? 423 : 421
+        axios.get(`/api/estimate-ore/recent/?purpose=${newurl}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -104,9 +105,10 @@ for (let i = 0; i < 10; i++) {
         this.setState({
             flag: true,
         })
+        const newurl = window.location.search ? 2013 : this.props.tabKeys==="2" ? 422 : this.props.tabKeys==="3" ? 423 : 421
         axios.post("/api/estimate-mean/", {
 
-            purpose: this.props.tabKeys==="2" ? 422 : this.props.tabKeys==="3" ? 423 : 421,
+            purpose: newurl,
             ore:
                 this.state.guFeiList.map((item, idx) => {
                     if (item.tFe === "" || item.tFe === null) {
@@ -160,7 +162,7 @@ for (let i = 0; i < 10; i++) {
                         {
                             line: idx + 1,
                             name: item.name,
-                            purpose: this.props.tabKeys==="2" ? 422 : this.props.tabKeys==="3" ? 423 : 421,
+                            purpose: newurl,
                             tFe: item.tFe,
                             siO2: item.siO2,
                             caO: item.caO,

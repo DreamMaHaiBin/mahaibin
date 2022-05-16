@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "../cossalculation.css"
 import axios from "axios"
-import EditerComponent from "./gauluModel/canSet";
+import EditerComponent from "../gauluModel/canSet";
 import ExportJsonExcel from 'js-export-excel';
-import WrappedDemo from "./gauluModel/daoruModel";
-import WeiRuLuJiao from "./gauluModel/weiruluJiao"
-import MingXi from "./gauluModel/Mingxi";
-import Else from "./gauluModel/else";
-import PenChuiMei from "./gauluModel/penchuimei"
-import RuLuJiao from "./gauluModel/rululiao"
-import BuildTitle from "../model/model"
+import WrappedDemo from "../gauluModel/daoruModel";
+import WeiRuLuJiao from "../gauluModel/weiruluJiao"
+import MingXi from "../gauluModel/Mingxi";
+import Else from "../gauluModel/else";
+import PenChuiMei from "../gauluModel/penchuimei"
+import RuLuJiao from "../gauluModel/rululiao"
+import BuildTitle from "../../model//model"
 import { Radio, Select, Button, Input, Modal, message, Checkbox, Tooltip } from "antd";
 const { Option } = Select;
 const list = []
@@ -41,7 +41,7 @@ for (let i = 0; i < 15; i++) {
 }
 const strFour = "0.0000"
 const str = "0.00"
-export default class BlastFurnaceOne extends Component {
+export default class GaoLu extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -125,9 +125,10 @@ export default class BlastFurnaceOne extends Component {
         }
         ////console.log(this.props.keys)
     }
-    UNSAFE_componentWillMount() {
+    componentWillMount() {
+
         //最近矿粉信息
-        axios.get(`/api/estimate-ore/recent/?purpose=${this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9}`, {
+        axios.get(`/api/estimate-ore/recent/?purpose=203`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -171,7 +172,7 @@ export default class BlastFurnaceOne extends Component {
             })
         })
         //最近参数设置信息
-        axios.get(`/api/estimate-para-gl/recent/?purpose=${this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9}`, {
+        axios.get(`/api/estimate-para-gl/recent/?purpose=203`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -182,94 +183,7 @@ export default class BlastFurnaceOne extends Component {
                 outSone: res.data.outS
             })
         })
-        setTimeout(() => {
-            //高炉er系列数据
-            axios.get(`/api/estimate-ore/recent/?purpose=${this.state.tabKeys === "2" ? 179 : this.state.tabKeys === "3" ? 9 : 159}`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                //  console.log(res.data);  
-                res.data.forEach((item) => {
-                    item.tFe = Number(item.tFe).toFixed(2);
-                    item.siO2 = Number(item.siO2).toFixed(2);     // 二氧化硅含量
-                    item.caO = Number(item.caO).toFixed(2);    // 氧化钙含量
-                    item.mgO = Number(item.mgO).toFixed(2);        // 氧化镁含量
-                    item.al2O3 = Number(item.al2O3).toFixed(2);    // 氧化铝含量
-                    item.loI = Number(item.loI).toFixed(2);     // 烧损
-                    item.feO = Number(item.feO).toFixed(2);        // 氧化铁含量
-                    item.k2O = Number(item.k2O).toFixed(4);       // 氧化钾含量
-                    item.na2O = Number(item.na2O).toFixed(4);       // 氧化钠含量
-                    item.znO = Number(item.znO).toFixed(4);         // 氧化锌含量
-                    item.s = Number(item.s).toFixed(4);         // 硫含量
-                    item.p = Number(item.p).toFixed(4);         // 磷含量
-                    item.tiO2 = Number(item.tiO2).toFixed(4);        // 氧化钛含量
-                    item.sRatio = Number(item.sRatio).toFixed(2);     // 入炉料筛下率
-                    item.price = Number(item.price).toFixed(2); // 价格
-                    item.ratio = Number(item.ratio).toFixed(2);        // 配比
-                    item.r = Number(item.r).toFixed(2);        // 配比
-                })
-                this.setState({
-                    gaoluTwo: res.data
-                })
-            })
-            //高炉三系列数据
-            axios.get(`/api/estimate-ore/recent/?purpose=${this.state.tabKeys === "2" ? 9 : this.state.tabKeys === "3" ? 159 : 179}`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                //  console.log(res.data);    
-                res.data.forEach((item) => {
-                    item.tFe = Number(item.tFe).toFixed(2);
-                    item.siO2 = Number(item.siO2).toFixed(2);     // 二氧化硅含量
-                    item.caO = Number(item.caO).toFixed(2);    // 氧化钙含量
-                    item.mgO = Number(item.mgO).toFixed(2);        // 氧化镁含量
-                    item.al2O3 = Number(item.al2O3).toFixed(2);    // 氧化铝含量
-                    item.loI = Number(item.loI).toFixed(2);     // 烧损
-                    item.feO = Number(item.feO).toFixed(2);        // 氧化铁含量
-                    item.k2O = Number(item.k2O).toFixed(4);       // 氧化钾含量
-                    item.na2O = Number(item.na2O).toFixed(4);       // 氧化钠含量
-                    item.znO = Number(item.znO).toFixed(4);         // 氧化锌含量
-                    item.s = Number(item.s).toFixed(4);         // 硫含量
-                    item.p = Number(item.p).toFixed(4);         // 磷含量
-                    item.tiO2 = Number(item.tiO2).toFixed(4);        // 氧化钛含量
-                    item.sRatio = Number(item.sRatio).toFixed(2);     // 入炉料筛下率
-                    item.price = Number(item.price).toFixed(2); // 价格
-                    item.ratio = Number(item.ratio).toFixed(2);        // 配比
-                    item.r = Number(item.r).toFixed(2);        // 配比
-                })
-                this.setState({
-                    gaoluThree: res.data
-                })
-            })
 
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=${this.state.tabKeys === "2" ? 179 : this.state.tabKeys === "3" ? 9 : 159}`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // console.log(res);
-                res.data.outS = Number(res.data.outS).toFixed(2)
-                this.setState({
-                    luzhaOne: res.data,
-                    outSTwo: res.data.outS
-                })
-            })
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=${this.state.tabKeys === "2" ? 9 : this.state.tabKeys === "3" ? 159 : 179}`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                res.data.outS = Number(res.data.outS).toFixed(2)
-                this.setState({
-                    luzhaTwo: res.data,
-                    outSThree: res.data.outS
-                })
-            })
-        }, 100)
     }
     state = { visible: false };
 
@@ -635,29 +549,29 @@ export default class BlastFurnaceOne extends Component {
     //计算
     computedInfo() {
         axios.post("/api/estimate-gl/", {
-            purpose: this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9,
+            purpose: 203,
             para: {
-                purpose: this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9, // 9: 高炉计算
-                felron: this.state.luzha.felron === "" || this.state.luzha.felron === null ? "0" : this.state.luzha.felron,       // 铁水铁含量
-                silron: this.state.luzha.silron === "" || this.state.luzha.silron === null ? "0" : this.state.luzha.silron,      // 铁水硅含量
-                f10: this.state.luzha.f10 === "" || this.state.luzha.f10 === null ? "0" : this.state.luzha.f10,           // S渣铁分配比
-                f11: this.state.luzha.f11 === "" || this.state.luzha.f11 === null ? "0" : this.state.luzha.f11,            // Ti收得率
-                f13: this.state.luzha.f13 === "" || this.state.luzha.f13 === null ? "0" : this.state.luzha.f13,           // 入炉品位升降1%加扣燃料比
-                f14: this.state.luzha.f14 === "" || this.state.luzha.f14 === null ? "0" : this.state.luzha.f14,
-                f15: this.state.luzha.f15 === "" || this.state.luzha.f15 === null ? "0" : this.state.luzha.f15,
-                f9: this.state.luzha.f9 === "" || this.state.luzha.f9 === null ? "0" : this.state.luzha.f9,        // Fe元素渣中分配比
-                f12: this.state.luzha.f12 === "" || this.state.luzha.f12 === null ? "0" : this.state.luzha.f12,           // 渣中其他成分含量
-                cmr: this.state.luzha.cmr === "" || this.state.luzha.cmr === null ? "0" : this.state.luzha.cmr,        // 吨铁回收成本
-                bashBurdenFe: this.state.luzha.bashBurdenFe === "" || this.state.luzha.bashBurdenFe === null ? "0" : this.state.luzha.bashBurdenFe,   // 基准入炉品位
-                outS: this.state.luzha.outS === "" || this.state.luzha.outS === null ? "0" : this.state.luzha.outS,        // 铁水产量
-                dustB: this.state.luzha.dustB === "" || this.state.luzha.dustB === null ? "0" : this.state.luzha.dustB,         // 高炉灰产生量
-                dustBFe: this.state.luzha.dustBFe === "" || this.state.luzha.dustBFe === null ? "0" : this.state.luzha.dustBFe,         // 高炉灰品位
-                cmd: this.state.luzha.cmd === "" || this.state.luzha.cmd === null ? "0" : this.state.luzha.cmd,    // 高炉可变加工费
-                fcms: this.state.luzha.fcms === "" || this.state.luzha.fcms === null ? "0" : this.state.luzha.fcms,  // 高炉固定加工费
+                purpose: 203, // 9: 高炉计算
+                felron: Number(this.state.luzha.felron === "" || this.state.luzha.felron === null ? "0" : this.state.luzha.felron),       // 铁水铁含量
+                silron: Number(this.state.luzha.silron === "" || this.state.luzha.silron === null ? "0" : this.state.luzha.silron).toFixed(2),      // 铁水硅含量
+                f10: Number(this.state.luzha.f10 === "" || this.state.luzha.f10 === null ? "0" : this.state.luzha.f10).toFixed(2),           // S渣铁分配比
+                f11: Number(this.state.luzha.f11 === "" || this.state.luzha.f11 === null ? "0" : this.state.luzha.f11).toFixed(2),            // Ti收得率
+                f13: Number(this.state.luzha.f13 === "" || this.state.luzha.f13 === null ? "0" : this.state.luzha.f13).toFixed(2),           // 入炉品位升降1%加扣燃料比
+                f14: Number(this.state.luzha.f14 === "" || this.state.luzha.f14 === null ? "0" : this.state.luzha.f14).toFixed(2),
+                f15: Number(this.state.luzha.f15 === "" || this.state.luzha.f15 === null ? "0" : this.state.luzha.f15).toFixed(2),
+                f9: Number(this.state.luzha.f9 === "" || this.state.luzha.f9 === null ? "0" : this.state.luzha.f9).toFixed(2),        // Fe元素渣中分配比
+                f12: Number(this.state.luzha.f12 === "" || this.state.luzha.f12 === null ? "0" : this.state.luzha.f12).toFixed(2),           // 渣中其他成分含量
+                cmr: Number(this.state.luzha.cmr === "" || this.state.luzha.cmr === null ? "0" : this.state.luzha.cmr).toFixed(2),        // 吨铁回收成本
+                bashBurdenFe: Number(this.state.luzha.bashBurdenFe === "" || this.state.luzha.bashBurdenFe === null ? "0" : this.state.luzha.bashBurdenFe).toFixed(2),   // 基准入炉品位
+                outS: Number(this.state.luzha.outS === "" || this.state.luzha.outS === null ? "0" : this.state.luzha.outS).toFixed(2),        // 铁水产量
+                dustB: Number(this.state.luzha.dustB === "" || this.state.luzha.dustB === null ? "0" : this.state.luzha.dustB).toFixed(2),         // 高炉灰产生量
+                dustBFe: Number(this.state.luzha.dustBFe === "" || this.state.luzha.dustBFe === null ? "0" : this.state.luzha.dustBFe).toFixed(2),         // 高炉灰品位
+                cmd: Number(this.state.luzha.cmd === "" || this.state.luzha.cmd === null ? "0" : this.state.luzha.cmd).toFixed(2),    // 高炉可变加工费
+                fcms: Number(this.state.luzha.fcms === "" || this.state.luzha.fcms === null ? "0" : this.state.luzha.fcms).toFixed(2),  // 高炉固定加工费
                 isFixAlkali: this.state.luzha.isFixAlkali,       // 是否固定碱度
-                rslag: this.state.luzha.rslag,        // 炉渣碱度
-                sjId: this.state.valueShao === "" ? null : this.state.valueShao,          // 选择烧结行号
-                qtId: this.state.valueQiu === "" ? null : this.state.valueQiu,         // 选择球团行号
+                rslag: Number(this.state.luzha.rslag).toFixed(2),        // 炉渣碱度
+                sjId: 8,          // 选择烧结行号
+                qtId:9,         // 选择球团行号
                 esti: 1
             },
             ore:
@@ -666,24 +580,24 @@ export default class BlastFurnaceOne extends Component {
                         {
                             name: item.name,
                             isTotal: false,
-                            purpose: this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9,
+                            purpose: 203,
                             line: item.line,
-                            tFe: item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                            siO2: item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                            caO: item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                            mgO: item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                            al2O3: item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                            loI: item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                            feO: item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                            k2O: item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                            na2O: item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                            znO: item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                            s: item.s === "" || item.s === null ? item.s = 0 : item.s,
-                            p: item.p === "" || item.p === null ? item.p = 0 : item.p,
-                            tiO2: item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                            sRatio: item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                            price: item.price === "" || item.price === null ? item.price = 0 : item.price,
-                            ratio: item.ratio === "" || item.ratio === null ? item.ratio = 0 : item.ratio,
+                            tFe: Number(item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe).toFixed(2),
+                            siO2: Number(item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2).toFixed(2),
+                            caO: Number(item.caO === "" || item.caO === null ? item.caO = 0 : item.caO).toFixed(2),
+                            mgO: Number(item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO).toFixed(2),
+                            al2O3: Number(item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3).toFixed(2),
+                            loI: Number(item.loI === "" || item.loI === null ? item.loI = 0 : item.loI).toFixed(2),
+                            feO: Number(item.feO === "" || item.feO === null ? item.feO = 0 : item.feO).toFixed(2),
+                            k2O: Number(item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O).toFixed(2),
+                            na2O: Number(item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O).toFixed(2),
+                            znO: Number(item.znO === "" || item.znO === null ? item.znO = 0 : item.znO).toFixed(2),
+                            s: Number(item.s === "" || item.s === null ? item.s = 0 : item.s).toFixed(2),
+                            p: Number(item.p === "" || item.p === null ? item.p = 0 : item.p).toFixed(2),
+                            tiO2: Number(item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2).toFixed(2),
+                            sRatio: Number(item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio).toFixed(2),
+                            price: Number(item.price === "" || item.price === null ? item.price = 0 : item.price).toFixed(2),
+                            ratio: Number(item.ratio === "" || item.ratio === null ? item.ratio = 0 : item.ratio).toFixed(2),
                             r: item.r,
                             esti: 1,
                         }
@@ -731,8 +645,8 @@ export default class BlastFurnaceOne extends Component {
                     if (this.state.luzha.isFixAlkali === true) {
 
                         const newData = this.state.GaoList.slice(0);
-                        const newSanFang = Object.assign(this.state.valueQiu);
-                        const newBalue = Object.assign(this.state.valueShao);
+                        const newSanFang = Object.assign(9);
+                        const newBalue = Object.assign(8);
                         newData[newBalue - 1]["ratio"] = this.state.s.sj
 
                         this.setState({ GaoList: newData })
@@ -752,136 +666,6 @@ export default class BlastFurnaceOne extends Component {
                 message.warning("请检查参数信息是否正确")
             }
         })
-        axios.post("/api/estimate-gl/", {
-            purpose: this.state.tabKeys === "2" ? 179 : this.state.tabKeys === "3" ? 9 : 159,
-            para: {
-                purpose: this.state.tabKeys === "2" ? 179 : this.state.tabKeys === "3" ? 9 : 159, // 9: 高炉计算
-                felron: this.state.luzhaOne.felron,       // 铁水铁含量
-                silron: this.state.luzhaOne.silron,      // 铁水硅含量
-                f10: this.state.luzhaOne.f10,           // S渣铁分配比
-                f11: this.state.luzhaOne.f11,            // Ti收得率
-                f13: this.state.luzhaOne.f13,           // 入炉品位升降1%加扣燃料比
-                f14: this.state.luzhaOne.f14,
-                f15: this.state.luzhaOne.f15,
-                f9: this.state.luzhaOne.f9,        // Fe元素渣中分配比
-                f12: this.state.luzhaOne.f12,           // 渣中其他成分含量
-                cmr: this.state.luzhaOne.cmr,        // 吨铁回收成本
-                bashBurdenFe: this.state.luzhaOne.bashBurdenFe,   // 基准入炉品位
-                outS: this.state.luzhaOne.outS,        // 铁水产量
-                dustB: this.state.luzhaOne.dustB,         // 高炉灰产生量
-                dustBFe: this.state.luzhaOne.dustBFe,         // 高炉灰品位
-                cmd: this.state.luzhaOne.cmd,    // 高炉可变加工费
-                fcms: this.state.luzhaOne.fcms,  // 高炉固定加工费
-                isFixAlkali: false,       // 是否固定碱度
-                rslag: this.state.luzhaOne.rslag,        // 炉渣碱度
-                sjId: this.state.luzhaOne.sjId,          // 选择烧结行号
-                qtId: this.state.luzhaOne.qtId,         // 选择球团行号
-                esti: 1
-            },
-            ore:
-                this.state.gaoluTwo.map((item, index) => {
-                    return (
-                        {
-                            name: item.name,
-                            isTotal: false,
-                            purpose: this.state.tabKeys === "2" ? 179 : this.state.tabKeys === "3" ? 9 : 159,
-                            line: item.line,
-                            tFe: item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                            siO2: item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                            caO: item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                            mgO: item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                            al2O3: item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                            loI: item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                            feO: item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                            k2O: item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                            na2O: item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                            znO: item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                            s: item.s === "" || item.s === null ? item.s = 0 : item.s,
-                            p: item.p === "" || item.p === null ? item.p = 0 : item.p,
-                            tiO2: item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                            sRatio: item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                            price: item.price === "" || item.price === null ? item.price = 0 : item.price,
-                            ratio: item.ratio === "" || item.ratio === null ? item.ratio = 0 : item.ratio,
-                            r: item.r,
-                            esti: 1,
-                        }
-                    )
-                })
-        }, {
-            headers: {
-                Authorization: sessionStorage.getItem("token")
-            }
-        }).then((res) => {
-            this.setState({
-                hjTwo: res.data.cost.hj.signalPUnit
-            })
-
-        })
-        axios.post("/api/estimate-gl/", {
-            purpose: this.state.tabKeys === "2" ? 9 : this.state.tabKeys === "3" ? 159 : 179,
-            para: {
-                purpose: this.state.tabKeys === "2" ? 9 : this.state.tabKeys === "3" ? 159 : 179, // 9: 高炉计算
-                felron: this.state.luzhaTwo.felron,       // 铁水铁含量
-                silron: this.state.luzhaTwo.silron,      // 铁水硅含量
-                f10: this.state.luzhaTwo.f10,           // S渣铁分配比
-                f11: this.state.luzhaTwo.f11,            // Ti收得率
-                f13: this.state.luzhaTwo.f13,           // 入炉品位升降1%加扣燃料比
-                f9: this.state.luzhaTwo.f9,        // Fe元素渣中分配比
-                f12: this.state.luzhaTwo.f12,           // 渣中其他成分含量
-                f14: this.state.luzhaTwo.f14,           // 渣中其他成分含量
-                f15: this.state.luzhaTwo.f15,           // 渣中其他成分含量
-                cmr: this.state.luzhaTwo.cmr,        // 吨铁回收成本
-                bashBurdenFe: this.state.luzhaTwo.bashBurdenFe,   // 基准入炉品位
-                outS: this.state.luzhaTwo.outS,        // 铁水产量
-                dustB: this.state.luzhaTwo.dustB,         // 高炉灰产生量
-                dustBFe: this.state.luzhaTwo.dustBFe,         // 高炉灰品位
-                cmd: this.state.luzhaTwo.cmd,    // 高炉可变加工费
-                fcms: this.state.luzhaTwo.fcms,  // 高炉固定加工费
-                isFixAlkali: false,       // 是否固定碱度
-                rslag: this.state.luzhaTwo.rslag,        // 炉渣碱度
-                sjId: this.state.luzhaTwo.sjId,          // 选择烧结行号
-                qtId: this.state.luzhaTwo.qtId,         // 选择球团行号
-                esti: 1
-            },
-            ore:
-                this.state.gaoluThree.map((item, index) => {
-                    return (
-                        {
-                            name: item.name,
-                            isTotal: false,
-                            purpose: this.state.tabKeys === "2" ? 9 : this.state.tabKeys === "3" ? 159 : 179,
-                            line: item.line,
-                            tFe: item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                            siO2: item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                            caO: item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                            mgO: item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                            al2O3: item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                            loI: item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                            feO: item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                            k2O: item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                            na2O: item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                            znO: item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                            s: item.s === "" || item.s === null ? item.s = 0 : item.s,
-                            p: item.p === "" || item.p === null ? item.p = 0 : item.p,
-                            tiO2: item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                            sRatio: item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                            price: item.price === "" || item.price === null ? item.price = 0 : item.price,
-                            ratio: item.ratio === "" || item.ratio === null ? item.ratio = 0 : item.ratio,
-                            r: item.r,
-                            esti: 1,
-                        }
-                    )
-                })
-        }, {
-            headers: {
-                Authorization: sessionStorage.getItem("token")
-            }
-        }).then((res) => {
-            this.setState({
-                hjThree: res.data.cost.hj.signalPUnit
-            })
-
-        })
     }
     baoCun() {
 
@@ -899,10 +683,10 @@ export default class BlastFurnaceOne extends Component {
                     flag: true,
                 })
                 axios.post("/api/estimate-gl/", {
-                    purpose: this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9,
+                    purpose: 203,
                     save_flag: true,
                     para: {
-                        purpose: this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9, // 9: 高炉计算
+                        purpose: 203, // 9: 高炉计算
                         felron: this.state.luzha.felron,       // 铁水铁含量
                         silron: this.state.luzha.silron,      // 铁水硅含量
                         f10: this.state.luzha.f10,           // S渣铁分配比
@@ -921,8 +705,8 @@ export default class BlastFurnaceOne extends Component {
                         fcms: this.state.luzha.fcms,  // 高炉固定加工费
                         isFixAlkali: false,       // 是否固定碱度
                         rslag: this.state.luzha.rslag,        // 炉渣碱度
-                        sjId: this.state.valueShao === "" ? null : this.state.valueShao,          // 选择烧结行号
-                        qtId: this.state.valueQiu === "" ? null : this.state.valueQiu,         // 选择球团行号
+                        sjId: 8,          // 选择烧结行号
+                        qtId: 9,         // 选择球团行号
                         esti: 1
                     },
                     ore:
@@ -931,7 +715,7 @@ export default class BlastFurnaceOne extends Component {
                                 {
                                     name: item.name,
                                     isTotal: false,
-                                    purpose: this.state.tabKeys === "2" ? 159 : this.state.tabKeys === "3" ? 179 : 9,
+                                    purpose: 203,
                                     line: item.line,
                                     tFe: item.tFe,
                                     siO2: item.siO2,
@@ -1189,13 +973,13 @@ export default class BlastFurnaceOne extends Component {
         })
     }
     mustNumber(e) {
-        if (!e.target.value.replace(/[^\d^\.]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
+        if(!e.target.value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
             e.target.value = ''
         }
-
+   
     }
     render() {
-        let tscb = ((Number(this.state.outSone) * this.state.hjOne) + (Number(this.state.outSTwo) * this.state.hjTwo) + (Number(this.state.outSThree) * this.state.hjThree)) / (Number(this.state.outSone) + Number(this.state.outSTwo) + Number(this.state.outSThree))
+        let tscb = Number(this.state.outSone) * this.state.hjOne / Number(this.state.outSone)
 
         const sub = {
             dataNumber: 0
@@ -1210,11 +994,11 @@ export default class BlastFurnaceOne extends Component {
                 <div className="outersphere">
                     <div className="qingkong">
                         <Button type="primary" onClick={this.clearItem.bind(this)} >
-                            <img src={require("../../img/btn_delete.png")} alt="" />
+                            <img src={require("../../../img/btn_delete.png")} alt="" />
                             删除
                         </Button>
                         <Button onClick={this.ExportToExcel.bind(this)} className="daochucesuanbaio" type="primary" >
-                            <img src={require("../../img/btn_add.png")} alt="" />
+                            <img src={require("../../../img/btn_add.png")} alt="" />
                             导出测算表
                         </Button>
                     </div>
@@ -1296,7 +1080,7 @@ export default class BlastFurnaceOne extends Component {
                                                             onChange={this.infoKuang("loI", index).bind(this)}
                                                         ></Input></td> */}
                                                     <td><Input
-
+                                                        onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.feO === str || item.feO === 0 ? null : item.feO}
                                                         onChange={this.infoKuang("feO", index).bind(this)}
                                                     ></Input></td>
@@ -1337,7 +1121,7 @@ export default class BlastFurnaceOne extends Component {
                                                         ></Input></td> */}
 
                                                     <td><Input
-
+                                                        onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.price === str || item.price === 0 ? null : item.price}
                                                         onChange={this.infoKuang("price", index).bind(this)}
                                                     ></Input></td>
@@ -1379,7 +1163,7 @@ export default class BlastFurnaceOne extends Component {
 
                                                     <td>
                                                         <Input
-
+                                                            onKeyUp={this.mustNumber.bind(this)}
                                                             value={item.name}
                                                             onChange={this.infoKuang("name", index).bind(this)}
                                                         >
@@ -1419,7 +1203,7 @@ export default class BlastFurnaceOne extends Component {
                                                             onChange={this.infoKuang("loI", index).bind(this)}
                                                         ></Input></td> */}
                                                     <td><Input
-
+                                                        onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.feO === str || item.feO === 0 || item.feO === "NaN" ? null : item.feO}
                                                         onChange={this.infoKuang("feO", index).bind(this)}
                                                     ></Input></td>
@@ -1508,7 +1292,7 @@ export default class BlastFurnaceOne extends Component {
                                 optionFilterProp="children"
                                 onChange={this.shajieK.bind(this)}
                                 disabled={this.state.two}
-                                defaultValue={this.state.luzha.sjId}
+                                defaultValue={8}
 
                                 filterOption={(input, option) =>
                                     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -1516,7 +1300,7 @@ export default class BlastFurnaceOne extends Component {
                             >
                                 {
                                     this.state.GaoList.map((item, index) => {
-                                        if (index >= 7 && index <= 9) {
+                                        if (index === 7) {
                                             return (
                                                 <Option value={index + 1} key={index}>
                                                     {index + 1}
@@ -1535,7 +1319,7 @@ export default class BlastFurnaceOne extends Component {
                                 optionFilterProp="children"
                                 onChange={this.shajieQ.bind(this)}
                                 disabled={this.state.three}
-                                defaultValue={this.state.luzha.qtId}
+                                defaultValue={9}
 
                                 filterOption={(input, option) =>
                                     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -1543,7 +1327,7 @@ export default class BlastFurnaceOne extends Component {
                             >
                                 {
                                     this.state.GaoList.map((item, index) => {
-                                        if (index >= 10 && index <= 11) {
+                                        if (index === 8) {
                                             return (
                                                 <Option value={index + 1} key={index} >
                                                     {index + 1}
@@ -1631,8 +1415,8 @@ export default class BlastFurnaceOne extends Component {
                                     </tbody>
                                 </table>
                                 <div className="footersbutton">
-                                    <label>全厂铁水成本</label>
-                                    <Input type="text" disabled={true} value={Number(this.state.hjOne !== 0 && this.state.hjTwo !== 0 && this.state.hjThree !== 0 ? tscb : 0).toFixed(2)} />
+                                    {/* <label>全厂铁水成本</label>
+                                    <Input type="text" disabled={true} value={Number(this.state.hjOne !== 0 && this.state.hjTwo !== 0 && this.state.hjThree !== 0 ? tscb : 0).toFixed(2)} /> */}
                                     <span>
                                         <Button type="primary" onClick={this.computedInfo.bind(this)}>计算</Button>
                                         <Button type="primary" onClick={this.mingxi.bind(this)} disabled={this.state.boolen}>铁水成本明细</Button>

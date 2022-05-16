@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "../cossalculation.css"
 import axios from "axios";
 import ExportJsonExcel from 'js-export-excel';
 import { Modal, Input, Button, message, Checkbox, Tooltip } from "antd";
-import BudgetMingXi from "./qiutuanmodal/mingxi";
-import BuildTitle from "../model/model"
-import BudgetJiaGongFei from "./qiutuanmodal/kebianjgf";
-import BudgetBuGuDing from "./qiutuanmodal/gudingjgf";
-import WrappedBudgetFenTwo from "./qiutuandaoru/index.js";
-import GanShi from "./shaojie/ganshi.js"
+import BudgetMingXi from "../qiutuanmodal/mingxi";
+import BuildTitle from "../../model/model"
+import BudgetJiaGongFei from "../qiutuanmodal/kebianjgf";
+import BudgetBuGuDing from "../qiutuanmodal/gudingjgf";
+import WrappedBudgetFenTwo from "../qiutuandaoru/index.js";
+import GanShi from "../shaojie/ganshi.js"
 const list = []
 for (let i = 0; i < 24; i++) {
     list.push({
@@ -38,7 +38,7 @@ for (let i = 0; i < 24; i++) {
 }
 const str = "0.00"
 const strFour = "0.0000"
-export default class PelletizingOne extends Component {
+export default class QiuTuan extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -208,56 +208,32 @@ export default class PelletizingOne extends Component {
         });
     };
 
-    UNSAFE_componentWillMount() {
-        setTimeout(() => {
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=9`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                res.data.rslag = Number(res.data.rslag).toFixed(2)
-                this.setState({
-                    luzhaOne: res.data,
-                    outSone: res.data.outS
-                })
+    componentWillMount() {
+        axios.get(`/api/estimate-para-gl/recent/?purpose=203`, {
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res) => {
+            res.data.rslag = Number(res.data.rslag).toFixed(2)
+            this.setState({
+                luzhaOne: res.data,
+                outSone: res.data.outS
             })
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=159`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                res.data.rslag = Number(res.data.rslag).toFixed(2)
-                this.setState({
-                    luzhaTwo: res.data,
-                    outStwo: res.data.outS
-                })
+        })
+
+        axios.get(`/api/ore/?ordering=-createTime&incomingDate=&purpose=2`, {
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res) => {
+            //////console.log(res.data.results)
+            this.setState({
+                data: res.data.results
             })
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=179`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                res.data.rslag = Number(res.data.rslag).toFixed(2)
-                this.setState({
-                    luzhaThree: res.data,
-                    outSthree: res.data.outS
-                })
-            })
-            axios.get(`/api/ore/?ordering=-createTime&incomingDate=&purpose=2`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                //////console.log(res.data.results)
-                this.setState({
-                    data: res.data.results
-                })
-            })
-        }, 100)
-        axios.get(`/api/estimate-ore/recent/?purpose=${this.props.keys === "2" ? 107 : 6}`, {
+        })
+
+        // 高炉表格信息
+        axios.get(`/api/estimate-ore/recent/?purpose=202`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -299,7 +275,9 @@ export default class PelletizingOne extends Component {
                 dataNumber: sub.dataNumber
             })
         })
-        axios.get(`/api/estimate-para-sq/recent/?purpose=${this.props.keys === "2" ? 107 : 6}`, {
+
+        // 球团参数信息
+        axios.get(`/api/estimate-para-sq/recent/?purpose=202`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -407,9 +385,9 @@ export default class PelletizingOne extends Component {
             flag: true,
         })
         axios.post("/api/estimate-sq/", {
-            purpose: this.props.keys === "2" ? 107 : 6,
+            purpose: 202,
             para: {
-                purpose: this.props.keys === "2" ? 107 : 6,
+                purpose: 202,
                 outHM: this.state.setNewList.outHM === "" ? "0.00" : this.state.setNewList.outHM,
                 f1: this.state.setNewList.f1 === "" ? "0.00" : this.state.setNewList.f1,
                 f2: this.state.setNewList.f2 === "" ? "0.00" : this.state.setNewList.f2,
@@ -427,7 +405,7 @@ export default class PelletizingOne extends Component {
                     return (
                         {
                             name: item.name,
-                            purpose: this.props.keys === "2" ? 107 : 6,
+                            purpose: 202,
                             line: item.line,     //序号
                             tFe: item.tFe === "" || item.tFe === null ? 0 : item.tFe,     // 全铁含量
                             siO2: item.siO2 === "" || item.siO2 === null ? 0 : item.siO2,     // 二氧化硅含量
@@ -485,9 +463,9 @@ export default class PelletizingOne extends Component {
             })
 
             axios.post("/api/estimate-gl/", {
-                purpose: 9,
+                purpose: 203,
                 para: {
-                    purpose: 9, // 9: 高炉计算
+                    purpose: 203, // 9: 高炉计算
                     felron: Number(this.state.luzhaOne.felron).toFixed(2),       // 铁水铁含量
                     silron: Number(this.state.luzhaOne.silron).toFixed(2),      // 铁水硅含量
                     f10: Number(this.state.luzhaOne.f10).toFixed(2),           // S渣铁分配比
@@ -516,23 +494,23 @@ export default class PelletizingOne extends Component {
                             {
                                 name: item.name,
                                 isTotal: false,
-                                purpose: 9,
+                                purpose: 203,
                                 line: item.line,
-                                tFe: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.tFe).toFixed(4) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                                siO2: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.siO2).toFixed(2) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                                caO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.caO).toFixed(2) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                                mgO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.mgO).toFixed(2) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                                al2O3: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.al2O3).toFixed(2) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                                loI: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.loI).toFixed(2) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                                feO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.feO).toFixed(2) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                                k2O: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.k2O).toFixed(2) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                                na2O: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.na2O).toFixed(2) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                                znO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.znO).toFixed(2) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                                s: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.s).toFixed(2) : item.s === "" || item.s === null ? item.s = 0 : item.s,
-                                p: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.p).toFixed(2) : item.p === "" || item.p === null ? item.p = 0 : item.p,
-                                tiO2: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.tiO2).toFixed(2) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                                sRatio: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.sRatio).toFixed(2) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                                price: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.price).toFixed(2) : item.price === "" || item.price === null ? item.price = 0 : item.price,
+                                tFe: index === 8 ? String(res.data.jsjg.tFe) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
+                                siO2: index === 8 ? String(res.data.jsjg.siO2) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
+                                caO: index === 8 ? String(res.data.jsjg.caO) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
+                                mgO: index === 8 ? String(res.data.jsjg.mgO) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
+                                al2O3: index === 8 ? String(res.data.jsjg.al2O3) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
+                                loI: index === 8 ? String(res.data.jsjg.loI) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
+                                feO: index === 8 ? String(res.data.jsjg.feO) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
+                                k2O: index === 8 ? String(res.data.jsjg.k2O) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
+                                na2O: index === 8 ? String(res.data.jsjg.na2O) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
+                                znO: index === 8 ? String(res.data.jsjg.znO) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
+                                s: index === 8 ? String(res.data.jsjg.s) : item.s === "" || item.s === null ? item.s = 0 : item.s,
+                                p: index === 8 ? String(res.data.jsjg.p) : item.p === "" || item.p === null ? item.p = 0 : item.p,
+                                tiO2: index === 8 ? String(res.data.jsjg.tiO2) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
+                                sRatio: index === 8 ? String(res.data.jsjg.sRatio == null ? 0.00 : res.data.jsjg.sRatio) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
+                                price: index === 8 ? String(res.data.jsjg.price) : item.price === "" || item.price === null ? item.price = 0 : item.price,
                                 ratio: item.ratio,
                                 r: item.r,
                                 esti: 1,
@@ -549,136 +527,7 @@ export default class PelletizingOne extends Component {
                 })
                 // console.log(res)
             })
-            axios.post("/api/estimate-gl/", {
-                purpose: 159,
-                para: {
-                    purpose: 159, // 9: 高炉计算
-                    felron: Number(this.state.luzhaTwo.felron).toFixed(2),       // 铁水铁含量
-                    silron: Number(this.state.luzhaTwo.silron).toFixed(2),      // 铁水硅含量
-                    f10: Number(this.state.luzhaTwo.f10).toFixed(2),           // S渣铁分配比
-                    f11: Number(this.state.luzhaTwo.f11).toFixed(2),            // Ti收得率
-                    f13: Number(this.state.luzhaTwo.f13).toFixed(2),           // 入炉品位升降1%加扣燃料比
-                    f14: Number(this.state.luzhaTwo.f14).toFixed(2),
-                    f15: Number(this.state.luzhaTwo.f15).toFixed(2),
-                    f9: Number(this.state.luzhaTwo.f9).toFixed(2),        // Fe元素渣中分配比
-                    f12: Number(this.state.luzhaTwo.f12).toFixed(2),           // 渣中其他成分含量
-                    cmr: Number(this.state.luzhaTwo.cmr).toFixed(2),        // 吨铁回收成本
-                    bashBurdenFe: Number(this.state.luzhaTwo.bashBurdenFe).toFixed(2),   // 基准入炉品位
-                    outS: Number(this.state.luzhaTwo.outS).toFixed(2),        // 铁水产量
-                    dustB: Number(this.state.luzhaTwo.dustB).toFixed(2),         // 高炉灰产生量
-                    dustBFe: Number(this.state.luzhaTwo.dustBFe).toFixed(2),         // 高炉灰品位
-                    cmd: Number(this.state.luzhaTwo.cmd).toFixed(2),    // 高炉可变加工费
-                    fcms: Number(this.state.luzhaTwo.fcms).toFixed(2),  // 高炉固定加工费
-                    isFixAlkali: false,       // 是否固定碱度
-                    rslag: Number(this.state.luzhaTwo.rslag).toFixed(2),        // 炉渣碱度
-                    sjId: this.state.luzhaTwo.sjId,          // 选择烧结行号
-                    qtId: this.state.luzhaTwo.qtId,         // 选择球团行号
-                    esti: 1
-                },
-                ore:
-                    this.props.gaoluTwo.map((item, index) => {
-                        return (
-                            {
-                                name: item.name,
-                                isTotal: false,
-                                purpose: 159,
-                                line: item.line,
-                                tFe: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.tFe).toFixed(2) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                                siO2: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.siO2).toFixed(2) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                                caO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.caO).toFixed(2) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                                mgO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.mgO).toFixed(2) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                                al2O3: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.al2O3).toFixed(2) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                                loI: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.loI).toFixed(2) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                                feO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.feO).toFixed(2) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                                k2O: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.k2O).toFixed(2) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                                na2O: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.na2O).toFixed(2) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                                znO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.znO).toFixed(2) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                                s: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.s).toFixed(2) : item.s === "" || item.s === null ? item.s = 0 : item.s,
-                                p: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.p).toFixed(2) : item.p === "" || item.p === null ? item.p = 0 : item.p,
-                                tiO2: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.tiO2).toFixed(2) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                                sRatio: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.sRatio).toFixed(2) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                                price: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.price).toFixed(2) : item.price === "" || item.price === null ? item.price = 0 : item.price,
-                                ratio: item.ratio,
-                                r: item.r,
-                                esti: 1,
-                            }
-                        )
-                    })
-            }, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // console.log(res)
-                this.setState({
-                    hjTwo: res.data.cost.hj.signalPUnit
-                })
-            })
-            axios.post("/api/estimate-gl/", {
-                purpose: 179,
-                para: {
-                    purpose: 179, // 9: 高炉计算
-                    felron: Number(this.state.luzhaThree.felron).toFixed(2),       // 铁水铁含量
-                    silron: Number(this.state.luzhaThree.silron).toFixed(2),      // 铁水硅含量
-                    f10: Number(this.state.luzhaThree.f10).toFixed(2),           // S渣铁分配比
-                    f11: Number(this.state.luzhaThree.f11).toFixed(2),            // Ti收得率
-                    f13: Number(this.state.luzhaThree.f13).toFixed(2),           // 入炉品位升降1%加扣燃料比
-                    f14: Number(this.state.luzhaThree.f14).toFixed(2),
-                    f15: Number(this.state.luzhaThree.f15).toFixed(2),
-                    f9: Number(this.state.luzhaThree.f9).toFixed(2),        // Fe元素渣中分配比
-                    f12: Number(this.state.luzhaThree.f12).toFixed(2),           // 渣中其他成分含量
-                    cmr: Number(this.state.luzhaThree.cmr).toFixed(2),        // 吨铁回收成本
-                    bashBurdenFe: Number(this.state.luzhaThree.bashBurdenFe).toFixed(2),   // 基准入炉品位
-                    outS: Number(this.state.luzhaThree.outS).toFixed(2),        // 铁水产量
-                    dustB: Number(this.state.luzhaThree.dustB).toFixed(2),         // 高炉灰产生量
-                    dustBFe: Number(this.state.luzhaThree.dustBFe).toFixed(2),         // 高炉灰品位
-                    cmd: Number(this.state.luzhaThree.cmd).toFixed(2),    // 高炉可变加工费
-                    fcms: Number(this.state.luzhaThree.fcms).toFixed(2),  // 高炉固定加工费
-                    isFixAlkali: false,       // 是否固定碱度
-                    rslag: Number(this.state.luzhaThree.rslag).toFixed(2),        // 炉渣碱度
-                    sjId: this.state.luzhaThree.sjId,          // 选择烧结行号
-                    qtId: this.state.luzhaThree.qtId,         // 选择球团行号
-                    esti: 1
-                },
-                ore:
-                    this.props.gaoluThree.map((item, index) => {
-                        return (
-                            {
-                                name: item.name,
-                                isTotal: false,
-                                purpose: 179,
-                                line: item.line,
-                                tFe: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.tFe).toFixed(2) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                                siO2: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.siO2).toFixed(2) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                                caO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.caO).toFixed(2) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                                mgO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.mgO).toFixed(2) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                                al2O3: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.al2O3).toFixed(2) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                                loI: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.loI).toFixed(2) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                                feO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.feO).toFixed(2) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                                k2O: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.k2O).toFixed(2) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                                na2O: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.na2O).toFixed(2) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                                znO: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.znO).toFixed(2) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                                s: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.s).toFixed(2) : item.s === "" || item.s === null ? item.s = 0 : item.s,
-                                p: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.p).toFixed(2) : item.p === "" || item.p === null ? item.p = 0 : item.p,
-                                tiO2: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.tiO2).toFixed(2) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                                sRatio: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.sRatio).toFixed(2) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                                price: index === (this.props.keys === "2" ? 11 : 10) ? Number(res.data.jsjg.price).toFixed(2) : item.price === "" || item.price === null ? item.price = 0 : item.price,
-                                ratio: item.ratio,
-                                r: item.r,
-                                esti: 1,
-                            }
-                        )
-                    })
-            }, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // console.log(res)
-                this.setState({
-                    hjThree: res.data.cost.hj.signalPUnit
-                })
-            })
+
         }).catch(err => {
             this.setState({
                 flag: false,
@@ -707,11 +556,11 @@ export default class PelletizingOne extends Component {
                     keep: false,
                     flag: true,
                 })
-                axios.post("/api/estimate-sq/", {
-                    purpose: this.props.keys === "2" ? 107 : 6,
+                axios.post("/api/estimate-sq-new/", {
+                    purpose: 202,
                     save_flag: true,
                     para: {
-                        purpose: this.props.keys === "2" ? 107 : 6,
+                        purpose: 202,
                         outHM: this.state.setNewList.outHM === "" ? "0.00" : this.state.setNewList.outHM,
                         f1: this.state.setNewList.f1 === "" ? "0.00" : this.state.setNewList.f1,
                         f2: this.state.setNewList.f2 === "" ? "0.00" : this.state.setNewList.f2,
@@ -729,7 +578,7 @@ export default class PelletizingOne extends Component {
                             return (
                                 {
                                     name: item.name,
-                                    purpose: this.props.keys === "2" ? 107 : 6,
+                                    purpose: 202,
                                     line: item.line,     //序号
                                     tFe: item.tFe === "" || item.tFe === null ? str : item.tFe,     // 全铁含量
                                     siO2: item.siO2 === "" || item.siO2 === null ? str : item.siO2,     // 二氧化硅含量
@@ -1107,7 +956,7 @@ export default class PelletizingOne extends Component {
    
     }
     render() {
-        let tscb = ((this.state.hjOne * this.state.outSone) + (this.state.hjTwo * this.state.outStwo) + (this.state.hjThree * this.state.outSthree)) / (Number(this.state.outSone) + Number(this.state.outStwo) + Number(this.state.outSthree))
+        let tscb = (this.state.hjOne * this.state.outSone) / Number(this.state.outSone)
         //  console.log(this.state.dataNumber)
         return (
             <div>
@@ -1120,11 +969,11 @@ export default class PelletizingOne extends Component {
                             干湿配比
                         </Button> */}
                         <Button type="primary" onClick={this.clearItem.bind(this)} style={{ marginRight: 10 }}>
-                            <img src={require("../../img/btn_delete.png")} alt="" />
+                            <img src={require("../../../img/btn_delete.png")} alt="" />
                             删除
                         </Button>
                         <Button onClick={this.ExportToExcel.bind(this)} type="primary">
-                            <img src={require("../../img/btn_add.png")} alt="" />
+                            <img src={require("../../../img/btn_add.png")} alt="" />
                             导出测算表
                         </Button>
                     </div>
@@ -1317,7 +1166,7 @@ export default class PelletizingOne extends Component {
 
                             />
                             <Button type="primary" onClick={this.keBian.bind(this)}>
-                                <img src={require("../../img/set.png")} alt="" /></Button><br></br>
+                                <img src={require("../../../img/set.png")} alt="" /></Button><br></br>
                             <label>球团固定加工费 万元/月</label>
                             <Input
                                 type="text"
@@ -1326,7 +1175,7 @@ export default class PelletizingOne extends Component {
                                 value={this.state.setNewList.fCMB}
                             />
                             <Button type="primary" onClick={this.guDing.bind(this)}>
-                                <img src={require("../../img/set.png")} alt="" /></Button>
+                                <img src={require("../../../img/set.png")} alt="" /></Button>
 
 
                         </div>

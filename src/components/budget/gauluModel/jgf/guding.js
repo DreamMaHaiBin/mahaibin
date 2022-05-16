@@ -77,7 +77,8 @@ export default class GaoLuGuDing extends Component {
         }
     }
     componentWillMount() {
-        axios.get(`/api/estimate-para-fix-cost/recent/?purpose=${this.props.JGFkey==="2" ? 122 : this.props.JGFkey==="3" ? 123 : 3}`, {
+        const url = window.location.search ? 203 : this.props.tabKeys === "2" ? 159 : this.props.tabKeys === "3" ? 179 : 9
+        axios.get(`/api/estimate-para-fix-cost/recent/?purpose=${url}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -100,18 +101,19 @@ export default class GaoLuGuDing extends Component {
         this.setState({
             boolen: true
         })
+        const url = window.location.search ? 203 : this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3
         axios.post("/api/estimate-fix/", {
-            purpose: this.props.JGFkey==="2" ? 122 : this.props.JGFkey==="3" ? 123 : 3,
+            purpose: url,
             fy:
                 this.state.DataGu.map((item, index) => {
-                        return (
-                            {
-                                line: item.line,
-                                item: item.item,
-                                purpose: this.props.JGFkey==="2" ? 122 : this.props.JGFkey==="3" ? 123 : 3,
-                                monthCost: Number(item.monthCost).toFixed(4),
-                            }
-                        )
+                    return (
+                        {
+                            line: item.line,
+                            item: item.item,
+                            purpose: url,
+                            monthCost: Number(item.monthCost).toFixed(4),
+                        }
+                    )
                 })
 
         }, {
@@ -133,8 +135,8 @@ export default class GaoLuGuDing extends Component {
 
         }).catch(err => {
             this.setState({
-                    
-                boolen:false,
+
+                boolen: false,
             })
             ////console.log(err)
             if (err.request.status === 500) {

@@ -21,8 +21,13 @@ import Bcd from "../components/xingjiaobi/rululiao"//性价比如炉料
 import Cde from "../components/xingjiaobi/hululiao"//性价比护炉料
 import Braize from "../components/xingjiaobi/braize"//性价比煤粉
 import Coke from "../components/xingjiaobi/coke";//性价比焦炭
+import ShaojieLiXian from '../components/budget/shaojielixian'
+import QiuTuanLiXian from '../components/budget/qiutuanlixian'
+import GaoLuLiXian from '../components/budget/gaolulixian'
 import AuthRoute from "../components/AuthRoute/"//限制登录
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+// import {  Route, Switch } from 'react-router-dom';
 import zhCN from 'antd/lib/locale-provider/zh_CN.js';
 import { ConfigProvider } from 'antd';
 // import loadable from "../components/util/loadable.jsx"
@@ -55,27 +60,38 @@ class Index extends Component {
             <div>
                 <ConfigProvider locale={zhCN}>
                     <Switch>
-                        <AuthRoute path="/index/one" component={ShuJuKu1} />
-                        <AuthRoute path="/index/two" component={ShuJuKu2} />
-                        <AuthRoute path="/index/three" component={ShuJuKu3} />
-                        <AuthRoute path="/index/four" component={ShuJuKu4} />
-                        <AuthRoute path="/index/five" component={ShuJuKu5} />
-                        <AuthRoute path="/index/six" component={ShuJuKu6} />
-                        <AuthRoute path="/index/solvent" component={Solvent} />
-                        <AuthRoute path="/index/Waste" component={Waste} />
-                        <AuthRoute path="/index/compare" component={Compare}></AuthRoute>
-                        <AuthRoute path="/index/bePutInAFurnace" component={Abc}></AuthRoute>
-                        <AuthRoute path="/index/rulu" component={Bcd}></AuthRoute>
-                        <AuthRoute path="/index/ToProtectTheCharge" component={Cde}></AuthRoute>
-                        <AuthRoute path="/index/braize" component={Braize}></AuthRoute>
-                        <AuthRoute path="/index/coke" component={Coke}></AuthRoute>
-                        <AuthRoute path="/index/budget" component={Budget}></AuthRoute>
-                        <AuthRoute path="/index/pelletizing" component={Pelletizing}></AuthRoute>
-                        <AuthRoute path="/index/blastFurnace" component={BlastFurnace}></AuthRoute>
-                        <AuthRoute path="/index/optimization" component={Optimization}></AuthRoute>
-                        <AuthRoute path="/index/Pelletsoptimization" component={Pelletsoptimization}></AuthRoute>
-                        <AuthRoute path="/index/GaoLublastfurnace" component={Indexptimization}></AuthRoute>
-                        <AuthRoute path="/index/coalblending" component={Coalblending} />
+                        <Route path="/index/one" component={ShuJuKu1} />
+                        <Route path="/index/two" component={ShuJuKu2} />
+                        <Route path="/index/three" component={ShuJuKu3} />
+                        <Route path="/index/four" component={ShuJuKu4} />
+                        <Route path="/index/five" component={ShuJuKu5} />
+                        <Route path="/index/six" component={ShuJuKu6} />
+                        <Route path="/index/solvent" component={Solvent} />
+                        <Route path="/index/Waste" component={Waste} />
+                        <Route path="/index/compare" component={Compare} />
+                        <Route path="/index/bePutInAFurnace" component={Abc} />
+                        <Route path="/index/rulu" component={Bcd} />
+                        <Route path="/index/ToProtectTheCharge" component={Cde} />
+                        <Route path="/index/braize" component={Braize} />
+                        <Route path="/index/coke" component={Coke} />
+                        <Route path="/index/budget" component={Budget} />
+                        <Route path="/index/pelletizing" component={Pelletizing} />
+                        <Route path="/index/blastFurnace" component={BlastFurnace} />
+                        <Route path="/index/optimization" component={Optimization} />
+
+
+                        <Route path="/index/budget/out" component={Budget} />
+                        <Route path="/index/blastFurnace/out" component={BlastFurnace} />
+                        <Route path="/index/pelletizing/out" component={Pelletizing} />
+
+                        <Route path="/index/Pelletsoptimization" component={Pelletsoptimization} />
+                        <Route path="/index/GaoLublastfurnace" component={Indexptimization} />
+                        <Route path="/index/coalblending" component={Coalblending} />
+
+
+                        <Route path="/index/sinteringoffline" component={ShaojieLiXian} />
+                        <Route path="/index/pelletoffline" component={QiuTuanLiXian} />
+                        <Route path="/index/furnaceoffline" component={GaoLuLiXian} />
                     </Switch>
                 </ConfigProvider>
             </div>

@@ -1,7 +1,7 @@
 //球团固定加工费
 import React, { Component } from "react";
 import axios from "axios";
-import {  Input, Button, message, } from "antd"; 
+import { Input, Button, message, } from "antd";
 
 export default class BudgetBuGuDing extends Component {
     constructor(props) {
@@ -91,7 +91,8 @@ export default class BudgetBuGuDing extends Component {
         }
     }
     UNSAFE_componentWillMount() {
-        axios.get(`/api/estimate-para-fix-cost/recent/?purpose=${this.props.tabKeys==="2" ?112:2}`, {
+        const url = window.location.search ? 202 : this.props.tabKeys === "2" ? 112 : 2
+        axios.get(`/api/estimate-para-fix-cost/recent/?purpose=${url}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -106,8 +107,9 @@ export default class BudgetBuGuDing extends Component {
         this.setState({
             boolen: true
         })
+        const url = window.location.search ? 202 : this.props.tabKeys === "2" ? 112 : 2
         axios.post("/api/estimate-fix/", {
-            purpose: this.props.tabKeys==="2" ?112:2,
+            purpose: url,
             fy:
                 this.state.number.map((item, index) => {
                     if (item.monthCost === "") {
@@ -117,7 +119,7 @@ export default class BudgetBuGuDing extends Component {
                         {
                             line: item.line,
                             item: item.item,
-                            purpose: this.props.tabKeys==="2" ?112:2,
+                            purpose: url,
                             monthCost: item.monthCost
                         }
                     )

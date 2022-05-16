@@ -1,7 +1,7 @@
 //球团可变加工费
 import React, { Component } from "react";
 import axios from "axios";
-import {  Input, Button, message, } from "antd"; 
+import { Input, Button, message, } from "antd";
 const str = "0.00"
 const strFour = "0.0000"
 export default class BudgetJiaGongFei extends Component {
@@ -120,7 +120,8 @@ export default class BudgetJiaGongFei extends Component {
         }
     }
     UNSAFE_componentWillMount() {
-        axios.get(`/api/estimate-para-unfix-cost/recent/?purpose=${this.props.tabKeys==="2" ?112:2}`, {
+        const newurl = window.location.search ? 202 : this.props.tabKeys === "2" ? 112 : 2
+        axios.get(`/api/estimate-para-unfix-cost/recent/?purpose=${newurl}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -186,8 +187,9 @@ export default class BudgetJiaGongFei extends Component {
         this.setState({
             boolen: true
         })
+        const url = window.location.search ? 202 : this.props.tabKeys === "2" ? 112 : 2
         axios.post("/api/estimate-unfix/", {
-            purpose: this.props.tabKeys==="2" ?112:2,
+            purpose: url,
             fc:
                 this.state.number.map((item, index) => {
                     if (item.item === "") {
@@ -209,8 +211,8 @@ export default class BudgetJiaGongFei extends Component {
                             unit: item.unit,
                             signalPrice: item.signalPrice,
                             signalUnit: item.signalUnit,
-                            signalPUnit:  Number(this.state.subarr[index]).toFixed(2)==="NaN" ?item.signalPUnit:Number(this.state.subarr[index]).toFixed(2),
-                            purpose: this.props.tabKeys==="2" ?112:2,
+                            signalPUnit: Number(this.state.subarr[index]).toFixed(2) === "NaN" ? item.signalPUnit : Number(this.state.subarr[index]).toFixed(2),
+                            purpose: url,
                         }
                     )
                 }),
@@ -235,8 +237,8 @@ export default class BudgetJiaGongFei extends Component {
                             unit: items.unit,
                             signalPrice: items.signalPrice,
                             signalUnit: items.signalUnit,
-                            signalPUnit:  Number(this.state.RlComputed[index]).toFixed(2)==="NaN" ?items.signalPUnit:Number(this.state.RlComputed[index]).toFixed(2),
-                            purpose: this.props.tabKeys==="2" ?112:2,
+                            signalPUnit: Number(this.state.RlComputed[index]).toFixed(2) === "NaN" ? items.signalPUnit : Number(this.state.RlComputed[index]).toFixed(2),
+                            purpose: url,
                         }
                     )
                 })
@@ -278,7 +280,7 @@ export default class BudgetJiaGongFei extends Component {
     render() {
         ////////console.log(this.state.RlComputed)
         //////console.log(this.state.subarr)
-      
+
         return (
             <div>
                 <table className="tableGufei">

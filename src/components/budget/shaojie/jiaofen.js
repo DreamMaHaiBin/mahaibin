@@ -64,7 +64,8 @@ export default class JiaoFen extends Component {
     }
     componentWillMount() {
         //console.log(this.props.tabKeys)
-        axios.get(`/api/estimate-ore/recent/?purpose=${this.props.tabKeys === "2" ? 412 : this.props.tabKeys === "3" ? 413 : 411}`, {
+        const newUrl = window.location.search ? 2012 : this.props.tabKeys === "2" ? 412 : this.props.tabKeys === "3" ? 413 : 411
+        axios.get(`/api/estimate-ore/recent/?purpose=${newUrl}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -107,9 +108,10 @@ export default class JiaoFen extends Component {
         this.setState({
             flag: true,
         })
+        const newUrl = window.location.search ? 2012 : this.props.tabKeys === "2" ? 412 : this.props.tabKeys === "3" ? 413 : 411
         axios.post("/api/estimate-mean/", {
 
-            purpose: this.props.tabKeys === "2" ? 412 : this.props.tabKeys === "3" ? 413 : 411,
+            purpose: newUrl,
             ore:
                 this.state.guFeiList.map((item, idx) => {
 
@@ -117,7 +119,7 @@ export default class JiaoFen extends Component {
                         {
                             line: idx + 1,
                             name: item.name,
-                            purpose: this.props.tabKeys === "2" ? 412 : this.props.tabKeys === "3" ? 413 : 411,
+                            purpose: newUrl,
                             tFe: item.tFe === "" || item.tFe === null ? 0 : item.tFe,
                             siO2: item.siO2 === "" || item.siO2 === null ? 0 : item.siO2,
                             caO: item.caO === "" || item.caO === null ? 0 : item.caO,

@@ -209,17 +209,18 @@ export default class GaoLuKeBian extends Component {
         this.setState({
             KeBianComputedHs: sub,
         })
-    } 
+    }
     UNSAFE_componentWillMount() {
-        axios.get(`/api/estimate-para-unfix-cost/recent/?purpose=${this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3}`, {
+        const url = window.location.search ? 203 : this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3
+        axios.get(`/api/estimate-para-unfix-cost/recent/?purpose=${url}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
         }).then((res) => {
-        //    console.log(res)
-            res.data.fc.forEach((item,index) => {
-                item.signalPrice = index===3 || index===4 || index===5 ? null : Number(item.signalPrice).toFixed(2)
-                item.signalUnit = index===3 || index===4 || index===5 ? null : Number(item.signalUnit).toFixed(4)
+            //    console.log(res)
+            res.data.fc.forEach((item, index) => {
+                item.signalPrice = index === 3 || index === 4 || index === 5 ? null : Number(item.signalPrice).toFixed(2)
+                item.signalUnit = index === 3 || index === 4 || index === 5 ? null : Number(item.signalUnit).toFixed(4)
                 item.signalPUnit = Number(item.signalPUnit).toFixed(2)
             })
             res.data.dl.forEach((item) => {
@@ -227,9 +228,9 @@ export default class GaoLuKeBian extends Component {
                 item.signalUnit = Number(item.signalUnit).toFixed(4)
                 item.signalPUnit = Number(item.signalPUnit).toFixed(2)
             })
-            res.data.hs.forEach((item,index) => {
-                item.signalPrice = index===2 || index===3? null :  Number(item.signalPrice).toFixed(2)
-                item.signalUnit = index===2 || index===3? null : Number(item.signalUnit).toFixed(4)
+            res.data.hs.forEach((item, index) => {
+                item.signalPrice = index === 2 || index === 3 ? null : Number(item.signalPrice).toFixed(2)
+                item.signalUnit = index === 2 || index === 3 ? null : Number(item.signalUnit).toFixed(4)
                 item.signalPUnit = Number(item.signalPUnit).toFixed(2)
             })
             this.setState({
@@ -269,7 +270,7 @@ export default class GaoLuKeBian extends Component {
             this.setState({ ListFc: newData }, () => {
                 this.subfun();
             })
-           console.log(this.state.ListFc)
+            console.log(this.state.ListFc)
         }
     }
     KeBianjgfDL(signalUnit, index) {
@@ -291,15 +292,16 @@ export default class GaoLuKeBian extends Component {
             this.setState({ ListHs: newDataHs }, () => {
                 this.KeBianComputedHSInfo();
             })
-          // console.log(this.state.ListHs)
+            // console.log(this.state.ListHs)
         }
     }
     computedInfo() {
         this.setState({
             boolen: true
         })
+        const url = window.location.search ? 203 : this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3
         axios.post("/api/estimate-unfix/", {
-            purpose: this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3,
+            purpose: url,
             fc:
                 this.state.ListFc.map((item, index) => {
 
@@ -310,8 +312,8 @@ export default class GaoLuKeBian extends Component {
                             unit: item.unit,
                             signalPrice: Number(item.signalPrice).toFixed(4),
                             signalUnit: Number(item.signalUnit).toFixed(4),
-                            signalPUnit:item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ?item.signalPUnit : Number(this.state.KeBianComputedFC[index]).toFixed(2)==="NaN" ?item.signalPUnit: Number(this.state.KeBianComputedFC[index]).toFixed(2),
-                            purpose: this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3,
+                            signalPUnit: item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? item.signalPUnit : Number(this.state.KeBianComputedFC[index]).toFixed(2) === "NaN" ? item.signalPUnit : Number(this.state.KeBianComputedFC[index]).toFixed(2),
+                            purpose: url,
                         }
                     )
 
@@ -326,8 +328,8 @@ export default class GaoLuKeBian extends Component {
                             unit: items.unit,
                             signalPrice: Number(items.signalPrice).toFixed(4),
                             signalUnit: Number(items.signalUnit).toFixed(4),
-                            signalPUnit:  Number(this.state.KeBianComputedDL[index]).toFixed(2)==="NaN" ? items.signalPUnit:Number(this.state.KeBianComputedDL[index]).toFixed(2),
-                            purpose: this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3,
+                            signalPUnit: Number(this.state.KeBianComputedDL[index]).toFixed(2) === "NaN" ? items.signalPUnit : Number(this.state.KeBianComputedDL[index]).toFixed(2),
+                            purpose: url,
                         }
                     )
 
@@ -342,8 +344,8 @@ export default class GaoLuKeBian extends Component {
                             unit: items.unit,
                             signalPrice: Number(items.signalPrice).toFixed(4),
                             signalUnit: Number(items.signalUnit).toFixed(4),
-                            signalPUnit: items.item === "联合泵站" || items.item === "水渣余热"  ?items.signalPUnit : Number(this.state.KeBianComputedHs[index]).toFixed(2)==="NaN"?items.signalPUnit:Number(this.state.KeBianComputedHs[index]).toFixed(2),
-                            purpose: this.props.JGFkey === "2" ? 122 : this.props.JGFkey === "3" ? 123 : 3,
+                            signalPUnit: items.item === "联合泵站" || items.item === "水渣余热" ? items.signalPUnit : Number(this.state.KeBianComputedHs[index]).toFixed(2) === "NaN" ? items.signalPUnit : Number(this.state.KeBianComputedHs[index]).toFixed(2),
+                            purpose: url,
                         }
                     )
                 })
@@ -422,7 +424,7 @@ export default class GaoLuKeBian extends Component {
                                                 onChange={this.KeBianjgfFC("signalPrice", index).bind(this)}
                                                 value={item.signalPrice === "0.00" ? null : item.signalPrice}
                                                 style={{ background: item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? "#c3c3c3" : null }}
-                                                disabled={ item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? true : false }
+                                                disabled={item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? true : false}
                                             />
                                         </td>
                                         <td>
@@ -430,12 +432,12 @@ export default class GaoLuKeBian extends Component {
                                                 onChange={this.KeBianjgfFC("signalUnit", index).bind(this)}
                                                 value={item.signalUnit === "0.0000" ? null : item.signalUnit}
                                                 style={{ background: item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? "#c3c3c3" : null }}
-                                                disabled={ item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? true : false }
+                                                disabled={item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ? true : false}
                                             />
                                         </td>
                                         <td>
-                                        {
-                                                item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件"  ?
+                                            {
+                                                item.item === "耐材" || item.item === "大型工具" || item.item === "工艺件" ?
                                                     <Input
                                                         onChange={this.KeBianjgfFC("signalPUnit", index).bind(this)}
                                                         value={item.signalPUnit}
@@ -486,10 +488,10 @@ export default class GaoLuKeBian extends Component {
                                             <Input
                                                 onChange={this.KeBianjgfDL("signalUnit", index).bind(this)}
                                                 value={item.signalUnit === "0.0000" ? null : item.signalUnit}
-                                                
+
                                             />
                                         </td>
-                                        <td>                                         
+                                        <td>
                                             {Number(this.state.KeBianComputedDL[index]).toFixed(2) === "NaN" ? item.signalPUnit : Number(this.state.KeBianComputedDL[index]).toFixed(2)}
                                         </td>
                                     </tr>
@@ -529,7 +531,7 @@ export default class GaoLuKeBian extends Component {
                                                 onChange={this.KeBianjgfHS("signalPrice", index).bind(this)}
                                                 value={item.signalPrice === "0.00" ? null : item.signalPrice}
                                                 style={{ background: item.item === "联合泵站" || item.item === "水渣余热" ? "#c3c3c3" : null }}
-                                                disabled={ item.item === "联合泵站" || item.item === "水渣余热" ? true : false }
+                                                disabled={item.item === "联合泵站" || item.item === "水渣余热" ? true : false}
                                             />
                                         </td>
                                         <td>
@@ -537,13 +539,13 @@ export default class GaoLuKeBian extends Component {
                                                 onChange={this.KeBianjgfHS("signalUnit", index).bind(this)}
                                                 value={item.signalUnit === "0.0000" ? null : item.signalUnit}
                                                 style={{ background: item.item === "联合泵站" || item.item === "水渣余热" ? "#c3c3c3" : null }}
-                                                disabled={item.item === "联合泵站" || item.item === "水渣余热" ? true : false }
+                                                disabled={item.item === "联合泵站" || item.item === "水渣余热" ? true : false}
                                             />
                                         </td>
                                         <td>
 
                                             {
-                                                 item.item === "联合泵站" || item.item === "水渣余热" ?
+                                                item.item === "联合泵站" || item.item === "水渣余热" ?
                                                     <Input
                                                         onChange={this.KeBianjgfHS("signalPUnit", index).bind(this)}
                                                         value={item.signalPUnit}

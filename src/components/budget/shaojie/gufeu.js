@@ -59,8 +59,8 @@ class BudgetFeiliao extends Component {
         }
     }
     componentWillMount() {
-
-        axios.get(`/api/estimate-ore/recent/?purpose=${this.props.tabKeys === "2" ? 112 : this.props.tabKeys === "3" ? 113 : 2}`, {
+            const url = window.location.search ? 2011 :this.props.tabKeys === "2" ? 112 : this.props.tabKeys === "3" ? 113 : 2
+        axios.get(`/api/estimate-ore/recent/?purpose=${url}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -103,16 +103,17 @@ class BudgetFeiliao extends Component {
         this.setState({
             flag: true,
         })
+        const newurl = window.location.search ? 2011 : this.props.tabKeys === "2" ? 112 : this.props.tabKeys === "3" ? 113 : 2
         axios.post("/api/estimate-mean/", {
-
-            purpose: this.props.tabKeys === "2" ? 112 : this.props.tabKeys === "3" ? 113 : 2,
+            
+            purpose: newurl,
             ore:
                 this.state.guFeiList.map((item, idx) => {
                     return (
                         {
                             line: item.line,
                             name: item.name,
-                            purpose: this.props.tabKeys === "2" ? 112 : this.props.tabKeys === "3" ? 113 : 2,
+                            purpose: newurl,
                             tFe: item.tFe === "" || item.tFe === null ? 0 :item.tFe,
                             siO2: item.siO2 === "" || item.siO2 === null ? 0 :item.siO2,
                             caO: item.caO === "" || item.caO === null ? 0 :item.caO,
@@ -184,6 +185,7 @@ class BudgetFeiliao extends Component {
             })
     }
     delet() {
+        const newurl = window.location.search ? 2011 : 102
         axios.post("/api/feigndelete/", {
             lines:
                 this.state.guFeiList.map((item, index) => {
@@ -191,7 +193,7 @@ class BudgetFeiliao extends Component {
                         {
                             name: item.name,
                             bolen: item.bolen,
-                            purpose: 102,
+                            purpose: newurl,
                             line: item.line,     //序号
                             tFe: item.tFe,     // 全铁含量
                             siO2: item.siO2,     // 二氧化硅含量

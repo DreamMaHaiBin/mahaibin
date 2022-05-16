@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "../cossalculation.css"
 import axios from "axios";
 import ExportJsonExcel from 'js-export-excel';
-import WrappedBudgetFen from "./shaojie/daoru.js"
-import BuildTitle from "../model/model"
+import WrappedBudgetFen from "../shaojie/daoru.js"
+import BuildTitle from "../../model/model"
 import { Modal, Input, Button, message, Checkbox, Tooltip } from "antd";
-import WrappedFeiliao from "./shaojie/gufeu"
-import WrappedGongFei from "./shaojie/kbjgf"
-import WrappedBuGuDing from "./shaojie/gdjgf"
-import JiaoFen from "./shaojie/jiaofen"
-import MeiFen from "./shaojie/meifen"
-import BudgetMingXi from "./shaojie/mingxi"
-import GanShi from "./shaojie/ganshi.js"
+import WrappedFeiliao from "../shaojie/gufeu"
+import WrappedGongFei from "../shaojie/kbjgf"
+import WrappedBuGuDing from "../shaojie/gdjgf"
+import JiaoFen from "../shaojie/jiaofen"
+import MeiFen from "../shaojie/meifen"
+import BudgetMingXi from "../shaojie/mingxi"
+import GanShi from "../shaojie/ganshi.js"
 const list = []
 
 for (let i = 0; i < 24; i++) {
@@ -34,8 +34,11 @@ for (let i = 0; i < 24; i++) {
         p: null,
         tiO2: null,
         sRatio: null,
-        price: 0,
+        price: null,
         ratio: null,
+        h2o: null,
+        spb: null,
+        sjjg: null,
         r: null,
         esti: null,
     });
@@ -44,7 +47,7 @@ for (let i = 0; i < 24; i++) {
 
 const str = "0.00"
 const strFour = "0.0000"
-export default class BudgetOne extends Component {
+export default class ShaoJie extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -179,12 +182,14 @@ export default class BudgetOne extends Component {
                             if (item.name === values.name && item.incomingDate === values.time) {
                                 const newListData = this.state.ListData.slice(0);
                                 const newSanFang = Object.assign({}, item);
+                                console.log(newSanFang)
                                 console.log(this.state.ListData[this.state.navData - 1]);
                                 newSanFang.source["name"] = newSanFang.name;
                                 newSanFang.source["price"] = newSanFang.priceOre;
                                 newSanFang.source["ratio"] = 0;
-                                newSanFang.source["line"] = this.state.navData
                                 newSanFang.source["h2o"] = newSanFang.source.h2O;
+
+                                newSanFang.source["line"] = this.state.navData
                                 newSanFang.source["ratio"] = this.state.ListData[this.state.navData - 1].ratio //配比是否显示
                                 newListData[this.state.navData - 1] = newSanFang.source;
                                 this.setState({
@@ -325,8 +330,7 @@ export default class BudgetOne extends Component {
         });
     };
     componentWillMount() {
-
-        axios.get(`/api/estimate-ore/recent/?purpose=${this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1}`, {
+        axios.get(`/api/estimate-ore/recent/?purpose=201`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -369,7 +373,7 @@ export default class BudgetOne extends Component {
                 dataNumber: sub.dataNumber
             })
         })
-        axios.get(`/api/estimate-para-sq/recent/?purpose=${this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1}`, {
+        axios.get(`/api/estimate-para-sq/recent/?purpose=201`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -389,60 +393,31 @@ export default class BudgetOne extends Component {
                 setNewList: res.data
             })
         })
-        setTimeout(() => {
-            //烧结信息
-            axios.get("/api/ore/?ordering=-createTime&incomingDate=&purpose=1", {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // //////console.log(res.data.results)
-                this.setState({
-                    data: res.data.results
-                })
+        // setTimeout(() => {
+        //烧结信息
+        axios.get("/api/ore/?ordering=-createTime&incomingDate=&purpose=1", {
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res) => {
+            // //////console.log(res.data.results)
+            this.setState({
+                data: res.data.results
             })
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=9`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // console.log(res);
-                res.data.outS = Number(res.data.outS).toFixed(2)
-                this.setState({
-                    luzhaOne: res.data,
-                    outSone: res.data.outS
-                })
+        })
+        //最近参数设置信息
+        axios.get(`/api/estimate-para-gl/recent/?purpose=203`, {
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res) => {
+            // console.log(res);
+            res.data.outS = Number(res.data.outS).toFixed(2)
+            this.setState({
+                luzhaOne: res.data,
+                outSone: res.data.outS
             })
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=159`, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                res.data.outS = Number(res.data.outS).toFixed(2)
-                this.setState({
-                    luzhaTwo: res.data,
-                    outStwo: res.data.outS
-
-                })
-            })
-            //最近参数设置信息
-            axios.get(`/api/estimate-para-gl/recent/?purpose=179`, {
-
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                res.data.outS = Number(res.data.outS).toFixed(2)
-                this.setState({
-                    luzhaThree: res.data,
-
-                    outSthree: res.data.outS
-                })
-            })
-        }, 100)
-
+        })
     }
     bbbb(value) {
         //////console.log(value)
@@ -515,14 +490,25 @@ export default class BudgetOne extends Component {
             dataJiaoFen: value,
         })
     }
-
+    /*
+                  
+                  ydbs:
+                      价格=湿价格/（100-水分）*100，和湿配比一样处理
+  
+                      ydbs:
+                      先检查湿配比是否为空，
+                      1、湿配比为空或0，配比=输入的配比
+                      2、湿配比不为空，配比=湿配比*（100-水分）/100,
+                      3、计算式先计算配比插入配比栏在进行计算以前按钮功能
+                                          (this.state.SJH.precent1).toFixed(2)
+                  */
     infoKuang(name, index) {
         return (e) => {
             const value = e.target.value === undefined ? e.target.checked : e.target.value;
             const newData = this.state.ListData;
             newData[index][name] = value;
             this.setState({ ListData: newData })
-         
+
             const sub = {
                 dataNumber: 0
             }
@@ -530,7 +516,7 @@ export default class BudgetOne extends Component {
                 if (this.state.ListData[index][name] !== '' && Number(this.state.ListData[index][name]) !== 0 && String(Number(this.state.ListData[index][name])) !== 'NaN') {
                     this.state.ListData[index]['ratio'] = (this.state.ListData[index]['spb'] * (100 - this.state.ListData[index]['h2o']) / 100).toFixed(2)
                 }
-                if(this.state.ListData[index]['ratio']==='NaN'){
+                if (this.state.ListData[index]['ratio'] === 'NaN') {
                     this.state.ListData[index]['ratio'] = newData[index][name]
                 }
             }
@@ -538,12 +524,12 @@ export default class BudgetOne extends Component {
                 if (this.state.ListData[index][name] !== "" && Number(this.state.ListData[index][name]) !== 0 && String(Number(this.state.ListData[index][name])) !== 'NaN') {
                     this.state.ListData[index]['price'] = (this.state.ListData[index][name] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2)
                 }
-                if(this.state.ListData[index]['price']==='NaN'){
+                if (this.state.ListData[index]['price'] === 'NaN') {
                     this.state.ListData[index]['price'] = newData[index][name]
                 }
-            } 
+            }
             if (name === 'h2o') {
-                if(Number(this.state.ListData[index]['h2o']) > 80){
+                if(Number(this.state.ListData[index]['h2o']) >= '80'){
                     message.warning('水分不要超过80，否则容易导致计算失误')
                     this.state.ListData[index]['h2o']= ''
                 }
@@ -553,14 +539,14 @@ export default class BudgetOne extends Component {
                 if (this.state.ListData[index]['sjjg'] !== "" && Number(this.state.ListData[index]['sjjg']) !== 0) {
                     this.state.ListData[index]['price'] = (this.state.ListData[index]['sjjg'] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2)
                 }
-                if(this.state.ListData[index]['ratio']==='NaN'){
+                if (this.state.ListData[index]['ratio'] === 'NaN') {
                     this.state.ListData[index]['ratio'] = ''
                 }
-                if(this.state.ListData[index]['price']==='NaN'){
+                if (this.state.ListData[index]['price'] === 'NaN') {
                     this.state.ListData[index]['price'] = ''
                 }
             }
-            console.log( (this.state.ListData[index]['sjjg'] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2))
+            console.log((this.state.ListData[index]['sjjg'] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2))
             this.state.ListData.map((item, idx) => {
                 if (idx <= 9) {
                     sub.dataNumber += Number(item.ratio)
@@ -597,10 +583,10 @@ export default class BudgetOne extends Component {
             flag: true,
         })
         axios.post("/api/estimate-sq/", {
-            purpose: this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1,
+            purpose: 201,
 
             para: {
-                purpose: this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1,
+                purpose: 201,
                 outHM: this.state.setNewList.outHM === "" ? "0.00" : this.state.setNewList.outHM,
                 f1: this.state.setNewList.f1 === "" ? "0.00" : this.state.setNewList.f1,
                 f2: this.state.setNewList.f2 === "" ? "0.00" : this.state.setNewList.f2,
@@ -617,7 +603,7 @@ export default class BudgetOne extends Component {
                     return (
                         {
                             name: item.name,
-                            purpose: this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1,
+                            purpose: 201,
                             line: item.line,     //序号
                             tFe: item.tFe === "" || item.tFe === null ? str : item.tFe,     // 全铁含量
                             siO2: item.siO2 === "" || item.siO2 === null ? str : item.siO2,     // 二氧化硅含量
@@ -674,9 +660,9 @@ export default class BudgetOne extends Component {
 
             axios.post("/api/estimate-gl/", {
                 sole: 1,
-                purpose: 9,
+                purpose: 203,
                 para: {
-                    purpose: 9, // 9: 高炉计算
+                    purpose: 203, // 9: 高炉计算
                     felron: Number(this.state.luzhaOne.felron).toFixed(2),       // 铁水铁含量
                     silron: Number(this.state.luzhaOne.silron).toFixed(2),      // 铁水硅含量
                     f10: Number(this.state.luzhaOne.f10).toFixed(2),           // S渣铁分配比
@@ -705,23 +691,23 @@ export default class BudgetOne extends Component {
                             {
                                 name: item.name,
                                 isTotal: false,
-                                purpose: 9,
+                                purpose: 203,
                                 line: item.line,
-                                tFe: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.tFe).toFixed(4) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                                siO2: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.siO2).toFixed(4) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                                caO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.caO).toFixed(4) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                                mgO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.mgO).toFixed(4) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                                al2O3: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.al2O3).toFixed(4) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                                loI: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.loI).toFixed(4) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                                feO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.feO).toFixed(4) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                                k2O: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.k2O).toFixed(4) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                                na2O: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.na2O).toFixed(4) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                                znO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.znO).toFixed(4) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                                s: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.s).toFixed(4) : item.s === "" || item.s === null ? item.s = 0 : item.s,
-                                p: index === (this.props.keys === "2" ? 8 : this.props.keys === "2" ? 9 : 7) ? Number(res.data.jsjg.p).toFixed(4) : item.p === "" || item.p === null ? item.p = 0 : item.p,
-                                tiO2: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.tiO2).toFixed(4) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                                sRatio: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.sRatio).toFixed(4) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                                price: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.price).toFixed(4) : item.price === "" || item.price === null ? item.price = 0 : item.price,
+                                tFe: index === 7 ? res.data.jsjg.tFe : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
+                                siO2: index === 7 ? res.data.jsjg.siO2 : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
+                                caO: index === 7 ? res.data.jsjg.caO : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
+                                mgO: index === 7 ? res.data.jsjg.mgO : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
+                                al2O3: index === 8 ? res.data.jsjg.al2O3 : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
+                                loI: index === 7 ? res.data.jsjg.loI : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
+                                feO: index === 7 ? res.data.jsjg.feO : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
+                                k2O: index === 7 ? res.data.jsjg.k2O : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
+                                na2O: index === 7 ? res.data.jsjg.na2O : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
+                                znO: index === 7 ? res.data.jsjg.znO : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
+                                s: index === 7 ? res.data.jsjg.p : item.s === "" || item.s === null ? item.s = 0 : item.s,
+                                p: index === 7 ? res.data.jsjg.p : item.p === "" || item.p === null ? item.p = 0 : item.p,
+                                tiO2: index === 7 ? res.data.jsjg.tiO2 : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
+                                sRatio: index === 7 ? res.data.jsjg.sRatio : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
+                                price: index === 7 ? res.data.jsjg.price : item.price === "" || item.price === null ? item.price = 0 : item.price,
                                 ratio: item.ratio,
                                 r: item.r,
                                 esti: 1,
@@ -738,140 +724,6 @@ export default class BudgetOne extends Component {
                 })
                 //  console.log(res)
             })
-            axios.post("/api/estimate-gl/", {
-                sole: 1,
-                purpose: 159,
-                para: {
-                    purpose: 159, // 9: 高炉计算
-                    felron: Number(this.state.luzhaTwo.felron).toFixed(2),       // 铁水铁含量
-                    silron: Number(this.state.luzhaTwo.silron).toFixed(2),      // 铁水硅含量
-                    f10: Number(this.state.luzhaTwo.f10).toFixed(2),           // S渣铁分配比
-                    f11: Number(this.state.luzhaTwo.f11).toFixed(2),            // Ti收得率
-                    f13: Number(this.state.luzhaTwo.f13).toFixed(2),           // 入炉品位升降1%加扣燃料比
-                    f14: Number(this.state.luzhaTwo.f14).toFixed(2),
-                    f15: Number(this.state.luzhaTwo.f15).toFixed(2),
-                    f9: Number(this.state.luzhaTwo.f9).toFixed(2),        // Fe元素渣中分配比
-                    f12: Number(this.state.luzhaTwo.f12).toFixed(2),           // 渣中其他成分含量
-                    cmr: Number(this.state.luzhaTwo.cmr).toFixed(2),        // 吨铁回收成本
-                    bashBurdenFe: Number(this.state.luzhaTwo.bashBurdenFe).toFixed(2),   // 基准入炉品位
-                    outS: Number(this.state.luzhaTwo.outS).toFixed(2),        // 铁水产量
-                    dustB: Number(this.state.luzhaTwo.dustB).toFixed(2),         // 高炉灰产生量
-                    dustBFe: Number(this.state.luzhaTwo.dustBFe).toFixed(2),         // 高炉灰品位
-                    cmd: Number(this.state.luzhaTwo.cmd).toFixed(2),    // 高炉可变加工费
-                    fcms: Number(this.state.luzhaTwo.fcms).toFixed(2),  // 高炉固定加工费
-                    isFixAlkali: false,       // 是否固定碱度
-                    rslag: Number(this.state.luzhaTwo.rslag).toFixed(2),        // 炉渣碱度
-                    sjId: this.state.luzhaTwo.sjId,          // 选择烧结行号
-                    qtId: this.state.luzhaTwo.qtId,         // 选择球团行号
-                    esti: 1
-                },
-                ore:
-                    this.props.gaoluTwo.map((item, index) => {
-                        return (
-                            {
-                                name: item.name,
-                                isTotal: false,
-                                purpose: 159,
-                                line: item.line,
-                                tFe: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.tFe).toFixed(4) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                                siO2: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.siO2).toFixed(4) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                                caO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.caO).toFixed(4) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                                mgO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.mgO).toFixed(4) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                                al2O3: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.al2O3).toFixed(4) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                                loI: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.loI).toFixed(4) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                                feO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.feO).toFixed(4) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                                k2O: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.k2O).toFixed(4) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                                na2O: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.na2O).toFixed(4) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                                znO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.znO).toFixed(4) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                                s: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.s).toFixed(4) : item.s === "" || item.s === null ? item.s = 0 : item.s,
-                                p: index === (this.props.keys === "2" ? 8 : this.props.keys === "2" ? 9 : 7) ? Number(res.data.jsjg.p).toFixed(4) : item.p === "" || item.p === null ? item.p = 0 : item.p,
-                                tiO2: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.tiO2).toFixed(4) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                                sRatio: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.sRatio).toFixed(4) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                                price: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.price).toFixed(4) : item.price === "" || item.price === null ? item.price = 0 : item.price,
-                                ratio: item.ratio,
-                                r: item.r,
-                                esti: 1,
-                            }
-                        )
-                    })
-            }, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // console.log(res)
-                this.setState({
-                    hjTwo: res.data.cost.hj.signalPUnit
-                })
-            })
-            axios.post("/api/estimate-gl/", {
-                sole: 1,
-                purpose: 179,
-                para: {
-                    purpose: 179, // 9: 高炉计算
-                    felron: Number(this.state.luzhaThree.felron).toFixed(2),       // 铁水铁含量
-                    silron: Number(this.state.luzhaThree.silron).toFixed(2),      // 铁水硅含量
-                    f10: Number(this.state.luzhaThree.f10).toFixed(2),           // S渣铁分配比
-                    f11: Number(this.state.luzhaThree.f11).toFixed(2),            // Ti收得率
-                    f13: Number(this.state.luzhaThree.f13).toFixed(2),           // 入炉品位升降1%加扣燃料比
-                    f14: Number(this.state.luzhaThree.f14).toFixed(2),
-                    f15: Number(this.state.luzhaThree.f15).toFixed(2),
-                    f9: Number(this.state.luzhaThree.f9).toFixed(2),        // Fe元素渣中分配比
-                    f12: Number(this.state.luzhaThree.f12).toFixed(2),           // 渣中其他成分含量
-                    cmr: Number(this.state.luzhaThree.cmr).toFixed(2),        // 吨铁回收成本
-                    bashBurdenFe: Number(this.state.luzhaThree.bashBurdenFe).toFixed(2),   // 基准入炉品位
-                    outS: Number(this.state.luzhaThree.outS).toFixed(2),        // 铁水产量
-                    dustB: Number(this.state.luzhaThree.dustB).toFixed(2),         // 高炉灰产生量
-                    dustBFe: Number(this.state.luzhaThree.dustBFe).toFixed(2),         // 高炉灰品位
-                    cmd: Number(this.state.luzhaThree.cmd).toFixed(2),    // 高炉可变加工费
-                    fcms: Number(this.state.luzhaThree.fcms).toFixed(2),  // 高炉固定加工费
-                    isFixAlkali: false,       // 是否固定碱度
-                    rslag: Number(this.state.luzhaThree.rslag).toFixed(2),        // 炉渣碱度
-                    sjId: this.state.luzhaThree.sjId,          // 选择烧结行号
-                    qtId: this.state.luzhaThree.qtId,         // 选择球团行号
-                    esti: 1
-                },
-                ore:
-                    this.props.gaoluThree.map((item, index) => {
-                        return (
-                            {
-                                name: item.name,
-                                isTotal: false,
-                                purpose: 179,
-                                line: item.line,
-                                tFe: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.tFe).toFixed(4) : item.tFe === "" || item.tFe === null ? item.tFe = 0 : item.tFe,
-                                siO2: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.siO2).toFixed(4) : item.siO2 === "" || item.siO2 === null ? item.siO2 = 0 : item.siO2,
-                                caO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.caO).toFixed(4) : item.caO === "" || item.caO === null ? item.caO = 0 : item.caO,
-                                mgO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.mgO).toFixed(4) : item.mgO === "" || item.mgO === null ? item.mgO = 0 : item.mgO,
-                                al2O3: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.al2O3).toFixed(4) : item.al2O3 === "" || item.al2O3 === null ? item.al2O3 = 0 : item.al2O3,
-                                loI: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.loI).toFixed(4) : item.loI === "" || item.loI === null ? item.loI = 0 : item.loI,
-                                feO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.feO).toFixed(4) : item.feO === "" || item.feO === null ? item.feO = 0 : item.feO,
-                                k2O: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.k2O).toFixed(4) : item.k2O === "" || item.k2O === null ? item.k2O = 0 : item.k2O,
-                                na2O: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.na2O).toFixed(4) : item.na2O === "" || item.na2O === null ? item.na2O = 0 : item.na2O,
-                                znO: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.znO).toFixed(4) : item.znO === "" || item.znO === null ? item.znO = 0 : item.znO,
-                                s: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.s).toFixed(4) : item.s === "" || item.s === null ? item.s = 0 : item.s,
-                                p: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.p).toFixed(4) : item.p === "" || item.p === null ? item.p = 0 : item.p,
-                                tiO2: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.tiO2).toFixed(4) : item.tiO2 === "" || item.tiO2 === null ? item.tiO2 = 0 : item.tiO2,
-                                sRatio: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.sRatio).toFixed(4) : item.sRatio === "" || item.sRatio === null ? item.sRatio = 0 : item.sRatio,
-                                price: index === (this.props.keys === "2" ? 8 : this.props.keys === "3" ? 9 : 7) ? Number(res.data.jsjg.price).toFixed(4) : item.price === "" || item.price === null ? item.price = 0 : item.price,
-                                ratio: item.ratio,
-                                r: item.r,
-                                esti: 1,
-                            }
-                        )
-                    })
-            }, {
-                headers: {
-                    Authorization: sessionStorage.getItem("token")
-                }
-            }).then((res) => {
-                // console.log(res)
-                this.setState({
-                    hjThree: res.data.cost.hj.signalPUnit
-                })
-            })
-
-
 
         }).catch(err => {
             this.setState({
@@ -901,11 +753,11 @@ export default class BudgetOne extends Component {
                     keep: false,
                     flag: true,
                 })
-                axios.post("/api/estimate-sq/", {
-                    purpose: this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1,
+                axios.post("/api/estimate-sq-new/", {
+                    purpose: 201,
                     save_flag: true,
                     para: {
-                        purpose: this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1,
+                        purpose: 201,
                         outHM: this.state.setNewList.outHM === "" ? "0.00" : this.state.setNewList.outHM,
                         f1: this.state.setNewList.f1 === "" ? "0.00" : this.state.setNewList.f1,
                         f2: this.state.setNewList.f2 === "" ? "0.00" : this.state.setNewList.f2,
@@ -922,7 +774,7 @@ export default class BudgetOne extends Component {
                             return (
                                 {
                                     name: item.name,
-                                    purpose: this.props.keys === "2" ? 102 : this.props.keys === "3" ? 103 : 1,
+                                    purpose: 201,
                                     line: item.line,     //序号
                                     tFe: item.tFe === "" || item.tFe === null ? str : item.tFe,     // 全铁含量
                                     siO2: item.siO2 === "" || item.siO2 === null ? str : item.siO2,     // 二氧化硅含量
@@ -940,9 +792,9 @@ export default class BudgetOne extends Component {
                                     sRatio: item.sRatio === "" || item.sRatio === null ? str : item.sRatio,     // 入炉料筛下率
                                     price: item.price === "" || item.price === null ? str : item.price,  // 价格
                                     ratio: item.ratio === "" || item.ratio === null ? str : item.ratio,        // 配比
-                                    h2o: item.ratio === "" || item.h2o === null ? str : item.h2o,        // 配比
-                                    spb: item.spb === "" || item.spb === null ? str : item.spb,        // 配比
-                                    sjjg: item.ratio === "" || item.sjjg === null ? str : item.sjjg,        // 配比
+                                    h2o: item.h2o === "" || item.h2o === null ? str : item.h2o,     // 入炉料筛下率
+                                    spb: item.spb === "" || item.spb === null ? str : item.spb,  // 价格
+                                    sjjg: item.sjjg === "" || item.sjjg === null ? str : item.sjjg,        // 配比
                                     esti: 1,
                                     r: null,           // 烧结矿碱度
                                 }
@@ -1068,6 +920,9 @@ export default class BudgetOne extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].tiO2).toFixed(4),
+                    '配比': Number(data3[i].price).toFixed(2),
+                    '湿基价格': Number(data3[i].ratio).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1107,6 +962,9 @@ export default class BudgetOne extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].tiO2).toFixed(4),
+                    '配比': Number(data3[i].price).toFixed(2),
+                    '湿基价格': Number(data3[i].ratio).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1146,6 +1004,9 @@ export default class BudgetOne extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].tiO2).toFixed(4),
+                    '配比': Number(data3[i].price).toFixed(2),
+                    '湿基价格': Number(data3[i].ratio).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1197,8 +1058,8 @@ export default class BudgetOne extends Component {
             {
                 sheetData: dataTable,
                 sheetName: '烧结一成本明细',
-                sheetFilter: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比"],
-                sheetHeader: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比"],
+                sheetFilter: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '配比', '湿基价格'],
+                sheetHeader: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '配比', '湿基价格'],
             }
         ]
         var toExcel = new ExportJsonExcel(option);
@@ -1260,14 +1121,13 @@ export default class BudgetOne extends Component {
         })
     }
     mustNumber(e) {
-        if(!e.target.value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
+        if (!e.target.value.replace(/[^\d^\.]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
             e.target.value = ''
         }
-   
+
     }
     render() {
-        let tscb = ((this.state.hjOne * this.state.outSone) + (this.state.hjTwo * this.state.outStwo) + (this.state.hjThree * this.state.outSthree)) / (Number(this.state.outSone) + Number(this.state.outStwo) + Number(this.state.outSthree))
-
+        let tscb = (this.state.hjOne * this.state.outSone) / Number(this.state.outSone)
         return (
             <div>
                 <div style={{ display: this.state.num === 2 ? "none" : "block" }}>
@@ -1276,10 +1136,10 @@ export default class BudgetOne extends Component {
                 <div className="outersphere">
                     <div className="qingkong" style={{ left: 847 }}>
                         {/* <Button type="primary" onClick={this.ganshimodal.bind(this)} >
-                                干湿配比
-                            </Button> */}
+                            干湿配比
+                        </Button> */}
                         <Button type="primary" onClick={this.clearItem.bind(this)} >
-                            <img src={require("../../img/btn_delete.png")} alt="" />
+                            <img src={require("../../../img/btn_delete.png")} alt="" />
                             删除
                         </Button>
                         <Button
@@ -1287,7 +1147,7 @@ export default class BudgetOne extends Component {
                             type="primary"
                             style={{ marginLeft: 10 }}
                         >
-                            <img src={require("../../img/btn_add.png")} alt="" />
+                            <img src={require("../../../img/btn_add.png")} alt="" />
                             导出测算表
                         </Button>
                     </div>
@@ -1325,13 +1185,15 @@ export default class BudgetOne extends Component {
                                                     <td><Checkbox onChange={this.infoKuang("bolen", index).bind(this)} id={String(index + 1)} checked={item.bolen} /></td>
                                                     <td>{index + 1}</td>
                                                     <td style={{ width: 100 }}><Input value={item.name} onChange={this.infoKuang("name", index).bind(this)} /></td>
-                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input
+                                                        onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.tFe === str || item.tFe === 0 ? null : item.tFe}
                                                         onChange={this.infoKuang("tFe", index).bind(this)}
                                                     >
                                                     </Input>
                                                     </td>
-                                                    <td><Input onKeyUp={this.mustNumber.bind(this)} 
+                                                    <td><Input
+                                                        onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.siO2 === str || item.siO2 === 0 ? null : item.siO2}
                                                         onChange={this.infoKuang("siO2", index).bind(this)}
                                                     ></Input></td>
@@ -1384,28 +1246,28 @@ export default class BudgetOne extends Component {
                                                         onChange={this.infoKuang("price", index).bind(this)}
                                                     ></Input></td>
                                                     <td>
-                                                        <Tooltip
+                                                        {/* <Tooltip 
                                                             placement="right"
                                                             title={index <= 9 ? "当前配比" + this.state.dataNumber + ",距配比70差" + (Number(70 - this.state.dataNumber).toFixed(2)) : null}
 
-                                                        >
-                                                            <Input
-                                                                value={item.ratio === 0 || item.ratio === str ? null : item.ratio}
-                                                                onChange={this.infoKuang("ratio", index).bind(this)}
-                                                                onKeyUp={this.mustNumber.bind(this)}
-                                                            ></Input>
-                                                        </Tooltip>
+                                                        > */}
+                                                        <Input onKeyUp={this.mustNumber.bind(this)}
+                                                            value={item.ratio === 0 || item.ratio === str ? null : item.ratio}
+                                                            onChange={this.infoKuang("ratio", index).bind(this)}
+
+                                                        ></Input>
+                                                        {/* </Tooltip> */}
                                                     </td>
 
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.h2o === str || item.h2o === 0 ? null : item.h2o}
                                                         onChange={this.infoKuang("h2o", index).bind(this)}
-                                                    ></Input></td> 
+                                                    ></Input></td>
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.spb === str || item.spb === 0 ? null : item.spb}
                                                         onChange={this.infoKuang("spb", index).bind(this)}
                                                     ></Input></td>
-                                                    <td><Input onKeyUp={this.mustNumber.bind(this)} 
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.sjjg === str || item.sjjg === 0 ? null : item.sjjg}
                                                         onChange={this.infoKuang("sjjg", index).bind(this)}
                                                     ></Input></td>
@@ -1429,17 +1291,17 @@ export default class BudgetOne extends Component {
                                                         >{index + 1}</button>
                                                     </td>
                                                     <td style={{ width: 100 }}><Input value={item.name} onChange={this.infoKuang("name", index).bind(this)} /></td>
-                                                    <td><Input  onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.tFe === str || item.tFe === 0 ? null : item.tFe}
                                                         onChange={this.infoKuang("tFe", index).bind(this)}
                                                     >
                                                     </Input>
                                                     </td>
-                                                    <td><Input  onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.siO2 === str || item.siO2 === 0 ? null : item.siO2}
                                                         onChange={this.infoKuang("siO2", index).bind(this)}
                                                     ></Input></td>
-                                                    <td><Input  onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.caO === str || item.caO === 0 ? null : item.caO}
                                                         onChange={this.infoKuang("caO", index).bind(this)}
                                                     ></Input></td>
@@ -1491,7 +1353,6 @@ export default class BudgetOne extends Component {
                                                         value={item.ratio === 0 || item.ratio === str ? null : item.ratio}
                                                         onChange={this.infoKuang("ratio", index).bind(this)}
                                                     ></Input></td>
-
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.h2o === str || item.h2o === 0 ? null : item.h2o}
                                                         onChange={this.infoKuang("h2o", index).bind(this)}
@@ -1567,7 +1428,7 @@ export default class BudgetOne extends Component {
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.k2O === strFour || item.k2O === 0 ? null : item.k2O}
                                                         onChange={this.infoKuang("k2O", index).bind(this)}
-                                                    ></Input></td> 
+                                                    ></Input></td>
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.na2O === strFour || item.na2O === 0 ? null : item.na2O}
                                                         onChange={this.infoKuang("na2O", index).bind(this)}
@@ -1596,7 +1457,6 @@ export default class BudgetOne extends Component {
                                                         value={item.ratio === 0 || item.ratio === str ? null : item.ratio}
                                                         onChange={this.infoKuang("ratio", index).bind(this)}
                                                     ></Input></td>
-
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.h2o === str || item.h2o === 0 ? null : item.h2o}
                                                         onChange={this.infoKuang("h2o", index).bind(this)}
@@ -1690,7 +1550,7 @@ export default class BudgetOne extends Component {
 
                             />
                             <Button type="primary" onClick={this.keBian.bind(this)} className="change">
-                                <img src={require("../../img/set.png")} alt="" /></Button><br></br>
+                                <img src={require("../../../img/set.png")} alt="" /></Button><br></br>
                             <label>烧结固定加工费 万元/月</label>
                             <Input
                                 type="text"
@@ -1700,7 +1560,7 @@ export default class BudgetOne extends Component {
 
                             />
                             <Button type="primary" onClick={this.guDing.bind(this)} className="change">
-                                <img src={require("../../img/set.png")} alt="" /></Button>
+                                <img src={require("../../../img/set.png")} alt="" /></Button>
                         </div>
                         <div style={{ float: "left" }}>
                             <div className="tabletwo_one">

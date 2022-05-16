@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import {  Input, DatePicker, Form, Select } from "antd";
+import { Input, DatePicker, Form, Select } from "antd";
 import zhCN from 'antd/es/locale/zh_CN';
 const { MonthPicker } = DatePicker;
 const { Option } = Select;
@@ -56,12 +56,12 @@ class AddComponentFrom extends Component {
                 <Input type="text" style={{ width: 90 }} />
               )}
             </Form.Item>
-            
+
             <Form.Item label="日期">
               {getFieldDecorator('incomingDate', {
                 rules: [{ required: true, message: '!' }],
               })(
-                <MonthPicker placeholder="请选择月份"  style={{width:90}} value={zhCN}/>
+                <MonthPicker placeholder="请选择月份" style={{ width: 90 }} value={zhCN} />
               )}
             </Form.Item>
             <Form.Item label="航线">
@@ -211,7 +211,7 @@ class AddComponentFrom extends Component {
                 <Input type="text" style={{ width: 90 }} />
               )}
             </Form.Item>
-            <Form.Item label="k2O">
+            <Form.Item label="K2O">
               {getFieldDecorator('source.k2O')(
                 <Input type="text" style={{ width: 90 }} />
               )}
@@ -236,7 +236,7 @@ class AddComponentFrom extends Component {
                 <Input type="text" style={{ width: 90 }} />,
               )}
             </Form.Item>
-            <Form.Item label="pbO">
+            <Form.Item label="PbO">
               {getFieldDecorator('source.pbO')(
                 <Input type="text" style={{ width: 90 }} />,
               )}
@@ -246,7 +246,12 @@ class AddComponentFrom extends Component {
                 <Input type="text" style={{ width: 90 }} />
               )}
             </Form.Item>
-          </div>         
+            <Form.Item label="H2O">
+              {getFieldDecorator('source.h2O')(
+                <Input type="text" style={{ width: 90 }} />
+              )}
+            </Form.Item>
+          </div>
         </Form>
       </Fragment>
     )

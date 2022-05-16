@@ -188,6 +188,12 @@ export default function dataList(
               key: "source.cuO",
               width:"100px"
           
+            },  {
+              title: 'H2O',
+              dataIndex: 'source.h2O',
+              key: "source.h2O",
+              width:"100px"
+          
             }, 
             // {
             //   title: '水分',

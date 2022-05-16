@@ -226,7 +226,7 @@ class EditerComponent extends Component {
                         <Input type="text" style={{ width: 90 }} />
                       )}
                     </Form.Item>
-                    <Form.Item label="k2O">
+                    <Form.Item label="K2O">
                       {getFieldDecorator('source.k2O', {
                         initialValue: item.source.k2O,
                       })(
@@ -261,7 +261,7 @@ class EditerComponent extends Component {
                         <Input type="text" style={{ width: 90 }} />,
                       )}
                     </Form.Item>
-                    <Form.Item label="pbO">
+                    <Form.Item label="PbO">
                       {getFieldDecorator('source.pbO', {
                         initialValue: item.source.pbO,
                       })(
@@ -275,6 +275,13 @@ class EditerComponent extends Component {
                         <Input type="text" style={{ width: 90 }} />
                       )}
                     </Form.Item>
+                    <Form.Item label="H2O">
+                    {getFieldDecorator('source.h2O', {
+                        initialValue: item.source.h2O,
+                      })(
+                      <Input type="text" style={{ width: 90 }} />
+                    )}
+                  </Form.Item>
                   </div>
                 </Form>
               )

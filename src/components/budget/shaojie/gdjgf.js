@@ -79,7 +79,8 @@ class BudgetBuGuDing extends Component {
 
     }
     componentWillMount() {
-        axios.get(`/api/estimate-para-fix-cost/recent/?purpose=${this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1}`, {
+        const url = window.location.search ? 201 :this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1
+        axios.get(`/api/estimate-para-fix-cost/recent/?purpose=${url}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -104,8 +105,9 @@ class BudgetBuGuDing extends Component {
         this.setState({
             boolen: true,
         })
+        const url = window.location.search ? 201 :this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1
         axios.post("/api/estimate-fix/", {
-            purpose: this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1,
+            purpose: url,
             fy:
                 this.state.number.map((item, index) => {
                     if (item.monthCost === "") {
@@ -115,7 +117,7 @@ class BudgetBuGuDing extends Component {
                         {
                             line: item.line,
                             item: item.item,
-                            purpose: this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1,
+                            purpose: url,
                             monthCost: item.monthCost
                         }
                     )

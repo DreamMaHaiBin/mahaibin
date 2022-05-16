@@ -149,7 +149,8 @@ class BudgetJiaGongFei extends Component {
 
     }
     componentWillMount() {
-        axios.get(`/api/estimate-para-unfix-cost/recent/?purpose=${this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1}`, {
+        const url = window.location.search ? 201 :this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1
+        axios.get(`/api/estimate-para-unfix-cost/recent/?purpose=${url}`, {
             headers: {
                 Authorization: sessionStorage.getItem("token")
             }
@@ -217,8 +218,9 @@ class BudgetJiaGongFei extends Component {
         this.setState({
             boolen: true
         })
+        const url = window.location.search ? 201 :this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1
         axios.post("/api/estimate-unfix/", {
-            purpose: this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1,
+            purpose: url,
             fc:
                 this.state.number.map((item, index) => {
                     if (item.item === "") {
@@ -241,7 +243,7 @@ class BudgetJiaGongFei extends Component {
                             signalPrice: item.signalPrice,
                             signalUnit: item.signalUnit,
                             signalPUnit:Number(this.state.subarr[index]).toFixed(2)==="NaN" ?item.signalPUnit:Number(this.state.subarr[index]).toFixed(2),
-                            purpose: this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1,
+                            purpose: url,
                         }
                     )
                 }),
@@ -267,7 +269,7 @@ class BudgetJiaGongFei extends Component {
                             signalPrice: items.signalPrice,
                             signalUnit: items.signalUnit,
                             signalPUnit:Number(this.state.RlComputed[index]).toFixed(2)==="NaN" ?items.signalPUnit:Number(this.state.RlComputed[index]).toFixed(2),
-                            purpose: this.props.tabKeys==="2" ? 102 : this.props.tabKeys==="3" ? 103 : 1,
+                            purpose: url,
                         }
                     )
                 })
