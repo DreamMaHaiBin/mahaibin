@@ -385,6 +385,7 @@ export default class BudgetOne extends Component {
             res.data.fCMB = Number(res.data.fCMB).toFixed(2);
             res.data.dustS = Number(res.data.dustS).toFixed(2);
             res.data.dustSFe = Number(res.data.dustSFe).toFixed(2);
+            res.data.m = Number(res.data.m).toFixed(2);
             //////console.log(res)
             this.setState({
                 setNewList: res.data
