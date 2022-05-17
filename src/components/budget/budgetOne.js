@@ -612,7 +612,7 @@ export default class BudgetOne extends Component {
                 fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                 dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                 dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
-                m: this.state.setNewList.m === "" ? "0.00" : this.state.setNewList.m,
+                m: this.state.setNewList.m === "" ? "1" : this.state.setNewList.m,
             },
             ore:
                 this.state.ListData.map((item, index) => {
@@ -918,7 +918,7 @@ export default class BudgetOne extends Component {
                         fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                         dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                         dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
-                        m: this.state.setNewList.m === "" ? "0.00" : this.state.setNewList.m,
+                        m: this.state.setNewList.m === "" ? "1" : this.state.setNewList.m,
                     },
                     ore:
                         this.state.ListData.map((item, index) => {

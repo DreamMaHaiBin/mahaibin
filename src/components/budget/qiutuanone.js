@@ -1318,7 +1318,7 @@ export default class PelletizingOne extends Component {
                                 type="text"
                                 disabled
                                 onChange={this.handleGetInputValue("m").bind(this)}
-                                value={this.state.setNewList.m}
+                                value={1}
                             /><br></br>
                             <label>球团可变加工费 元/吨</label>
                             <Input
