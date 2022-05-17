@@ -4,7 +4,7 @@
 }
 .outersphere{
     width: 66.875rem;
-    height: 58.25rem;
+    height: 59.25rem;
     border: 1px solid #7596c1;
     float: left;
     position: relative;
@@ -44,7 +44,7 @@
 .setcanshu{
     float: left;
     width: 339px;
-    height: 264px;
+    height: 284px;
     font-size:12px;  
     border: 1px solid #999;
     position: relative;

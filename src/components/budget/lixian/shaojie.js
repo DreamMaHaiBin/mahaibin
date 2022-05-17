@@ -72,6 +72,7 @@ export default class ShaoJie extends Component {
                 dustS: 0,
                 dustSFe: 0,
                 esti: 1,
+                m:0
             },
             GufeiListJieShou: '',
             GuChengBen: 0,//计算结果总成本
@@ -597,6 +598,7 @@ export default class ShaoJie extends Component {
                 fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                 dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                 dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
+                m: this.state.setNewList.m === "" ? "0.00" : this.state.setNewList.m,
             },
             ore:
                 this.state.ListData.map((item, index) => {
@@ -768,6 +770,7 @@ export default class ShaoJie extends Component {
                         fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                         dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                         dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
+                        m: this.state.setNewList.m === "" ? "0.00" : this.state.setNewList.m,
                     },
                     ore:
                         this.state.ListData.map((item, index) => {
@@ -920,9 +923,9 @@ export default class ShaoJie extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
-                    '水分': Number(data3[i].tiO2).toFixed(4),
-                    '配比': Number(data3[i].price).toFixed(2),
-                    '湿基价格': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].h2o).toFixed(4),
+                    '湿配比': Number(data3[i].spb).toFixed(2),
+                    '湿基价格': Number(data3[i].sjjg).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -962,9 +965,9 @@ export default class ShaoJie extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
-                    '水分': Number(data3[i].tiO2).toFixed(4),
-                    '配比': Number(data3[i].price).toFixed(2),
-                    '湿基价格': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].h2o).toFixed(4),
+                    '湿配比': Number(data3[i].spb).toFixed(2),
+                    '湿基价格': Number(data3[i].sjjg).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1004,9 +1007,9 @@ export default class ShaoJie extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
-                    '水分': Number(data3[i].tiO2).toFixed(4),
-                    '配比': Number(data3[i].price).toFixed(2),
-                    '湿基价格': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].h2o).toFixed(4),
+                    '湿配比': Number(data3[i].spb).toFixed(2),
+                    '湿基价格': Number(data3[i].sjjg).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1058,8 +1061,8 @@ export default class ShaoJie extends Component {
             {
                 sheetData: dataTable,
                 sheetName: '烧结一成本明细',
-                sheetFilter: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '配比', '湿基价格'],
-                sheetHeader: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '配比', '湿基价格'],
+                sheetFilter: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '湿配比', '湿基价格'],
+                sheetHeader: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '湿配比', '湿基价格'],
             }
         ]
         var toExcel = new ExportJsonExcel(option);
@@ -1541,13 +1544,16 @@ export default class ShaoJie extends Component {
                                 onChange={this.handleGetInputValue("dustSFe").bind(this)}
                                 value={this.state.setNewList.dustSFe}
                             />
+                            <label>金属回收率%</label>
+                            <Input
+                                type="text"
+                                onChange={this.handleGetInputValue("m").bind(this)}
+                                value={this.state.setNewList.m}
+                            />
                             <label>烧结可变加工费 元/吨</label>
                             <Input
                                 value={this.state.setNewList.cMS}
                                 onChange={this.handleGetInputValue("cMS").bind(this)}
-
-
-
                             />
                             <Button type="primary" onClick={this.keBian.bind(this)} className="change">
                                 <img src={require("../../../img/set.png")} alt="" /></Button><br></br>

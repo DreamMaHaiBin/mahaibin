@@ -63,6 +63,7 @@ export default class QiuTuan extends Component {
                 dustS: 0,
                 dustSFe: 0,
                 esti: 1,
+                m:1
             },
 
             GufeiListJieShou: '',
@@ -398,6 +399,7 @@ export default class QiuTuan extends Component {
                 fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                 dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                 dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
+                m: "1",
 
             },
             ore:
@@ -571,7 +573,7 @@ export default class QiuTuan extends Component {
                         fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                         dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                         dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
-
+                        m: "1",
                     },
                     ore:
                         this.state.ListData.map((item, index) => {
@@ -1157,13 +1159,18 @@ export default class QiuTuan extends Component {
                                 onChange={this.handleGetInputValue("feOS").bind(this)}
                                 value={this.state.setNewList.feOS}
                                 style={{ marginBottom: 30 }}
+                            /><br></br>
+                            <label>金属回收率  %</label>
+                            <Input
+                                type="text"
+                                disabled
+                                onChange={this.handleGetInputValue("m").bind(this)}
+                                value={this.state.setNewList.m}
                             />
                             <label>球团可变加工费 元/吨</label>
                             <Input
-
                                 onChange={this.handleGetInputValue("cMS").bind(this)}
                                 value={this.state.setNewList.cMS}
-
                             />
                             <Button type="primary" onClick={this.keBian.bind(this)}>
                                 <img src={require("../../../img/set.png")} alt="" /></Button><br></br>

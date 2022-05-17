@@ -63,6 +63,7 @@ export default class PelletizingOne extends Component {
                 dustS: 0,
                 dustSFe: 0,
                 esti: 1,
+                m: 1,
             },
 
             GufeiListJieShou: '',
@@ -420,6 +421,7 @@ export default class PelletizingOne extends Component {
                 fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                 dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                 dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
+                m: "1",
 
             },
             ore:
@@ -722,6 +724,7 @@ export default class PelletizingOne extends Component {
                         fCMB: this.state.setNewList.fCMB === "" ? "0.00" : this.state.setNewList.fCMB,
                         dustS: this.state.setNewList.dustS === "" ? "0.00" : this.state.setNewList.dustS,
                         dustSFe: this.state.setNewList.dustSFe === "" ? "0.00" : this.state.setNewList.dustSFe,
+                        m: "1",
 
                     },
                     ore:
@@ -1305,10 +1308,18 @@ export default class PelletizingOne extends Component {
                             <label>球团矿FeO含量 %</label>
                             <Input
                                 type="text"
+                                
                                 onChange={this.handleGetInputValue("feOS").bind(this)}
                                 value={this.state.setNewList.feOS}
                                 style={{ marginBottom: 30 }}
-                            />
+                            /><br></br>
+                            <label>金属回收率  %</label>
+                            <Input
+                                type="text"
+                                disabled
+                                onChange={this.handleGetInputValue("m").bind(this)}
+                                value={this.state.setNewList.m}
+                            /><br></br>
                             <label>球团可变加工费 元/吨</label>
                             <Input
 
