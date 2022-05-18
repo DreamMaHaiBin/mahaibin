@@ -382,14 +382,16 @@ class Administrators extends Component {
             listData: [],
             selectedRows: [],
             ids: null,
+            TotleCount:null
         }
 
     }
     componentWillMount() {
-        axios.get("/api/account/info/").then((res) => {
-          //console.log(res)
+        axios.get("/api/account/info/?page=1").then((res) => {
+          console.log(res)
             this.setState({
-                listData: res.data
+                listData: res.data.results,
+                TotleCount: res.data.count
             })
         })
     }
@@ -663,25 +665,21 @@ class Administrators extends Component {
                                         columns={columns}
                                         dataSource={this.state.listData}
                                         rowKey="id"
-                                    // pagination={
-                                    //     {
-                                    //         total: 20,//数据的总条数
-                                    //         defaultCurrent: 1,//默认当前的页数
-                                    //         defaultPageSize: 10,//默认每页的条数
-                                    //           onChange: (page, pageSize) => {
-                                    //             axios.get(`/api/ore/?incomingDate=&ordering=-createTime&page=${page}&purpose=1`,{
-                                    //               headers:{
-                                    //                 Authorization:sessionStorage.getItem("token")
-                                    //               }
-                                    //             }).then((res) => {
-                                    //               this.setState({
-                                    //                 data: res.data.results
-                                    //               })
-                                    //             })
-                                    //            //////console.log(page, pageSize)
-                                    //           }
-                                    //     }
-                                    // }
+                                        pagination={
+                                            {
+                                                total: this.state.TotleCount,//数据的总条数
+                                                defaultCurrent: 1,//默认当前的页数
+                                                defaultPageSize: 25,//默认每页的条数
+                                                onChange: (page, pageSize) => {
+                                                    axios.get(`/api/account/info/?page=${page}`).then((res) => {
+                                                        console.log(res)
+                                                          this.setState({
+                                                              listData: res.data.results
+                                                          })
+                                                      })
+                                                }
+                                            }
+                                        }
 
                                     >
                                     </Table>

@@ -524,7 +524,7 @@ export default class BudgetOne extends Component {
             const newData = this.state.ListData;
             newData[index][name] = value;
             this.setState({ ListData: newData })
-         
+
             const sub = {
                 dataNumber: 0
             }
@@ -532,22 +532,22 @@ export default class BudgetOne extends Component {
                 if (this.state.ListData[index][name] !== '' && Number(this.state.ListData[index][name]) !== 0 && String(Number(this.state.ListData[index][name])) !== 'NaN') {
                     this.state.ListData[index]['ratio'] = (this.state.ListData[index]['spb'] * (100 - this.state.ListData[index]['h2o']) / 100).toFixed(2)
                 }
-                if(this.state.ListData[index]['ratio']==='NaN'){
+                if (this.state.ListData[index]['ratio'] === 'NaN') {
                     this.state.ListData[index]['ratio'] = newData[index][name]
                 }
             }
-            if (name == 'sjjg') {
+            if (name === 'sjjg') {
                 if (this.state.ListData[index][name] !== "" && Number(this.state.ListData[index][name]) !== 0 && String(Number(this.state.ListData[index][name])) !== 'NaN') {
                     this.state.ListData[index]['price'] = (this.state.ListData[index][name] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2)
                 }
-                if(this.state.ListData[index]['price']==='NaN'){
+                if (this.state.ListData[index]['price'] === 'NaN') {
                     this.state.ListData[index]['price'] = newData[index][name]
                 }
-            } 
+            }
             if (name === 'h2o') {
-                if(Number(this.state.ListData[index]['h2o']) > 80){
+                if (Number(this.state.ListData[index]['h2o']) > 80) {
                     message.warning('水分不要超过80，否则容易导致计算失误')
-                    this.state.ListData[index]['h2o']= ''
+                    this.state.ListData[index]['h2o'] = ''
                 }
                 if (this.state.ListData[index]['spb'] !== '' && Number(this.state.ListData[index]['spb']) !== 0) {
                     this.state.ListData[index]['ratio'] = (this.state.ListData[index]['spb'] * (100 - this.state.ListData[index]['h2o']) / 100).toFixed(2)
@@ -555,14 +555,14 @@ export default class BudgetOne extends Component {
                 if (this.state.ListData[index]['sjjg'] !== "" && Number(this.state.ListData[index]['sjjg']) !== 0) {
                     this.state.ListData[index]['price'] = (this.state.ListData[index]['sjjg'] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2)
                 }
-                if(this.state.ListData[index]['ratio']==='NaN'){
+                if (this.state.ListData[index]['ratio'] === 'NaN') {
                     this.state.ListData[index]['ratio'] = ''
                 }
-                if(this.state.ListData[index]['price']==='NaN'){
+                if (this.state.ListData[index]['price'] === 'NaN') {
                     this.state.ListData[index]['price'] = ''
                 }
             }
-            console.log( (this.state.ListData[index]['sjjg'] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2))
+            console.log((this.state.ListData[index]['sjjg'] / (100 - this.state.ListData[index]['h2o']) * 100).toFixed(2))
             this.state.ListData.map((item, idx) => {
                 if (idx <= 9) {
                     sub.dataNumber += Number(item.ratio)
@@ -1072,6 +1072,9 @@ export default class BudgetOne extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].h2o).toFixed(4),
+                    '湿配比': Number(data3[i].spb).toFixed(2),
+                    '湿基价格': Number(data3[i].sjjg).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1111,6 +1114,9 @@ export default class BudgetOne extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].h2o).toFixed(4),
+                    '湿配比': Number(data3[i].spb).toFixed(2),
+                    '湿基价格': Number(data3[i].sjjg).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1150,6 +1156,9 @@ export default class BudgetOne extends Component {
                     'TiO2': Number(data3[i].tiO2).toFixed(4),
                     '价格': Number(data3[i].price).toFixed(2),
                     '配比': Number(data3[i].ratio).toFixed(2),
+                    '水分': Number(data3[i].h2o).toFixed(4),
+                    '湿配比': Number(data3[i].spb).toFixed(2),
+                    '湿基价格': Number(data3[i].sjjg).toFixed(2),
                 }
                 dataTable.push(obj);
             }
@@ -1196,13 +1205,13 @@ export default class BudgetOne extends Component {
         var M = oDate.getMinutes()
         var S = oDate.getSeconds()
         var dateFormat = years + "年" + month + "月" + days + '日' + H + "时" + M + "分" + S + "秒";
-        option.fileName = '烧结一成本明细--' + dateFormat  //导出的Excel文件名
+        option.fileName = `烧结成本明细${this.state.tabKeys === "1" ? "一" : this.state.tabKeys === "2" ? "二" : "三"}` + dateFormat  //导出的Excel文件名
         option.datas = [
             {
                 sheetData: dataTable,
-                sheetName: '烧结一成本明细',
-                sheetFilter: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比"],
-                sheetHeader: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比"],
+                sheetName: `烧结${this.state.tabKeys === "1" ? "一" : this.state.tabKeys === "2" ? "二" : "三"}成本明细`,
+                sheetFilter: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '湿配比', '湿基价格'],
+                sheetHeader: ['名称', "单价", "单耗", '百分比1', "单成", "百分比2", "TFe", "SiO2", "CaO", "MgO", "Al2O3", "烧损", "FeO", "K2O", "Na2O", "ZnO", "S", "P", "TiO2", "价格", "配比", '水分', '湿配比', '湿基价格'],
             }
         ]
         var toExcel = new ExportJsonExcel(option);
@@ -1230,6 +1239,9 @@ export default class BudgetOne extends Component {
                 item.price = null
                 item.ratio = null
                 item.feO = null
+                item.h2o = null
+                item.spb = null
+                item.sjjg = null
                 this.setState({
                     ListData: this.state.ListData
                 })
@@ -1264,10 +1276,10 @@ export default class BudgetOne extends Component {
         })
     }
     mustNumber(e) {
-        if(!e.target.value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
+        if (!e.target.value.replace(/[^\d^\.]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
             e.target.value = ''
         }
-   
+
     }
     render() {
         let tscb = ((this.state.hjOne * this.state.outSone) + (this.state.hjTwo * this.state.outStwo) + (this.state.hjThree * this.state.outSthree)) / (Number(this.state.outSone) + Number(this.state.outStwo) + Number(this.state.outSthree))
@@ -1335,7 +1347,7 @@ export default class BudgetOne extends Component {
                                                     >
                                                     </Input>
                                                     </td>
-                                                    <td><Input onKeyUp={this.mustNumber.bind(this)} 
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.siO2 === str || item.siO2 === 0 ? null : item.siO2}
                                                         onChange={this.infoKuang("siO2", index).bind(this)}
                                                     ></Input></td>
@@ -1404,12 +1416,12 @@ export default class BudgetOne extends Component {
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.h2o === str || item.h2o === 0 ? null : item.h2o}
                                                         onChange={this.infoKuang("h2o", index).bind(this)}
-                                                    ></Input></td> 
+                                                    ></Input></td>
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.spb === str || item.spb === 0 ? null : item.spb}
                                                         onChange={this.infoKuang("spb", index).bind(this)}
                                                     ></Input></td>
-                                                    <td><Input onKeyUp={this.mustNumber.bind(this)} 
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.sjjg === str || item.sjjg === 0 ? null : item.sjjg}
                                                         onChange={this.infoKuang("sjjg", index).bind(this)}
                                                     ></Input></td>
@@ -1433,17 +1445,17 @@ export default class BudgetOne extends Component {
                                                         >{index + 1}</button>
                                                     </td>
                                                     <td style={{ width: 100 }}><Input value={item.name} onChange={this.infoKuang("name", index).bind(this)} /></td>
-                                                    <td><Input  onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.tFe === str || item.tFe === 0 ? null : item.tFe}
                                                         onChange={this.infoKuang("tFe", index).bind(this)}
                                                     >
                                                     </Input>
                                                     </td>
-                                                    <td><Input  onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.siO2 === str || item.siO2 === 0 ? null : item.siO2}
                                                         onChange={this.infoKuang("siO2", index).bind(this)}
                                                     ></Input></td>
-                                                    <td><Input  onKeyUp={this.mustNumber.bind(this)}
+                                                    <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.caO === str || item.caO === 0 ? null : item.caO}
                                                         onChange={this.infoKuang("caO", index).bind(this)}
                                                     ></Input></td>
@@ -1571,7 +1583,7 @@ export default class BudgetOne extends Component {
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.k2O === strFour || item.k2O === 0 ? null : item.k2O}
                                                         onChange={this.infoKuang("k2O", index).bind(this)}
-                                                    ></Input></td> 
+                                                    ></Input></td>
                                                     <td><Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.na2O === strFour || item.na2O === 0 ? null : item.na2O}
                                                         onChange={this.infoKuang("na2O", index).bind(this)}
