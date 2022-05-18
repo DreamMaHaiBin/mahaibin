@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Checkbox, message } from 'antd';
+import { Checkbox, message,Pagination } from 'antd';
 import axios from "axios";
 import { Button } from 'antd/lib/radio';
 
@@ -11,7 +11,21 @@ class Jurisdiction extends Component {
       selectedRows: [],
       ids: null,
       index: 15,
+      listData:[],
+      TotleCount:0,
     }
+  }
+  componentWillMount(){
+    this.getData()
+  }
+  getData(){
+    axios.get(`/api/account/info/?page=1`).then((res) => {
+      console.log(res)
+        this.setState({
+          listData: res.data.results,
+          TotleCount: res.data.count
+        })
+    })
   }
   onChange(permission1, index) {
     return (e) => {
@@ -39,7 +53,7 @@ class Jurisdiction extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{paddingBottom:"100px"}}>
         <Button onClick={this.send.bind(this)} className="btn">确认更新权限</Button>
         <table className="quanxian_table">
           <tbody>
@@ -49,7 +63,7 @@ class Jurisdiction extends Component {
             </tr>
 
             {
-              this.props.listData.map((item, index) => {
+              this.state.listData.map((item, index) => {
                 return (
                   <tr key={index} className="quanxian_user">
                     <td>{item.username}</td>
@@ -71,8 +85,24 @@ class Jurisdiction extends Component {
 
           </tbody>
         </table>
+        <Pagination 
+           defaultCurrent={1}
+           total={this.state.TotleCount} 
+           defaultPageSize={25}
+           onChange={this.onChangePagination.bind(this)} 
+           style={{position:"absolute",bottom:"-115px",right:"12%"}}
+        />
       </div>
     )
   }
+    onChangePagination(page, pageSize){
+        axios.get(`/api/account/info/?page=${page}`).then((res) => {
+            // console.log(res)
+              this.setState({
+                listData: res.data.results,
+                TotleCount: res.data.count
+              })
+          })
+    }
 }
 export default Jurisdiction

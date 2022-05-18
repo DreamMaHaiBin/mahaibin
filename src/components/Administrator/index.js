@@ -674,7 +674,8 @@ class Administrators extends Component {
                                                     axios.get(`/api/account/info/?page=${page}`).then((res) => {
                                                         console.log(res)
                                                           this.setState({
-                                                              listData: res.data.results
+                                                            listData: res.data.results,
+                                                            TotleCount: res.data.count
                                                           })
                                                       })
                                                 }
