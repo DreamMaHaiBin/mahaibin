@@ -83,6 +83,7 @@
 .quanxian_table{
     width: 1020px;
     margin-top: 30px;
+    position: relative;
 }
 .quanxian{
     background: #eee;

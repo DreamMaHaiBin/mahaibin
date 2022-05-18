@@ -53,7 +53,7 @@ class Jurisdiction extends Component {
   }
   render() {
     return (
-      <div style={{paddingBottom:"100px"}}>
+      <div style={{height:"730px"}}>
         <Button onClick={this.send.bind(this)} className="btn">确认更新权限</Button>
         <table className="quanxian_table">
           <tbody>
@@ -84,14 +84,14 @@ class Jurisdiction extends Component {
             }
 
           </tbody>
-        </table>
-        <Pagination 
+			   <Pagination 
            defaultCurrent={1}
            total={this.state.TotleCount} 
            defaultPageSize={25}
            onChange={this.onChangePagination.bind(this)} 
-           style={{position:"absolute",bottom:"-115px",right:"12%"}}
+           style={{position:"absolute",bottom:"-40px",right:"11%"}}
         />
+        </table>
       </div>
     )
   }
