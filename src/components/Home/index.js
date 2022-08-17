@@ -94,7 +94,6 @@ class Home extends Component {
                         </div>
                         <button className="accordion" >离线成本测算</button>
                         <div className="panel">
-              
                             <NavLink to="/index/sinteringoffline/?state=offLine" className="a">烧结离线测算</NavLink><br></br>
                             <NavLink to="/index/pelletoffline/?state=offLine" className="a">球团离线测算</NavLink><br />
                             <NavLink to="/index/furnaceoffline/?state=offLine" className="a">高炉离线测算</NavLink>
@@ -105,6 +104,18 @@ class Home extends Component {
                             <NavLink to="/index/Pelletsoptimization" className="a">球团成本优化</NavLink><br />
                             <NavLink to="/index/GaoLublastfurnace" className="a">高炉成本优化</NavLink><br />
                             <NavLink to="/index/coalblending" className="a">配煤成本优化</NavLink>
+                        </div>
+                        <button className="accordion">日清日结</button>
+                        <div className="panel">
+                            <NavLink to="/index/sinterDateClear" className="a">烧结成本分析</NavLink><br></br>
+                            <NavLink to="/index/pelletoffline/?state=offLine" className="a">球团成本分析</NavLink><br />
+                            <NavLink to="/index/furnaceoffline/?state=offLine" className="a">高炉成本分析</NavLink>
+                        </div>
+                        <button className="accordion">成本分析</button>
+                        <div className="panel">
+                            <NavLink to="/index/sinterCostAnalysis" className="a">烧结成本分析</NavLink><br></br>
+                            <NavLink to="/index/pelletoffline/?state=offLine" className="a">球团成本分析</NavLink><br />
+                            <NavLink to="/index/furnaceoffline/?state=offLine" className="a">高炉成本分析</NavLink>
                         </div>
                     </div>
                     <div style={{ width: 1216,  marginTop: 10, }}>

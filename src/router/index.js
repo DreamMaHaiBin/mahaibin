@@ -24,6 +24,8 @@ import Coke from "../components/xingjiaobi/coke";//性价比焦炭
 import ShaojieLiXian from '../components/budget/shaojielixian'
 import QiuTuanLiXian from '../components/budget/qiutuanlixian'
 import GaoLuLiXian from '../components/budget/gaolulixian'
+import DateClearDateSettlement from '../components/dateClearDateSettlement/index' // 日清日结
+import CostAnalysis from '../components/costAnalysis/index' // 成本分析
 import AuthRoute from "../components/AuthRoute/"//限制登录
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Router, Route, Switch } from 'react-router-dom';
@@ -92,7 +94,16 @@ class Index extends Component {
                         <Route path="/index/sinteringoffline" component={ShaojieLiXian} />
                         <Route path="/index/pelletoffline" component={QiuTuanLiXian} />
                         <Route path="/index/furnaceoffline" component={GaoLuLiXian} />
+                        {/* 日清日结 */}
+                        <Route path="/index/sinterDateClear" component={DateClearDateSettlement} />
+                        <Route path="/index/costAnalysis" component={QiuTuanLiXian} />
+                        <Route path="/index/furnaceoffline" component={GaoLuLiXian} />
+                        {/* 成本分析 */}
+                        <Route path="/index/sinterCostAnalysis" component={CostAnalysis} />
+                        <Route path="/index/CostAnalysis" component={QiuTuanLiXian} />
+                        <Route path="/index/furnaceoffline" component={GaoLuLiXian} />
                     </Switch>
+
                 </ConfigProvider>
             </div>
         )
