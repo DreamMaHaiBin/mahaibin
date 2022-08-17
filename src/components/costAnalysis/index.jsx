@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import OneTable from './children/oneTable'
+import ChangLiang from './children/chanliang1'
 class CostAnalysis extends Component {
     constructor(props) {
         super(props)
@@ -11,6 +12,7 @@ class CostAnalysis extends Component {
         return (
             <div>
                 <OneTable/>
+                <ChangLiang/>
             </div>
         )
     }

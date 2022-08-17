@@ -1,0 +1,17 @@
+.one-sinter-table {
+    width: 250px;
+    height: 100px;
+    border: 1px solid #333;
+    .one-sinter-tr-one{
+        background: #e5e5e5;
+    }
+    td {
+        width: 33.3%;
+        border: 1px solid #cbcbcb;
+        text-align: center;
+    }
+}
+.children-two-echarts{
+    width: 400px;
+    height: 200px;
+}

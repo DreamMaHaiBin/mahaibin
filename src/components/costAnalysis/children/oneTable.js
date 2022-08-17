@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './tables.css'
+import './tables.scss'
 const data = [
     {
         'yesterday': '昨日指标',
