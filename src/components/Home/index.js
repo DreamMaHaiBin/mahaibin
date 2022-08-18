@@ -68,7 +68,7 @@ class Home extends Component {
                         <button className="accordion">原燃料<br></br>基础数据库</button>
                         <div className="panel">
                             <NavLink to="/index/one" className="a">烧结粉基础数据库</NavLink><br />
-                            {/* <Redirect from="/" to="/index" exact></Redirect> */}
+
                             <NavLink to="/index/two" className="a">球团粉基础数据库</NavLink><br />
                             <NavLink to="/index/three" className="a">入炉料基础数据库</NavLink><br />
                             <NavLink to="/index/four" className="a">护炉料基础数据库</NavLink><br />
