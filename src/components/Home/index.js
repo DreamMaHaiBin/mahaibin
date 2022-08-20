@@ -1,74 +1,130 @@
 import React, { Component } from "react";
-import "./index.css"
+import "./index.scss"
 import { NavLink } from "react-router-dom";
 import Index from "../../router/index"
 import Header from "./header";
 import Footer from "./footer"
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import { Menu, Icon, Button } from 'antd';
+import { databaseList } from '../util/databaseList'
+
+const { SubMenu } = Menu;
 //控制路由跳转的页面
 class Home extends Component {
+    rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
     constructor(props) {
         super(props);
         this.state = {
             info: "",
+            collapsed: false,
         }
     }
-    componentDidMount() {
-        this.changeKuan();
-        this.kuang();
-    }
-    changeKuan() {
-        var acc = document.getElementsByClassName("accordion");
-        for (var i = 0, len = acc.length; i < len; i++) {
-            acc[i].onclick = function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = '';
-                } else {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                }
-            }
-        }
-    }
-    kuang() {
-        let self = this
-        this.props.dispatch(dispatch => {
-            let buttonArr = document.getElementsByClassName("a");
-            buttonArr[0].style.color = "#0056b3";
-            for (let i = 0; i < buttonArr.length; i++) {
-                buttonArr[i].onclick = function () {
-                    // alert(this.innerHTML)
-                    //for循环遍历button数组长度
-                    self.setState({
-                        info: buttonArr[i].innerHTML
-                    })
-                    dispatch({
-                        type: "cogntionSuccess",
-                        name: buttonArr[i].innerHTML
-                    })
-                    for (let j = 0; j < buttonArr.length; j++) {
-                        //重置所有的button样式
-                        buttonArr[j].style.color = "#666 ";
-                        //给当前的(点击的那个)那个button添加样式
-                        this.style.color = "#0056b3 ";
-                    }
-                }
-            }
-        })
-    }
+    toggleCollapsed = () => {
+        this.setState({
+            collapsed: !this.state.collapsed,
+        });
+    };
+    // componentDidMount() {
+    //     this.changeKuan();
+    //     this.kuang();
+    // }
+    // changeKuan() {
+    //     var acc = document.getElementsByClassName("accordion");
+    //     for (var i = 0, len = acc.length; i < len; i++) {
+    //         acc[i].onclick = function () {
+    //             this.classList.toggle("active");
+    //             var panel = this.nextElementSibling;
+    //             if (panel.style.maxHeight) {
+    //                 panel.style.maxHeight = '';
+    //             } else {
+    //                 panel.style.maxHeight = panel.scrollHeight + "px";
+    //             }
+    //         }
+    //     }
+    // }
+    // kuang() {
+    //     let self = this
+    //     this.props.dispatch(dispatch => {
+    //         let buttonArr = document.getElementsByClassName("a");
+    //         buttonArr[0].style.color = "#0056b3";
+    //         for (let i = 0; i < buttonArr.length; i++) {
+    //             buttonArr[i].onclick = function () {
+    //                 // alert(this.innerHTML)
+    //                 //for循环遍历button数组长度
+    //                 self.setState({
+    //                     info: buttonArr[i].innerHTML
+    //                 })
+    //                 dispatch({
+    //                     type: "cogntionSuccess",
+    //                     name: buttonArr[i].innerHTML
+    //                 })
+    //                 for (let j = 0; j < buttonArr.length; j++) {
+    //                     //重置所有的button样式
+    //                     buttonArr[j].style.color = "#666 ";
+    //                     //给当前的(点击的那个)那个button添加样式
+    //                     this.style.color = "#0056b3 ";
+    //                 }
+    //             }
+    //         }
+    //     })
+    // }
     render() {
         return (
-
-            <div>
+            <div className="steel-mill-home-body">
                 <Header info={this.state.info}></Header>
-                <div className="sesstion" style={{display:"flex"}} >
+                <div className="steel-mill-home-sesstion">
+                    <Menu
+                        defaultSelectedKeys={['3']}
+                        defaultOpenKeys={['sub1']}
+                        mode="inline"
+                        theme="dark"
+                        inlineCollapsed={this.state.collapsed}
+                        className="steel-mill-home-Menu"
+                    >
+                        {/* <SubMenu
+                                key="sub1"
+                                title={
+                                    <span className="steel-mill-home-title">
+                                        原燃料<br/>
+                                        基础数据库
+                                    </span>
+                                }
+                            >
+                                {
+                                    databaseList.map((obj,index)=>{
+                                        return(
+                                            <Menu.Item key={index} className="steel-mill-home-Item">
+                                                <NavLink to={obj.src}>{obj.name}</NavLink>
+                                            </Menu.Item>
+                                        )
+                                    })
+                                }
+                            </SubMenu> */}
+                        {
+                            databaseList.map((obj, index) => {
+                                return (
+                                    <SubMenu key={index} title={<span className="steel-mill-home-title">{obj.title}</span>}>
+                                        {
+                                            obj.data.map((item, idx) => {
+                                                return (
+                                                    <Menu.Item key={idx} className="steel-mill-home-Item">
+                                                        <NavLink to={item.src}>{item.name}</NavLink>
+                                                    </Menu.Item>
+                                                )
+                                            })
+                                        }
+                                    </SubMenu>
+                                )
+                            })
+                        }
+                    </Menu>
+                </div>
+                {/* <div className="sesstion" style={{display:"flex"}} >
                     <div style={{ float: "left", marginTop: 10, marginRight: 8,height:932,width:160, overflow:"auto" }}>
                         <button className="accordion">原燃料<br></br>基础数据库</button>
                         <div className="panel">
                             <NavLink to="/index/one" className="a">烧结粉基础数据库</NavLink><br />
-
                             <NavLink to="/index/two" className="a">球团粉基础数据库</NavLink><br />
                             <NavLink to="/index/three" className="a">入炉料基础数据库</NavLink><br />
                             <NavLink to="/index/four" className="a">护炉料基础数据库</NavLink><br />
@@ -121,7 +177,7 @@ class Home extends Component {
                     <div style={{ width: 1216,  marginTop: 10, }}>
                         <Index></Index>
                     </div>
-                </div>
+                </div> */}
                 <Footer></Footer>
             </div>
         )

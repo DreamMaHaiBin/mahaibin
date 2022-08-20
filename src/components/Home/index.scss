@@ -1,0 +1,38 @@
+.steel-mill-home-body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    .steel-mill-home-sesstion {
+        flex: 1;
+        width: 1260px;
+        background-color: aqua;
+        margin: auto;
+        overflow: auto;
+        .steel-mill-home-Menu{
+            width: 120px;
+            .ant-menu-submenu {
+                .ant-menu-submenu-title {
+                    height: 60px;
+                    padding: 0 !important;
+                    margin: 0;
+                    .steel-mill-home-title{
+                        display: block;
+                        width: 120px;
+                        height: 60px;
+                        line-height: 30px;
+                        text-align: center;
+                    }
+                    .ant-menu-submenu-arrow {
+                        display: none;
+                    }
+                }
+                .steel-mill-home-Item{
+                    padding: 0 !important;
+                }
+                
+            }
+        }
+    }
+}
