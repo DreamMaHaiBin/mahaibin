@@ -20,7 +20,8 @@ const data = [
 export default function OneTable() {
     const [n, setN] = useState(0)
     return (
-        <table className="one-sinter-table">
+        <div className='one-sinter-table-div'>
+            <table className="one-sinter-table">
             <tbody className="one-sinter-tbody">
                 <tr className="one-sinter-tr-one">
                     <td>昨日指标</td>
@@ -39,5 +40,6 @@ export default function OneTable() {
                 </tr>
             </tbody>
         </table>
+        </div>
     )
 }

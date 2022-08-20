@@ -20,7 +20,9 @@ class CostAnalysis extends Component {
                 <EchartsBar/>
                 <ChangLiang/>
                 <ChangLiang/>
+                <ChangLiang/>
                 <EchartsPie/>
+                <ChangLiang/>
             </div>
         )
     }

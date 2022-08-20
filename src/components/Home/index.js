@@ -26,55 +26,8 @@ class Home extends Component {
         });
     };
     clickHtmlText(e) {
-        console.log(e.target.innerHTML)
-        this.setState({
-            info: e.target.innerHTML
-        })
+        sessionStorage.setItem("titleName", e.target.innerHTML)
     }
-    // componentDidMount() {
-    //     this.changeKuan();
-    //     this.kuang();
-    // }
-    // changeKuan() {
-    //     var acc = document.getElementsByClassName("accordion");
-    //     for (var i = 0, len = acc.length; i < len; i++) {
-    //         acc[i].onclick = function () {
-    //             this.classList.toggle("active");
-    //             var panel = this.nextElementSibling;
-    //             if (panel.style.maxHeight) {
-    //                 panel.style.maxHeight = '';
-    //             } else {
-    //                 panel.style.maxHeight = panel.scrollHeight + "px";
-    //             }
-    //         }
-    //     }
-    // }
-    // kuang() {
-    //     let self = this
-    //     this.props.dispatch(dispatch => {
-    //         let buttonArr = document.getElementsByClassName("a");
-    //         buttonArr[0].style.color = "#0056b3";
-    //         for (let i = 0; i < buttonArr.length; i++) {
-    //             buttonArr[i].onclick = function () {
-    //                 // alert(this.innerHTML)
-    //                 //for循环遍历button数组长度
-    //                 self.setState({
-    //                     info: buttonArr[i].innerHTML
-    //                 })
-    //                 dispatch({
-    //                     type: "cogntionSuccess",
-    //                     name: buttonArr[i].innerHTML
-    //                 })
-    //                 for (let j = 0; j < buttonArr.length; j++) {
-    //                     //重置所有的button样式
-    //                     buttonArr[j].style.color = "#666 ";
-    //                     //给当前的(点击的那个)那个button添加样式
-    //                     this.style.color = "#0056b3 ";
-    //                 }
-    //             }
-    //         }
-    //     })
-    // }
     render() {
         return (
             <div className="steel-mill-home-body">

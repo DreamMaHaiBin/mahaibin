@@ -7,6 +7,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
+import {mockEchartsDataList} from '../../../util/mockData'
 export default function ChangLiang() {
     function getOption() {
         let option = {
@@ -15,8 +16,7 @@ export default function ChangLiang() {
                 x: 'center'
             },
             legend: {
-                data: ['OFO订单量', '小米订单量', '华为订单量'],
-
+                data: mockEchartsDataList.legendData,
                 width: 'auto',
                 height: 'auto',
                 bottom: '20px'
@@ -25,25 +25,26 @@ export default function ChangLiang() {
                 trigger: 'axis',
             },
             xAxis: {
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                data: mockEchartsDataList.xAxisData
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                
             },
             series: [
                 {
                     name: 'OFO订单量',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: [1000, 2000, 1500, 3000, 2000, 1200, 800],
+                    data: mockEchartsDataList.seriesData.data1
 
                 }, {
                     name: '小米订单量',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: [150, 230, 224, 218, 135, 147, 260],
+                    data: mockEchartsDataList.seriesData.data2
                 }, {
                     name: '华为订单量',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: [150, 200, 200, 2218, 1135, 2347, 1260],
+                    data: mockEchartsDataList.seriesData.data2
                 }
             ]
         }

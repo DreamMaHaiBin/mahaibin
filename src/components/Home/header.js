@@ -168,116 +168,6 @@ const WrappedEdCenter = Form.create({ name: 'center' })(Center);
       visible: false,
     });
   };
-  UNSAFE_componentWillMount() {
-   
-    var localhref = window.location.href; //获取当前域名
-    var localarr = localhref.split('/'); //所带参数以/进行分开
-    ////console.log(localarr[4]);
-
-    if (localarr[4] === "one") {
-      this.setState({
-        namesL: "烧结粉基础数据库"
-      })
-    }
-    if (localarr[4] === "two") {
-      this.setState({
-        namesL: "球团粉基础数据库"
-      })
-    }
-    if (localarr[4] === "three") {
-      this.setState({
-        namesL: "入炉料基础数据库"
-      })
-    }
-    if (localarr[4] === "four") {
-      this.setState({
-        namesL: "护炉料基础数据库"
-      })
-    }
-    if (localarr[4] === "five") {
-      this.setState({
-        namesL: "煤粉基础数据库"
-      })
-    }
-    if (localarr[4] === "six") {
-      this.setState({
-        namesL: "焦炭基础数据库"
-      })
-    }
-    if (localarr[4] === "compare") {
-      this.setState({
-        namesL: "烧结用矿粉性价比"
-      })
-    }
-    if (localarr[4] === "bePutInAFurnace") {
-      this.setState({
-        namesL: "球团用矿粉性价比"
-      })
-    }
-    if (localarr[4] === "rulu") {
-      this.setState({
-        namesL: "入炉料性价比"
-      })
-    }
-    if (localarr[4] === "ToProtectTheCharge") {
-      this.setState({
-        namesL: "护炉料性价比"
-      })
-    }
-    if (localarr[4] === "braize") {
-      this.setState({
-        namesL: "煤粉性价比"
-      })
-    }
-    if (localarr[4] === "coke") {
-      this.setState({
-        namesL: "焦炭性价比"
-      })
-    }
-    if (localarr[4] === "budget") {
-      this.setState({
-        namesL: "烧结成本测算"
-      })
-    }
-    if (localarr[4] === "pelletizing") {
-      this.setState({
-        namesL: "球团成本测算"
-      })
-    }
-    if (localarr[4] === "blastFurnace") {
-      this.setState({
-        namesL: "高炉成本测算"
-      })
-    }
-    if (localarr[4] === "optimization") {
-      this.setState({
-        namesL: "烧结成本优化"
-      })
-    }
-    if (localarr[4] === "solvent") {
-      this.setState({
-        namesL: "熔剂基础数据库"
-      })
-    }
-    if (localarr[4] === "waste") {
-      this.setState({
-        namesL: "固废基础数据库"
-      })
-    }
-    if (localarr[4] === "Pelletsoptimization") {
-      this.setState({
-        namesL: "球团成本优化"
-      })
-    }if (localarr[4] === "coalblending") {
-      this.setState({
-        namesL: "配煤成本优化"
-      })
-    }if (localarr[4] === "GaoLublastfurnace") {
-      this.setState({
-        namesL: "高炉成本优化"
-      })
-    }
-  }
   componentDidMount(){
     this.showTime();
   }
@@ -331,7 +221,7 @@ const WrappedEdCenter = Form.create({ name: 'center' })(Center);
         <div className="search">
           <div className="search-one">
             <img src={require("../../img/pixelicious.png")} alt=""></img>
-            <span className="ku">{this.props.info === "" ? this.state.namesL : this.props.info}</span>
+            <span className="ku">{sessionStorage.getItem("titleName")}</span>
             <span className="search-two">
             </span>
           </div>
