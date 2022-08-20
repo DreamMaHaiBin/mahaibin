@@ -14,10 +14,7 @@ if (!window.Promise) {
        }
 ReactDOM.render(
         <ConfigProvider locale={zh_CN}>
-        <App>
-              
-             
-        </App>
+        <App/>
         </ConfigProvider>
 , document.getElementById('root'));
 serviceWorker.unregister();

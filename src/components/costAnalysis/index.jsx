@@ -16,11 +16,11 @@ class CostAnalysis extends Component {
             <div className="const-analysis-body">
                 <OneTable/>
                 <ChangLiang/>
-                {/* <ChangLiang/>
+                <ChangLiang/>
                 <EchartsBar/>
                 <ChangLiang/>
                 <ChangLiang/>
-                <EchartsPie/> */}
+                <EchartsPie/>
             </div>
         )
     }

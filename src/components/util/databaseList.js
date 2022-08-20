@@ -1,6 +1,6 @@
 export const databaseList = [
     {
-        title: '原燃料基础数据库',
+        title: '基础数据库',
         data: [
             {
                 name: '烧结粉基础数据库',
@@ -36,7 +36,7 @@ export const databaseList = [
             },
         ]
     },{
-        title: '原燃料性价比评价',
+        title: '性价比评价',
         data: [
             {
                 name: '烧结用矿粉性价比',
@@ -63,6 +63,91 @@ export const databaseList = [
                 src: '/index/coke'
             }
         ]
+    },{
+        title: '铁水成本测算',
+        data: [
+            {
+                name: '烧结成本测算',
+                src: '/index/budget'
+            },
+            {
+                name: '球团成本测算',
+                src: '/index/pelletizing'
+            },
+            {
+                name: '高炉成本测算',
+                src: '/index/blastFurnace'
+            }
+        ]
+    },{
+        title: '离线成本测算',
+        data: [
+            {
+                name: '烧结离线测算',
+                src: '/index/sinteringoffline/?state=offLine'
+            },
+            {
+                name: '球团离线测算',
+                src: '/index/pelletoffline/?state=offLine'
+            },
+            {
+                name: '高炉离线测算',
+                src: '/index/furnaceoffline/?state=offLine'
+            }
+        ]
+    },{
+        title: '铁水成本优化',
+        data: [
+            {
+                name: '烧结成本优化',
+                src: '/index/optimization'
+            },
+            {
+                name: '球团成本优化',
+                src: '/index/Pelletsoptimization'
+            },
+            {
+                name: '高炉成本优化',
+                src: '/index/GaoLublastfurnace'
+            },
+            {
+                name: '配煤成本优化',
+                src: '/index/coalblending'
+            }
+        ]
+    },{
+        title: '日清日结',
+        data: [
+            {
+                name: '烧结成本分析',
+                src: '/index/sinterDateClear'
+            },
+            {
+                name: '球团成本分析',
+                src: '/index/bePutInAFurnace'
+            },
+            {
+                name: '高炉成本分析',
+                src: '/index/rulu'
+            }
+        ]
+    },{
+        title: '成本分析',
+        data: [
+            {
+                name: '烧结成本分析',
+                src: '/index/sinterCostAnalysis'
+            },
+            {
+                name: '球团成本分析',
+                src: '/index/bePutInAFurnace'
+            },
+            {
+                name: '高炉成本分析',
+                src: '/index/rulu'
+            }
+        ]
     }
+
 
 ]
