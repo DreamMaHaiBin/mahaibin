@@ -26,7 +26,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
-
+const px2rem = require('postcss-px2rem-exclude');
 const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
@@ -103,6 +103,9 @@ module.exports = function(webpackEnv) {
                 flexbox: 'no-2009',
               },
               stage: 3,
+            }),
+            px2rem({
+              remUnit:10,exclude: /node_modules/i
             }),
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json

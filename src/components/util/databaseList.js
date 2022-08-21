@@ -124,11 +124,11 @@ export const databaseList = [
             },
             {
                 name: '球团成本分析',
-                src: '/index/bePutInAFurnace'
+                src: '/index/costDateClear'
             },
             {
                 name: '高炉成本分析',
-                src: '/index/rulu'
+                src: '/index/furnaceDateClear'
             }
         ]
     },{
@@ -140,11 +140,11 @@ export const databaseList = [
             },
             {
                 name: '球团成本分析',
-                src: '/index/bePutInAFurnace'
+                src: '/index/pelletCostAnalysis'
             },
             {
                 name: '高炉成本分析',
-                src: '/index/rulu'
+                src: '/index/furnaceCostAnalysis'
             }
         ]
     }

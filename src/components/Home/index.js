@@ -34,8 +34,6 @@ class Home extends Component {
                 <Header info={this.state.info}></Header>
                 <div className="steel-mill-home-sesstion">
                     <Menu
-                        defaultSelectedKeys={['3']}
-                        defaultOpenKeys={['sub1']}
                         mode="inline"
                         theme="dark"
                         inlineCollapsed={this.state.collapsed}

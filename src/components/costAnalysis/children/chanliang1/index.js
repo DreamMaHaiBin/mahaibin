@@ -8,8 +8,8 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 import {mockEchartsDataList} from '../../../util/mockData'
-export default function ChangLiang() {
-    function getOption() {
+export default function ChangLiang(props) {
+    function getOption(props) {
         let option = {
             title: {
                 text: '2020年烧结产量',

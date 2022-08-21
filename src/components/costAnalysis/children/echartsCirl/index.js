@@ -7,8 +7,8 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
-export default function EchartsPie () {
-    function getOption() {
+export default function EchartsPie (props) {
+    function getOption(props) {
         let option = {
             title: {
               text: 'Weather Statistics',

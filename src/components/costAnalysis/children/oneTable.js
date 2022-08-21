@@ -17,15 +17,16 @@ const data = [
         'cost': ''
     }
 ]
-export default function OneTable() {
+export default function OneTable(props) {
     const [n, setN] = useState(0)
+    const componentName = props.componentName
     return (
         <div className='one-sinter-table-div'>
             <table className="one-sinter-table">
             <tbody className="one-sinter-tbody">
                 <tr className="one-sinter-tr-one">
                     <td>昨日指标</td>
-                    <td>烧结产量</td>
+                    <td>{componentName}产量</td>
                     <td>成本</td>
                 </tr>
                 <tr className="one-sinter-tr-common">

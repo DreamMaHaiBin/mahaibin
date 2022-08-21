@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import './common.scss'
-// 烧结日清日结
 import { tableListData } from '../util/listLable'
-export default class DateClearDateSettlement extends Component {
+// 高炉日清日结
+export default class DateClearDateSettlementFurnace extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -18,9 +18,9 @@ export default class DateClearDateSettlement extends Component {
                             <td rowSpan="2">成本项目</td>
                             <td rowSpan="2">单位</td>
                             <td colSpan={5}>全厂</td>
-                            <td colSpan={4}>一烧</td>
-                            <td colSpan={4}>二烧</td>
-                            <td colSpan={4}>三烧</td>
+                            <td colSpan={4}>一高炉</td>
+                            <td colSpan={4}>二高炉</td>
+                            <td colSpan={4}>三高炉</td>
                         </tr>
                         <tr>
                             <td>单价</td>
@@ -46,7 +46,7 @@ export default class DateClearDateSettlement extends Component {
                                 return (
                                     <tr key={index} className={
                                         index === 0 ? 'date-clear-date-settlemen-table-blue' :
-                                        index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 ? 'date-clear-date-settlemen-table-yellow' :
+                                        index === 1 || index === 2 || index === 3 || index === 26 || index === 30 || index === 34 ? 'date-clear-date-settlemen-table-yellow' :
                                         'date-clear-date-settlemen-table-none'
                                     }>
                                         <td>{obj.name}</td>

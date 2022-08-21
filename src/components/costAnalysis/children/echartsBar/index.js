@@ -7,8 +7,8 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
-export default function EchartsBar() {
-    function getOption() {
+export default function EchartsBar(props) {
+    function getOption(props) {
         let option = {
             title: {
                 text: '2020年烧结产量',

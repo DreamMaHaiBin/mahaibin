@@ -9,6 +9,7 @@ import App from './App';
 import 'moment/locale/zh-cn';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import {ConfigProvider} from 'antd'
+import "lib-flexible"
 if (!window.Promise) {
         window.Promise = Promise;
        }

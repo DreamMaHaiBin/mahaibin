@@ -8,21 +8,21 @@ class CostAnalysis extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            sinterCostAnalysisname: '烧结'
         }
     }
     render() {
         return (
             <div className="const-analysis-body">
-                <OneTable/>
-                <ChangLiang/>
-                <ChangLiang/>
-                <EchartsBar/>
-                <ChangLiang/>
-                <ChangLiang/>
-                <ChangLiang/>
-                <EchartsPie/>
-                <ChangLiang/>
+                <OneTable componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <EchartsBar componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <EchartsPie componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
             </div>
         )
     }
