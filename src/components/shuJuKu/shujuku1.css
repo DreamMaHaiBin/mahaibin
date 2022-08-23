@@ -60,9 +60,7 @@
     width: 1145px !important;
 }
 .ant-table{
-    margin-left: .625rem;
-    margin-top: 10px;
-    margin-right: 1.25rem; 
+    margin: 10px;
     
 }
 .ant-table-tbody > tr > td {

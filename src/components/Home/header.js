@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./headerSS.css";
+import "./head.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { Modal, Button, message, Input, Form, notification } from 'antd';
@@ -168,7 +168,7 @@ const WrappedEdCenter = Form.create({ name: 'center' })(Center);
       visible: false,
     });
   };
-  componentDidMount(){
+  componentWillMount(){
     this.showTime();
   }
   showTime() {
@@ -202,28 +202,23 @@ const WrappedEdCenter = Form.create({ name: 'center' })(Center);
   }
   render() {
     return (
-      <div>  
-        <div className="headerhead">
-
-          <div className="toubu">
-            <img src={require("../../img/top_logo.png")} alt="铁前成本智能管控系统" />
-            <span style={{ float: "right" }}>
-              <span className="center">
+      <div className="home-head-top">
+        <div  className="home-head-top-center">
+          <img src={require("../../img/top_logo.png")} alt="铁前成本智能管控系统" className="home-head-top-center-image"/>
+          <div className="home-head-top-center-right">
+              <div className="home-head-top-center-right-people">
                 <img src={require('../../img/prcenter.png')} alt="" />
                 <span onClick={this.showModal.bind(this)} style={{ cursor: "pointer" }}>{sessionStorage.getItem("name")}</span>
-              </span>
+              </div>
               <span className="shugang">|</span>
               <span className="year" >{this.state.year}</span>
               <span className="time">{this.state.date}</span>
-            </span>
           </div>
         </div>
-        <div className="search">
-          <div className="search-one">
+        <div className="home-head-top-modules-name">
+          <div className="home-head-top-modules-name-center">
             <img src={require("../../img/pixelicious.png")} alt=""></img>
             <span className="ku">{sessionStorage.getItem("titleName")}</span>
-            <span className="search-two">
-            </span>
           </div>
         </div>
         <Modal

@@ -32,16 +32,17 @@
     margin-right: .125rem;
 }
 .xingjiabi{
-    width: 66.875rem;
-    height: 51.25rem;
+    flex: 1;
+    /* width: 66.875rem;
+    height: 51.25rem; */
     border: 1px solid #7596c1;
     float: left;
     position: relative;
 
 }
 .dongxi,.paixu,.jieguo{
-    width: 18.4375rem;
-    height: 35.625rem;
+    width: 295px;
+    height: 570px;
     border: 1px solid #a9c0df;
     margin-bottom: 1.875rem;
     overflow: auto;
@@ -65,7 +66,7 @@
     float: left;
 }
 .anniu{
-   width: 4.375rem;
+   width: 70px;
    float: left;
    
 }
@@ -95,7 +96,7 @@ h1{
     
 }
 .title_paixu{
-    width: 4.375rem;  
+    width: 70px;  
     margin: auto;
     text-align: center;
     float: left;
@@ -417,3 +418,12 @@ h2{
     background: #608dff;
     color: #fff;
 }
+
+// .session-content-right {
+//     flex: 1;
+//     .session-content-right-gongneng {
+//         width: 100%;
+//         height: 28px;
+//         text-align: right;
+//     }
+// }

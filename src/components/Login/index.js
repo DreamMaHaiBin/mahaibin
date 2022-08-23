@@ -21,6 +21,7 @@ import axios from "axios"
           sessionStorage.setItem("permission1",`${res.data.permission1}`)
           sessionStorage.setItem("permission2",`${res.data.permission2}`)
           sessionStorage.setItem("permission3",`${res.data.permission3}`)
+          sessionStorage.setItem("titleName", '烧结粉基础数据库')
           message.success("登录成功！")
           if(res.data.is_superuser){
             this.props.history.push("/administrator");

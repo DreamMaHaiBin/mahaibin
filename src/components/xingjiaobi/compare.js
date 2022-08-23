@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import "./compare.css";
+import "./compare.scss";
 import { Modal, Input, Button, Form, Select, message, } from "antd";
 import ComputedInfo from "./compareModel/computedInfo.js"
 import ExportJsonExcel from 'js-export-excel';
