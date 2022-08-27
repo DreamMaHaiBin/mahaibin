@@ -119,15 +119,15 @@ export const databaseList = [
         title: '日清日结',
         data: [
             {
-                name: '烧结成本分析',
+                name: '烧结日清日结',
                 src: '/index/sinterDateClear'
             },
             {
-                name: '球团成本分析',
+                name: '球团日清日结',
                 src: '/index/costDateClear'
             },
             {
-                name: '高炉成本分析',
+                name: '高炉日清日结',
                 src: '/index/furnaceDateClear'
             }
         ]

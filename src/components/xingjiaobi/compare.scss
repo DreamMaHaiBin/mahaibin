@@ -1,35 +1,10 @@
-.yongtu{
-    padding: .125rem .625rem;
-     margin-left: .25rem;
-     font-size: .75rem;
-     background:url("../../img/btn_normal.png");
-     margin-bottom: 2px;
-}
-.xinxi1{
-    padding: 0 10px;
-    font-size: .875rem;
-    background: #e3ebf6 ;
-    /* background: url("../../img/pagebg.png"); */
-    font-size: 14px;
-    border: 1px solid #7695c3;
-    text-align: center;
-    line-height: 32px; 
-    border-bottom: none;
-}
-/* .xinxi1:hover{
-    background: url("../../img/tab_hover.png")
-} */
+
 .right{
     float:right;  
     margin-bottom: 5px;
 }
 .has{
     float: right;
-}
-.yongtu>img{
-    width: .9375rem;
-    height: .9375rem;
-    margin-right: .125rem;
 }
 .xingjiabi{
     // flex: 1;
@@ -213,22 +188,6 @@
     border: 1px solid #333;
     padding: 5px;
     
-}
-.click_set label{
-    display: inline-block;
-    padding: 5px 20px 5px 30px;
-    margin-right: .6875rem;
-    font-size: .875rem;
-    line-height: .8125rem;
-    color: black;
-}
-.click_set input{
-    width:45px;
-    height: 22px;
-    margin-right:20px;
-    margin-top:10px;
-    margin-bottom: 10px;
-    border-color: #ababab
 }
 .ant-modal-header{ /*控制表头的颜色样式*/
     background: #6590c8 !important;
