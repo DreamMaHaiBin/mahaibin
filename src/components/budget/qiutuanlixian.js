@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "./cossalculation.scss"
 import { Tabs } from 'antd';
 import QiuTuan from "./lixian/qiutuan"
 import axios from "axios"

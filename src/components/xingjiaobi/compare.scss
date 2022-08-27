@@ -32,19 +32,20 @@
     margin-right: .125rem;
 }
 .xingjiabi{
-    flex: 1;
-    /* width: 66.875rem;
-    height: 51.25rem; */
+    // flex: 1;
+    width: 100%;
+    height: 100%;
     border: 1px solid #7596c1;
     float: left;
     position: relative;
+    padding-bottom: 50px;
 
 }
 .dongxi,.paixu,.jieguo{
     width: 295px;
     height: 570px;
     border: 1px solid #a9c0df;
-    margin-bottom: 1.875rem;
+    margin-bottom: 20px;
     overflow: auto;
     padding: 20px;
     float: left;
@@ -53,13 +54,8 @@
     float: left;
 }
 .title{
-    display: block;
     margin-top: 30px;
-}
-.title_liao{
-    width: 18.4375rem;
-    margin-left: 20px;;
-    margin-bottom: .625rem;
+    padding-left: 20px;
 }
 .dongxi{
     margin-left: 20px;
@@ -67,59 +63,98 @@
 }
 .anniu{
    width: 70px;
+   height: 570px;
    float: left;
-   
-}
-.anniu>button{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   button{
     text-align: left;
     line-height: 20px;
     text-align: center;
-}
-.anniu>button>img{
-    margin-bottom: 2px;
-}
-h1{
-    width: 4.375rem;
-    height: 12.5rem;
-}
-.anniu>button{
     display: block;
-    width: 2.775rem;
-    height: 1.525rem;
+    width: 45px;
+    height: 25px;
     text-align: center;
-    line-height: 1.525rem;
+    line-height: 25px;
     margin: auto;
-    margin-bottom: .3125rem;
+    margin-bottom: 10px;
     background:#d6e7fb ;
     border-color: #396aa2;
     border-radius: 0;
-    
+    }
 }
+
 .title_paixu{
     width: 70px;  
     margin: auto;
     text-align: center;
     float: left;
+    width: 70px;
+    height: 570px;
+    display: flex;
+    align-items: center;
 }
 .title_paixu>button{
+
     display: block;
     text-align: center;
     padding: 0;
     padding-left: 10px;
     padding-right: 10px;
     margin: auto;
-    
     background:#d6e7fb ;
     border-color: #396aa2;
     border-radius: 0;
 }
-h2{
-    widows: 4.375rem;
-    height:16.25rem;
+.sort-results-title {
+    display: flex;
+    padding-left: 20px;
+    margin-top: 30px;
+    .sort-results-title-one,
+    .sort-results-title-two,
+    .sort-results-title-three{
+        width: 295px;
+        display: flex;
+        align-items: center;
+        span {
+            flex: 1;
+        }
+    }
+    .sort-results-title-one {
+        .sort-results-title-one-select {
+            width: 260px; 
+            height: 37px; 
+            border-color: "#a9c0df";
+            margin-right: 5px;
+            color: "#0078d7";
+        }
+    }
+    .sort-results-title-two {
+        margin: 0 70px;
+    }
+    .sort-results-title-three,
+    .sort-results-title-two {
+        span {
+            color: #0178d4;
+            flex: 1;
+            font-size: 16px;
+        }
+        div{
+            width: 50px;
+            height: 25px;
+            border: 1px solid #396aa2;
+            background: url("../../img/btn-zy.png");
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 }
 .kuangfeng{
     display: inline-block;
-    margin-left: 4.1875rem;
+    margin-left: 60px;
     color: #0178d4;
     margin-right: .3125rem;
     width: 293px;
@@ -137,6 +172,9 @@ h2{
 }
 .kuangfeng>button>img{
     margin-bottom: 5px;
+}
+.sort-results {
+    margin-left: 55px;
 }
 .tablexinxi{
     width: 1025px;
@@ -403,7 +441,7 @@ h2{
 .OnepaiList{
     cursor: pointer;
     font-size: 14px;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
 
 }
 .colcors{
@@ -412,7 +450,7 @@ h2{
 .listpai{
     cursor: pointer;
     font-size: 14px;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
     /* background:url("../../img/update_ok.png") no-repeat;
     background-position: right; */
     background: #608dff;

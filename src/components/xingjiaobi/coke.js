@@ -637,7 +637,46 @@ unique(arr)
         <div className="xingjiabi">
 
           <div className="qiutuan">
-            <span className="title">
+          <div className="sort-results-title">
+            <div className="sort-results-title-one">
+              <Select
+                className="sort-results-title-one-select"
+                showSearch
+                placeholder="选择查找的日期"
+                optionFilterProp="children"
+                onChange={this.handlersearchinputChange}
+
+                filterOption={(input, option) =>
+                  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+              >
+                {
+                  this.state.dataTime.map((item, index) => {
+                    return (
+                      <Option key={index} value={item}>
+                        {item}
+                      </Option>
+                    )
+                  })
+                }
+
+              </Select>
+              <img src={require("../../img/01.png")} alt="" />
+            </div>
+            <div className="sort-results-title-two">
+              <span>进入排序矿粉</span>
+              <div onClick={this.editComponents.bind(this)} className="sort-results-title-img">
+                <img src={require("../../img/screen.jpg")} alt="" />
+              </div>
+            </div>
+            <div className="sort-results-title-three">
+              <span>性价比排序结果</span>
+              <div onClick={this.computedResult.bind(this)} className="sort-results-title-img">
+              <img src={require("../../img/num.png")} alt="" />
+              </div>
+            </div>
+          </div>
+            {/* <span className="title">
               <span className="title_liao">
                 <Select
                   showSearch
@@ -674,7 +713,7 @@ unique(arr)
                   <img src={require("../../img/num.png")} alt="" />
                 </Button>
               </span>
-            </span>
+            </span> */}
             <div className="dongxi">
               <ul id="myUl">
                 {
@@ -697,8 +736,8 @@ unique(arr)
               </ul>
             </div>
             <div className="anniu">
-              <h1>&nbsp;</h1>
-              <Button onClick={this.removeList.bind(this)}>
+                <div>
+                <Button onClick={this.removeList.bind(this)}>
             <img src={require("../../img/arrow04.png")} alt=""/>
             </Button>
             <Button onClick={this.oneList.bind(this)}>
@@ -710,6 +749,7 @@ unique(arr)
             <Button onClick={this.backList.bind(this)} >
             <img src={require("../../img/arrow01.png")} alt=""/>
             </Button>
+                </div>
             </div>
             <div className="paixu">
               <ul id="listPai">
@@ -733,7 +773,6 @@ unique(arr)
               </ul>
             </div>
             <div className="title_paixu">
-              <h2>&nbsp;</h2>
               <Button onClick={this.submitInfo.bind(this)} disabled={this.state.setClick}>排序</Button>
             </div>
             <div className="jieguo">

@@ -1,6 +1,6 @@
 //成本明细
 import React, { Component } from "react";
-import "./option.css"
+import "./option.scss"
 export default class BudgetMingXi extends Component {
     constructor(props) {
         super(props);

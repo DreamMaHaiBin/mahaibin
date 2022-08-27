@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "./cossalculation.scss"
 import axios from "axios";
 import ExportJsonExcel from 'js-export-excel';
 import WrappedBudgetFen from "./shaojie/daoru.js"

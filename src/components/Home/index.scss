@@ -1,18 +1,20 @@
 .steel-mill-home-body {
     width: 100vw;
-    height: 100vh;
+    // height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
     .steel-mill-home-sesstion {
-        flex: 1;
         width: 1200px;
+        min-height: 809px;
+        flex: 1;
         // background-color: aqua;
         margin: auto;
         display: flex;
         padding-top: 10px;
         .steel-mill-home-Menu{
             width: 120px;
+            height: 809px;
             background: none;
             overflow-y: auto;
             margin-right: 10px;
@@ -57,126 +59,46 @@
                 }
                 .ant-menu-item-selected {
                     background: none !important;
-                    a {
+                    .active-class {
                         color: #0056B3 !important;
                     }
+                }
+                .active-class {
+                    color: #0056B3 !important;
                 }
                 
             }
         }
         .steel-mill-home-content{
-            flex: 1;
+            width:1070px;
             height: 100%;
         }
     }
 }
-
-
-.sesstion{
-    width: 75rem;
-    height: 63.25rem;
-}
-*{
-    margin: 0;padding: 0;
-}
-.kuku{
-    width: 7.625rem;
-    float: left;
-    margin-right: .5rem;
-    margin-top: .625rem; 
-    position: relative;
-}
-.ant-collapse-content-box{
-    padding: 0 !important;
-}
-.kuku_one{
-    margin-top: 0 !important;
-}
-a{
-    
-    color: black;
-}
-.kuku_one,.kuku_two{
-    background: #5591d4;
-    color: #fff;
-    margin-top: 1.25rem;
-    line-height: 1.875rem; 
-    border: 1px solid #497499;
-}
-.ant-collapse-header{
-    color: #fff !important;
-    width: 7.5rem;
-    height: 3.75rem;
-    line-height: 22px !important;
-    font-family: "微软雅黑";
-    padding-top: 2px;
-    font-size: 16px !important;
-}
-button.accordion {
-    padding: 0;
-    cursor:pointer;
-    height:60px;
-    width: 120px;
-    border:none;
-    text-align:center;
-    outline:none;
-    font-size:16px;
-    transition:0.4s;    
-    color: #fff;
-    line-height: 22px;
-    border:1px solid #497499;
-    background: #5591d4;
-    margin-bottom: 20px;
-  
-}
-button.accordion:hover{
-    background: #3b6aa4;
-}
-div.panel {
-    /* margin-top: -18px; */
-    padding: 0;
-    background-color:white;
-    max-height:0;
-    overflow:hidden;
-    line-height: 30px;
-    transition:max-height 0.2s ease-out;
-    width: 120px;
-    position: relative;
-    z-index: 1;
-}
-.panel>a{
-    line-height: 16px;
-    color: #666;
-    font-size: 14px;
-    font-family: "微软雅黑";
-    position: relative;
-    top:-10px;
-    
-}
-button.accordion:after {
-    color:#777;
-    font-weight:bold;
-    float:left;
-    width:20px;
-    height:20px;
-    text-align:center;
-    line-height:25px;
-    color:#fff;
-    border-radius:50%;
-   
+.body-content-footer{
+    width: 100%;
+    height: 40px;
+    background: #d1d1d1;
+    display: flex;
+    align-items: center;
+    img {
+        position: absolute;
+        right: 30px;
+    }
 }
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-    width:2px;
+    width:0px;
+    height: 3px;
     }
     /* 滚动槽 */
     ::-webkit-scrollbar-track {
-    -webkit-box-shadow:inset 006px rgba(0,0,0,0.3);
-    border-radius:0px;
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius:10px;
     }
     /* 滚动条滑块 */
     ::-webkit-scrollbar-thumb {
-    border-radius:0px;
+    border-radius: 10px;
     background:rgba(0,0,0,0.1);
-    -webkit-box-shadow:inset 006px rgba(0,0,0,0.5);
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.5);
     }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import "./shujuku1.css"
+import "./shujuku1.scss"
 import { Table, Modal, Input, message, Upload, Form, DatePicker ,Select} from "antd";
 import axios from "axios"
 import { connect } from "react-redux";

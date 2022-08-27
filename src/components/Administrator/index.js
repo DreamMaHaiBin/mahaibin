@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./indexAD.css";
+import "./indexAD.scss";
 import Statistics from "./statistics"
 import Jurisdiction from "./jurisdiction"
 import { Table, Modal, notification, message, Form, Input, Button } from 'antd';

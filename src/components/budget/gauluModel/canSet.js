@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Input, Modal, message } from "antd";
 import GaoLuKeBian from "./jgf/keBianjgf";
 import GaoLuGuDing from "./jgf/guding";
-import "../cossalculation.css"
+import "../cossalculation.scss"
 import axios from "axios";
 export default class EditerComponent extends Component {
   constructor(props) {

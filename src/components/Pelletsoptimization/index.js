@@ -692,8 +692,8 @@ export default class IndexCoalBlending extends Component {
     }
     render() {
         return (
-            <div>
-                <span className="daochuzuijia">
+            <div className="optimization-body">
+                <div className="daochuzuijia">
                     <Button type="primary" onClick={this.clearItem.bind(this)} style={{ marginRight: 10 }}>
                         <img src={require("../../img/btn_delete.png")} alt="" />
                         删除
@@ -708,7 +708,7 @@ export default class IndexCoalBlending extends Component {
                         <img src={require("../../img/btn_add.png")} alt="" />
                         导出最佳测算表
                         </Button>
-                </span>
+                </div>
                 <div className="aaa">
                     <div className="tableone">
                         <table className="table-th">

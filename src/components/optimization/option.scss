@@ -1,6 +1,11 @@
+.optimization-body {
+    position: relative;
+}
 .daochuzuijia{
-   float: right;
-   margin-bottom: 10px;
+   position: absolute;
+   width: 1070px;
+   text-align: right;
+   top: -45px;
 }
 .daochuzuijia>button{
   padding: 0 10px;
@@ -26,11 +31,12 @@
     padding: 0;
 }
 .aaa{
-    width: 66.875rem;
-    height: 56.25rem;
+    width: 1070px;
+    height:100%;
     border: 1px solid #7596c1;
-    float: left;
     position: relative;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 .table-two{
     width: 625px;

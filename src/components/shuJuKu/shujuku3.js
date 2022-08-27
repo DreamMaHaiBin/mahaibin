@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import "./shujuku1.css"
+import "./shujuku1.scss"
 import { Table, Modal, Input, message, Upload, Select, DatePicker, Form } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";

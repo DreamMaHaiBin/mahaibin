@@ -139,9 +139,9 @@ class Braize extends Component {
       context: "",//当前选中的第一个排序的页面
       contHTML: "",//当前选中的第二个排序的页面
       HTMLtext: "",//当前选中的第三个排序的页面
-      ckecked:[]
+      ckecked: []
     }
-  
+
 
   }
   //生命周期的钩子函数，组件即将挂在的时候调用
@@ -209,38 +209,38 @@ class Braize extends Component {
   //渲染数组之后进行操作  获取数据e
   huoQuShuZu(idx) {
     let ArrayList = [];
-    let paixu=document.getElementsByClassName("ones")
-        for (let j = 0; j < paixu.length; j++) {
-            if(idx===j){
-              paixu[idx].className="ones listpai"
-              this.state.dataName.forEach((item, index) => {
-                if (item.name + ":" + item.incomingDate === paixu[idx].innerHTML) {
-                  ArrayList.push(item);
-                  this.state.ckecked.push(item)
-                  var arr =this.state.ckecked
-                  function unique(arr){            
-                    for(var i=0; i<arr.length; i++){
-                        for(var j=i+1; j<arr.length; j++){
-                            if(arr[i]===arr[j]){         //第一个等同于第二个，splice方法删除第二个
-                                arr.splice(j,1);
-                                j--;
-                            }
-                        }
-                    }
-              return arr;
-              }
-              console.log(unique(arr))
-                  this.setState({
-                    ArrayList: ArrayList,
-                    ckecked: this.state.ckecked,
-                    context: paixu[idx].innerHTML
-                  })
+    let paixu = document.getElementsByClassName("ones")
+    for (let j = 0; j < paixu.length; j++) {
+      if (idx === j) {
+        paixu[idx].className = "ones listpai"
+        this.state.dataName.forEach((item, index) => {
+          if (item.name + ":" + item.incomingDate === paixu[idx].innerHTML) {
+            ArrayList.push(item);
+            this.state.ckecked.push(item)
+            var arr = this.state.ckecked
+            function unique(arr) {
+              for (var i = 0; i < arr.length; i++) {
+                for (var j = i + 1; j < arr.length; j++) {
+                  if (arr[i] === arr[j]) {         //第一个等同于第二个，splice方法删除第二个
+                    arr.splice(j, 1);
+                    j--;
+                  }
                 }
-              })
-      
+              }
+              return arr;
             }
-        
-        }
+            console.log(unique(arr))
+            this.setState({
+              ArrayList: ArrayList,
+              ckecked: this.state.ckecked,
+              context: paixu[idx].innerHTML
+            })
+          }
+        })
+
+      }
+
+    }
   }
   //排序页面选中信息
   listNameData(e) {
@@ -303,13 +303,13 @@ class Braize extends Component {
 
     this.setState({ dataList: [] })
   }
-  
+
   //只把点中的数据传过去
   oneList() {
     console.log(document.getElementsByClassName("ones"))
-    let ones=document.getElementsByClassName("ones")
-    for(let i=0;i<ones.length;i++){
-      ones[i].className="OnepaiList ones"
+    let ones = document.getElementsByClassName("ones")
+    for (let i = 0; i < ones.length; i++) {
+      ones[i].className = "OnepaiList ones"
     }
     if (this.state.ArrayList.length > 0) {
       var dataList = this.state.ArrayList.slice(0);
@@ -330,9 +330,9 @@ class Braize extends Component {
     }
     if (this.state.ckecked.length > 0) {
       this.state.ckecked.forEach((its) => {
-      this.state.dataName.forEach((item, index) => {
+        this.state.dataName.forEach((item, index) => {
           if (item.id === its.id) {
-            this.state.dataName.splice(index,1)
+            this.state.dataName.splice(index, 1)
             this.setState({
               dataName: this.state.dataName
             })
@@ -577,20 +577,20 @@ class Braize extends Component {
     toExcel.saveExcel();
   }
   render() {
-   //试试去重的方法
-   function unique(arr){            
-    for(var i=0; i<arr.length; i++){
-        for(var j=i+1; j<arr.length; j++){
-            if(arr[i].id===arr[j].id){         //第一个等同于第二个，splice方法删除第二个
-                arr.splice(j,1);
-                j--;
-            }
+    //试试去重的方法
+    function unique(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        for (var j = i + 1; j < arr.length; j++) {
+          if (arr[i].id === arr[j].id) {         //第一个等同于第二个，splice方法删除第二个
+            arr.splice(j, 1);
+            j--;
+          }
         }
+      }
+      return arr;
     }
-return arr;
-}
-var arr =this.state.dataList
-unique(arr)
+    var arr = this.state.dataList
+    unique(arr)
     return (
       <div>
         <span className="right">
@@ -599,14 +599,15 @@ unique(arr)
         </span>
         <div className="xingjiabi">
           <div className="qiutuan">
-            <span className="title">
-              <span className="title_liao">
+            <div className="sort-results-title">
+              <div className="sort-results-title-one">
                 <Select
+                  className="sort-results-title-one-select"
                   showSearch
-                  style={{ width: 270, height: 37, borderColor: "#a9c0df", marginRight: 5,color: "#0078d7" }}
                   placeholder="选择查找的日期"
                   optionFilterProp="children"
-                  onChange={this.handlersearchinputChange.bind(this)}
+                  onChange={this.handlersearchinputChange}
+
                   filterOption={(input, option) =>
                     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
@@ -623,35 +624,35 @@ unique(arr)
 
                 </Select>
                 <img src={require("../../img/01.png")} alt="" />
-              </span>
-              <span className="kuangfeng">
-                进入排序煤粉
-                           <Button onClick={this.editComponents.bind(this)}>
+              </div>
+              <div className="sort-results-title-two">
+                <span>进入排序矿粉</span>
+                <div onClick={this.editComponents.bind(this)} className="sort-results-title-img">
                   <img src={require("../../img/screen.jpg")} alt="" />
-                </Button>
-              </span>
-              <span className="kuangfeng">
-                性价比排序结果
-                                  <Button onClick={this.computedResult.bind(this)}>
+                </div>
+              </div>
+              <div className="sort-results-title-three">
+                <span>性价比排序结果</span>
+                <div onClick={this.computedResult.bind(this)} className="sort-results-title-img">
                   <img src={require("../../img/num.png")} alt="" />
-                </Button>
-              </span>
-            </span>
+                </div>
+              </div>
+            </div>
             <div className="dongxi">
               <ul id="myUl">
                 {
-                  this.state.dataName.map((item,idx) => {
+                  this.state.dataName.map((item, idx) => {
                     return (
                       <li
                         className="OnepaiList ones"
                         key={item.id}
-                        onClick={this.huoQuShuZu.bind(this,idx)}
-                        // style={{
-                        //   background: this.state.context === item.name + ":" + item.incomingDate ? "#608dff" : "#fff", 
-                        //   color: this.state.context === item.name + ":" + item.incomingDate ? "#fff" : "#000" 
-                        //  }}
+                        onClick={this.huoQuShuZu.bind(this, idx)}
+                      // style={{
+                      //   background: this.state.context === item.name + ":" + item.incomingDate ? "#608dff" : "#fff", 
+                      //   color: this.state.context === item.name + ":" + item.incomingDate ? "#fff" : "#000" 
+                      //  }}
                       >
-                         {item.name}:{item.incomingDate.slice(0, 8)}
+                        {item.name}:{item.incomingDate.slice(0, 8)}
                       </li>
                     )
                   })
@@ -659,20 +660,21 @@ unique(arr)
               </ul>
             </div>
             <div className="anniu">
-              <h1>&nbsp;</h1>
-              <Button onClick={this.removeList.bind(this)}>
-                <img src={require("../../img/arrow04.png")} alt="" />
-              </Button>
-              <Button onClick={this.oneList.bind(this)}>
-                <img src={require("../../img/arrow03.png")} alt="" />
-              </Button>
-              <Button onClick={this.oneBackList.bind(this)}>
-                <img src={require("../../img/arrow02.png")} alt="" />
-              </Button>
-              <Button onClick={this.backList.bind(this)} >
-                <img src={require("../../img/arrow01.png")} alt="" />
-              </Button>
-         
+              <div>
+                <Button onClick={this.removeList.bind(this)}>
+                  <img src={require("../../img/arrow04.png")} alt="" />
+                </Button>
+                <Button onClick={this.oneList.bind(this)}>
+                  <img src={require("../../img/arrow03.png")} alt="" />
+                </Button>
+                <Button onClick={this.oneBackList.bind(this)}>
+                  <img src={require("../../img/arrow02.png")} alt="" />
+                </Button>
+                <Button onClick={this.backList.bind(this)} >
+                  <img src={require("../../img/arrow01.png")} alt="" />
+                </Button>
+              </div>
+
             </div>
             <div className="paixu">
               <ul id="listPai">
@@ -680,23 +682,22 @@ unique(arr)
                   this.state.dataList.map((item) => {
                     return (
                       <li
-                      className="OnepaiList"
-                      key={item.id}
-                      onClick={this.listNameData.bind(this)}
-                      style={{ 
-                        background: this.state.contHTML === item.name + ":" + item.incomingDate ? "#608dff" : "#fff", 
-                        color: this.state.contHTML === item.name + ":" + item.incomingDate ? "#fff" : "#000" 
-                      }}
-                    >
-                      {item.name}:{item.incomingDate}
-                    </li>
+                        className="OnepaiList"
+                        key={item.id}
+                        onClick={this.listNameData.bind(this)}
+                        style={{
+                          background: this.state.contHTML === item.name + ":" + item.incomingDate ? "#608dff" : "#fff",
+                          color: this.state.contHTML === item.name + ":" + item.incomingDate ? "#fff" : "#000"
+                        }}
+                      >
+                        {item.name}:{item.incomingDate}
+                      </li>
                     )
                   })
                 }
               </ul>
             </div>
             <div className="title_paixu">
-              <h2>&nbsp;</h2>
               <Button onClick={this.submitInfo.bind(this)} disabled={this.state.setClick}>排序</Button>
             </div>
             <div className="jieguo">
@@ -706,11 +707,11 @@ unique(arr)
                     return (
                       <dl
                         key={index}
-                        style={{ 
+                        style={{
                           cursor: "pointer",
-                          background: this.state.HTMLtext ===(index + 1) + ":" + item.name + ":" + (Number(item.yxjzl * 100) / 100).toFixed(2) + "%"? "#608dff" : "#fff", 
-                          color: this.state.HTMLtext === (index + 1) + ":" + item.name + ":" + (Number(item.yxjzl * 100) / 100).toFixed(2) + "%" ? "#fff" : "#000" 
-                       }}
+                          background: this.state.HTMLtext === (index + 1) + ":" + item.name + ":" + (Number(item.yxjzl * 100) / 100).toFixed(2) + "%" ? "#608dff" : "#fff",
+                          color: this.state.HTMLtext === (index + 1) + ":" + item.name + ":" + (Number(item.yxjzl * 100) / 100).toFixed(2) + "%" ? "#fff" : "#000"
+                        }}
                         className="OnepaiList"
                         onClick={this.dlInfoMations.bind(this)}
                       >

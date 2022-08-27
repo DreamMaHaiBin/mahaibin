@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "./cossalculation.scss"
 import GaoLu from "./lixian//gaolu";
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;

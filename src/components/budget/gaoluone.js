@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "./cossalculation.scss"
 import axios from "axios"
 import EditerComponent from "./gauluModel/canSet";
 import ExportJsonExcel from 'js-export-excel';

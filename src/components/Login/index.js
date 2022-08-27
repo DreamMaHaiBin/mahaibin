@@ -1,6 +1,6 @@
 //登陆页面
 import React, { Component } from "react";
-import "./indexLogin.css"
+import "./indexLogin.scss"
 import { Form, Icon, Input, Button,message} from 'antd';
 import {withRouter} from "react-router-dom";
 import axios from "axios"

@@ -59,14 +59,14 @@ class EditerComponent extends Component {
                     {getFieldDecorator('name', {
                       initialValue: item.name
                     })(
-                      <Input type="text" disabled={true}/>,
+                      <Input type="text" disabled={true} />,
                     )}
                   </Form.Item>
                   <Form.Item label="时间">
                     {getFieldDecorator('incomingDate', {
                       initialValue: item.incomingDate
                     })(
-                      <Input type="text" disabled={true}/>,
+                      <Input type="text" disabled={true} />,
                     )}
                   </Form.Item>
                   <Form.Item label="到厂价">
@@ -231,7 +231,7 @@ class Compare extends Component {
       contHTML: "",//当前选中的第二个排序的页面
       HTMLtext: "",//当前选中的第三个排序的页面
       ckecked: [],
-      idx:""
+      idx: ""
 
     }
     this.handlersearchinputChange = this.handlersearchinputChange.bind(this);
@@ -305,38 +305,38 @@ class Compare extends Component {
   //渲染数组之后进行操作  获取数据
   huoQuShuZu(idx) {
     let ArrayList = [];
-    let paixu=document.getElementsByClassName("ones")
-        for (let j = 0; j < paixu.length; j++) {
-            if(idx===j){
-              paixu[idx].className="ones listpai"
-              this.state.dataName.forEach((item, index) => {
-                if (item.name + ":" + item.incomingDate === paixu[idx].innerHTML) {
-                  ArrayList.push(item);
-                  this.state.ckecked.push(item)
-                  var arr =this.state.ckecked
-                  function unique(arr){            
-                    for(var i=0; i<arr.length; i++){
-                        for(var j=i+1; j<arr.length; j++){
-                            if(arr[i]===arr[j]){         //第一个等同于第二个，splice方法删除第二个
-                                arr.splice(j,1);
-                                j--;
-                            }
-                        }
-                    }
-              return arr;
-              }
-              console.log(unique(arr))
-                  this.setState({
-                    ArrayList: ArrayList,
-                    ckecked: this.state.ckecked,
-                    context: paixu[idx].innerHTML
-                  })
+    let paixu = document.getElementsByClassName("ones")
+    for (let j = 0; j < paixu.length; j++) {
+      if (idx === j) {
+        paixu[idx].className = "ones listpai"
+        this.state.dataName.forEach((item, index) => {
+          if (item.name + ":" + item.incomingDate === paixu[idx].innerHTML) {
+            ArrayList.push(item);
+            this.state.ckecked.push(item)
+            var arr = this.state.ckecked
+            function unique(arr) {
+              for (var i = 0; i < arr.length; i++) {
+                for (var j = i + 1; j < arr.length; j++) {
+                  if (arr[i] === arr[j]) {         //第一个等同于第二个，splice方法删除第二个
+                    arr.splice(j, 1);
+                    j--;
+                  }
                 }
-              })
-      
+              }
+              return arr;
             }
-        
-        }
+            console.log(unique(arr))
+            this.setState({
+              ArrayList: ArrayList,
+              ckecked: this.state.ckecked,
+              context: paixu[idx].innerHTML
+            })
+          }
+        })
+
+      }
+
+    }
   }
   //排序页面选中信息
   listNameData(e) {
@@ -406,9 +406,9 @@ class Compare extends Component {
   //只把点中的数据传过去
   oneList() {
     // console.log(document.getElementsByClassName("ones"))
-    let ones=document.getElementsByClassName("ones")
-    for(let i=0;i<ones.length;i++){
-      ones[i].className="OnepaiList ones"
+    let ones = document.getElementsByClassName("ones")
+    for (let i = 0; i < ones.length; i++) {
+      ones[i].className = "OnepaiList ones"
     }
     if (this.state.ArrayList.length > 0) {
       var dataList = this.state.ArrayList.slice(0);
@@ -429,9 +429,9 @@ class Compare extends Component {
     }
     if (this.state.ckecked.length > 0) {
       this.state.ckecked.forEach((its) => {
-      this.state.dataName.forEach((item, index) => {
+        this.state.dataName.forEach((item, index) => {
           if (item.id === its.id) {
-            this.state.dataName.splice(index,1)
+            this.state.dataName.splice(index, 1)
             this.setState({
               dataName: this.state.dataName
             })
@@ -960,7 +960,7 @@ class Compare extends Component {
             'CuO': Number(data[i].ore.source.cuO).toFixed(4),
             'V2O5': Number(data[i].ore.source.v2O5).toFixed(4),
             'Cl': Number(data[i].ore.source.cl).toFixed(4),
-          
+
           }
           dataTable.push(obj);
         }
@@ -971,8 +971,8 @@ class Compare extends Component {
       {
         sheetData: dataTable,
         sheetName: '性价比排序结果',
-        sheetFilter: ['名称', '日期', '到厂价', '综合品位价', '品位加扣', '碱金属加扣', '锌加扣', 'Al2O3加扣', '硫含量加扣', '烧损加扣', '吨度价', '熔剂成本', '膨润土成本', '加工成本', '高炉燃料成本', '筛分成本', '矿石成本',"TFe", "SiO2", "Al2O3", "MgO", 'CaO', '烧损', 'FeO', 'AsO', 'S', 'P', 'K2O', 'Na2O', 'ZnO', 'MnO', 'TiO2', 'PbO', 'CuO', 'V2O5', 'Cl', ],
-        sheetHeader: ['名称', '日期', '到厂价', '综合品位价', '品位加扣', '碱金属加扣', '锌加扣', 'Al2O3加扣', '硫含量加扣', '烧损加扣', '吨度价', '熔剂成本', '膨润土成本', '加工成本', '高炉燃料成本', '筛分成本', '矿石成本',"TFe", "SiO2", "Al2O3", "MgO", 'CaO', '烧损', 'FeO', 'AsO', 'S', 'P', 'K2O', 'Na2O', 'ZnO', 'MnO', 'TiO2', 'PbO', 'CuO', 'V2O5', 'Cl', ],
+        sheetFilter: ['名称', '日期', '到厂价', '综合品位价', '品位加扣', '碱金属加扣', '锌加扣', 'Al2O3加扣', '硫含量加扣', '烧损加扣', '吨度价', '熔剂成本', '膨润土成本', '加工成本', '高炉燃料成本', '筛分成本', '矿石成本', "TFe", "SiO2", "Al2O3", "MgO", 'CaO', '烧损', 'FeO', 'AsO', 'S', 'P', 'K2O', 'Na2O', 'ZnO', 'MnO', 'TiO2', 'PbO', 'CuO', 'V2O5', 'Cl',],
+        sheetHeader: ['名称', '日期', '到厂价', '综合品位价', '品位加扣', '碱金属加扣', '锌加扣', 'Al2O3加扣', '硫含量加扣', '烧损加扣', '吨度价', '熔剂成本', '膨润土成本', '加工成本', '高炉燃料成本', '筛分成本', '矿石成本', "TFe", "SiO2", "Al2O3", "MgO", 'CaO', '烧损', 'FeO', 'AsO', 'S', 'P', 'K2O', 'Na2O', 'ZnO', 'MnO', 'TiO2', 'PbO', 'CuO', 'V2O5', 'Cl',],
       }
     ]
     var toExcel = new ExportJsonExcel(option);
@@ -980,20 +980,20 @@ class Compare extends Component {
   }
   render() {
     //试试去重的方法
-    function unique(arr){            
-      for(var i=0; i<arr.length; i++){
-          for(var j=i+1; j<arr.length; j++){
-              if(arr[i].id===arr[j].id){         //第一个等同于第二个，splice方法删除第二个
-                  arr.splice(j,1);
-                  j--;
-              }
+    function unique(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        for (var j = i + 1; j < arr.length; j++) {
+          if (arr[i].id === arr[j].id) {         //第一个等同于第二个，splice方法删除第二个
+            arr.splice(j, 1);
+            j--;
           }
+        }
       }
-return arr;
-}
-var arr =this.state.dataList 
+      return arr;
+    }
+    var arr = this.state.dataList
 
-unique(arr)
+    unique(arr)
     return (
       <div>
         <span className="right">
@@ -1011,11 +1011,11 @@ unique(arr)
             <img src={require("../../img/btn-export.png")} alt="" /> 生成报表</button>
         </span>
         <div className="xingjiabi">
-          <span className="title">
-            <span className="title_liao">
+          <div className="sort-results-title">
+            <div className="sort-results-title-one">
               <Select
+                className="sort-results-title-one-select"
                 showSearch
-                style={{ width: 270, height: 37, borderColor: "#a9c0df", marginRight: 5, color: "#0078d7" }}
                 placeholder="选择查找的日期"
                 optionFilterProp="children"
                 onChange={this.handlersearchinputChange}
@@ -1036,20 +1036,20 @@ unique(arr)
 
               </Select>
               <img src={require("../../img/01.png")} alt="" />
-            </span>
-            <span className="kuangfeng">
-              进入排序矿粉
-                <Button onClick={this.editComponents.bind(this)}>
+            </div>
+            <div className="sort-results-title-two">
+              <span>进入排序矿粉</span>
+              <div onClick={this.editComponents.bind(this)} className="sort-results-title-img">
                 <img src={require("../../img/screen.jpg")} alt="" />
-              </Button>
-            </span>
-            <span className="kuangfeng">
-              性价比排序结果
-                <Button onClick={this.computedResult.bind(this)}>
-                <img src={require("../../img/num.png")} alt="" />
-              </Button>
-            </span>
-          </span>
+              </div>
+            </div>
+            <div className="sort-results-title-three">
+              <span>性价比排序结果</span>
+              <div onClick={this.computedResult.bind(this)} className="sort-results-title-img">
+              <img src={require("../../img/num.png")} alt="" />
+              </div>
+            </div>
+          </div>
           <div className="dongxi">
             <ul id="myUl">
               {
@@ -1057,9 +1057,9 @@ unique(arr)
 
                   return (
                     <li
-                      className="OnepaiList ones"         
+                      className="OnepaiList ones"
                       key={item.id}
-                      onClick={this.huoQuShuZu.bind(this,idx)}
+                      onClick={this.huoQuShuZu.bind(this, idx)}
                       style={{
                         // background: this.state.context === item.name + ":" + item.incomingDate ? "#608dff" : "#fff",
                         // color: this.state.context === item.name + ":" + item.incomingDate  ? "#fff" : "#000"
@@ -1074,19 +1074,20 @@ unique(arr)
             </ul>
           </div>
           <div className="anniu">
-            <h1>&nbsp;</h1>
-            <Button onClick={this.removeList.bind(this)}>
-              <img src={require("../../img/arrow04.png")} alt="单选" />
-            </Button>
-            <Button onClick={this.oneList.bind(this)}>
-              <img src={require("../../img/arrow03.png")} alt="" />
-            </Button>
-            <Button onClick={this.oneBackList.bind(this)}>
-              <img src={require("../../img/arrow02.png")} alt="" />
-            </Button>
-            <Button onClick={this.backList.bind(this)} >
-              <img src={require("../../img/arrow01.png")} alt="" />
-            </Button>
+            <div className="anniu-center">
+              <Button onClick={this.removeList.bind(this)}>
+                <img src={require("../../img/arrow04.png")} alt="单选" />
+              </Button>
+              <Button onClick={this.oneList.bind(this)}>
+                <img src={require("../../img/arrow03.png")} alt="" />
+              </Button>
+              <Button onClick={this.oneBackList.bind(this)}>
+                <img src={require("../../img/arrow02.png")} alt="" />
+              </Button>
+              <Button onClick={this.backList.bind(this)} >
+                <img src={require("../../img/arrow01.png")} alt="" />
+              </Button>
+            </div>
           </div>
           <div className="paixu">
 
@@ -1111,7 +1112,6 @@ unique(arr)
             </ul>
           </div>
           <div className="title_paixu">
-            <h2>&nbsp;</h2>
             <Button onClick={this.submitInfo.bind(this)} disabled={this.state.setClick}>排序</Button>
           </div>
           <div className="jieguo">
@@ -1200,7 +1200,7 @@ unique(arr)
             //参数设置   修改设置   膨润土  综合熔剂
             this.state.model === "set" ? <WrappedAddComponentFrom ref="addcomponent" setList={this.state.setList} /> : (this.state.model === "setAdd" ? <WrappedEditerComponent ref="EditerComponent" set={this.state.ArrayList} /> :
               (this.state.model === "Bentonite" ? <WrappedBentonite ref="Bentonite" prtList={this.state.prtList} /> : (this.state.model === "infoMationZong" ? <ComputedInfo ref="computedInfo" setList={this.state.setList} zhrjList={this.state.zhrjList} getData={this.aaaa.bind(this)} /> :
-                (this.state.model === "sulfurRemoval" ? <WrappedSulfurRemoval ref="sulfurRemoval" tlList={this.state.tlList} /> : <InfoMation  info={this.state.infoMations} />))))
+                (this.state.model === "sulfurRemoval" ? <WrappedSulfurRemoval ref="sulfurRemoval" tlList={this.state.tlList} /> : <InfoMation info={this.state.infoMations} />))))
           }
         </Modal>
 

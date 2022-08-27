@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input, Button, } from "antd";
-import "../cossalculation.css"
+import "../cossalculation.scss"
 import axios from "axios"
 const datas = []
 for (let p = 0; p < 10; p++) {

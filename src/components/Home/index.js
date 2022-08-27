@@ -52,7 +52,7 @@ class Home extends Component {
                                             obj.data.map((item, idx) => {
                                                 return (
                                                     <Menu.Item key={idx} className="steel-mill-home-Item">
-                                                        <NavLink to={item.src} onClick={this.clickHtmlText.bind(this)}>{item.name}</NavLink>
+                                                        <NavLink to={item.src} onClick={this.clickHtmlText.bind(this)} className={ sessionStorage.getItem("titleName") == item.name? 'active-class' : '' }>{item.name}</NavLink>
                                                     </Menu.Item>
                                                 )
                                             })

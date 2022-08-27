@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./shujuku1.css";
+import "./shujuku1.scss";
 import axios from "axios";
 import { Table, Modal,  message, Upload } from "antd";
 import WrappedEditerComponent from "./shujuku1/two.js"

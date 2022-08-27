@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./cossalculation.css"
+import "./cossalculation.scss"
 import BlastFurnaceOne from "./gaoluone";
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;
