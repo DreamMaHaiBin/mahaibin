@@ -54,7 +54,7 @@ class Jurisdiction extends Component {
   render() {
     return (
       <div style={{height:"730px"}}>
-        <Button onClick={this.send.bind(this)} className="btn">确认更新权限</Button>
+        <Button onClick={this.send.bind(this)} className="acton-btn">确认更新权限</Button>
         <table className="quanxian_table">
           <tbody>
             <tr className="quanxian">

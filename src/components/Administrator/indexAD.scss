@@ -52,13 +52,18 @@
     float: left;
 }
 .btn{
+    font-size: 14px;
+    width: 100px;
+    height: 20px;
+    // font-size: 14px;
     background: #0c9ef1;
-    border-radius:0 ;
-    color: #fff;
-    text-align: center;
-    line-height: 20px;
-    margin-right: 15px;
-    margin-left: 10px;
+    
+    // border-radius:0 ;
+    // color: #fff;
+    // text-align: center;
+    // line-height: 20px;
+    // margin-right: 15px;
+    // margin-left: 10px;
 }
 .btned{
     background: #0c9ef1;
@@ -105,4 +110,10 @@
 }
 .images{
     display: none;
+}
+.acton-btn {
+    margin-right: 20px;
+    background: #40a9ff !important;
+    color: #fff;
+    border: none;
 }

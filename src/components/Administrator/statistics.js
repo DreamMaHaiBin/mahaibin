@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Table, message, notification } from 'antd';
+import { Table, message, notification, Button } from 'antd';
 const columns = [
     {
         title: '账号',
@@ -106,10 +106,7 @@ class Statistics extends Component {
 
         return (
             <div>
-
-                <button className="btn" onClick={this.deltet.bind(this)} >
-                    <i>×</i>删除
-                </button>
+                <Button className="acton-btn" onClick={this.deltet.bind(this)} >删除</Button>
 
                 <Table
                     rowSelection={rowSelection}

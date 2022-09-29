@@ -12,11 +12,12 @@ export default class DateClearDateSettlement extends Component {
         // this.changeTabaleData = this.changeTabaleData.bind(this)
     }
 
-    changeTabaleData(name, index, value) {
-        console.log(name, index, value);
-        const newData = this.state.data
-        newData[index][name] = value
-        this.setState({data:newData})
+    changeTabaleData(name, index) {
+        const refName = `${name}${index}`
+        console.log(name, index, this.refs.refName );
+        // const newData = this.state.data
+        // newData[index][name] = value
+        // this.setState({data:newData})
        
     }
     render() {
@@ -59,25 +60,25 @@ export default class DateClearDateSettlement extends Component {
                                             index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 ? 'date-clear-date-settlemen-table-yellow' :
                                                 'date-clear-date-settlemen-table-none'
                                     }>
-                                        <td><Input value={obj.name} onChange={() => this.changeTabaleData("name", index, obj.name)} /></td>
-                                        <td><Input value={obj.dw} onChange={() => this.changeTabaleData("dw", index, obj.dw)} /></td>
-                                        <td><Input value={obj.dj} onChange={() => this.changeTabaleData("dj", index, obj.dj)} /></td>
-                                        <td><Input value={obj.qcrxh} onChange={() => this.changeTabaleData("qcrxh", index, obj.qcrxh)} /></td>
-                                        <td><Input value={obj.qcyxh} onChange={() => this.changeTabaleData("qcyxh", index, obj.qcyxh)} /></td>
-                                        <td><Input value={obj.qcrcb} onChange={() => this.changeTabaleData("qcrcb", index, obj.qcrcb)} /></td>
-                                        <td><Input value={obj.qcycb} onChange={() => this.changeTabaleData("qcycb", index, obj.qcycb)} /></td>
-                                        <td><Input value={obj.ysrxh} onChange={() => this.changeTabaleData("ysrxh", index, obj.ysrxh)} /></td>
-                                        <td><Input value={obj.ysyxh} onChange={() => this.changeTabaleData("ysyxh", index, obj.ysyxh)} /></td>
-                                        <td><Input value={obj.ysrcb} onChange={() => this.changeTabaleData("ysrcb", index, obj.ysrcb)} /></td>
-                                        <td><Input value={obj.ysycb} onChange={() => this.changeTabaleData("ysycb", index, obj.ysycb)} /></td>
-                                        <td><Input value={obj.esrxh} onChange={() => this.changeTabaleData("esrxh", index, obj.esrxh)} /></td>
-                                        <td><Input value={obj.esyxh} onChange={() => this.changeTabaleData("esyxh", index, obj.esyxh)} /></td>
-                                        <td><Input value={obj.esrcb} onChange={() => this.changeTabaleData("esrcb", index, obj.esrcb)} /></td>
-                                        <td><Input value={obj.esycb} onChange={() => this.changeTabaleData("esycb", index, obj.esycb)} /></td>
-                                        <td><Input value={obj.ssrxh} onChange={() => this.changeTabaleData("ssrxh", index, obj.ssrxh)} /></td>
-                                        <td><Input value={obj.ssyxh} onChange={() => this.changeTabaleData("ssyxh", index, obj.ssyxh)} /></td>
-                                        <td><Input value={obj.ssrcb} onChange={() => this.changeTabaleData("ssrcb", index, obj.ssrcb)} /></td>
-                                        <td><Input value={obj.ssycb} onChange={() => this.changeTabaleData("ssycb", index, obj.ssycb)} /></td>
+                                        <td><Input defaultValue={obj.name} ref={`name${index}`} onChange={() => this.changeTabaleData("name", index, obj.name)} /></td>
+                                        <td><Input defaultValue={obj.dw} ref={`dw${index}`} onChange={() => this.changeTabaleData("dw", index)} /></td>
+                                        <td><Input defaultValue={obj.dj} ref={`dj${index}`} onChange={() => this.changeTabaleData("dj", index, obj.dj)} /></td>
+                                        <td><Input defaultValue={obj.qcrxh} ref={`qcrxh${index}`} onChange={() => this.changeTabaleData("qcrxh", index)} /></td>
+                                        <td><Input defaultValue={obj.qcyxh} ref={`qcyxh${index}`} onChange={() => this.changeTabaleData("qcyxh", index)} /></td>
+                                        <td><Input defaultValue={obj.qcrcb} ref={`qcrcb${index}`} onChange={() => this.changeTabaleData("qcrcb", index)} /></td>
+                                        <td><Input defaultValue={obj.qcycb} ref={`qcycb${index}`} onChange={() => this.changeTabaleData("qcycb", index)} /></td>
+                                        <td><Input defaultValue={obj.ysrxh} ref={`ysrxh${index}`} onChange={() => this.changeTabaleData("ysrxh", index)} /></td>
+                                        <td><Input defaultValue={obj.ysyxh} r ef={`ysyxh${index}`}onChange={() => this.changeTabaleData("ysyxh", index)} /></td>
+                                        <td><Input defaultValue={obj.ysrcb} ref={`ysrcb${index}`} onChange={() => this.changeTabaleData("ysrcb", index)} /></td>
+                                        <td><Input defaultValue={obj.ysycb} ref={`ysycb${index}`} onChange={() => this.changeTabaleData("ysycb", index)} /></td>
+                                        <td><Input defaultValue={obj.esrxh} ref={`esrxh${index}`} onChange={() => this.changeTabaleData("esrxh", index)} /></td>
+                                        <td><Input defaultValue={obj.esyxh} ref={`esyxh${index}`} onChange={() => this.changeTabaleData("esyxh", index)} /></td>
+                                        <td><Input defaultValue={obj.esrcb} ref={`esrcb${index}`} onChange={() => this.changeTabaleData("esrcb", index)} /></td>
+                                        <td><Input defaultValue={obj.esycb} ref={`esycb${index}`} onChange={() => this.changeTabaleData("esycb", index)} /></td>
+                                        <td><Input defaultValue={obj.ssrxh} ref={`ssrxh${index}`} onChange={() => this.changeTabaleData("ssrxh", index)} /></td>
+                                        <td><Input defaultValue={obj.ssyxh} ref={`ssyxh${index}`} onChange={() => this.changeTabaleData("ssyxh", index)} /></td>
+                                        <td><Input defaultValue={obj.ssrcb} ref={`ssrcb${index}`} onChange={() => this.changeTabaleData("ssrcb", index)} /></td>
+                                        <td><Input defaultValue={obj.ssycb} ref={`ssycb${index}`} onChange={() => this.changeTabaleData("ssycb", index)} /></td>
 
                                     </tr>
                                 )

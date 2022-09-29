@@ -10,12 +10,12 @@ const columns = [
         dataIndex: 'username',
         key: 1,
         width: "33%"
-    },{
+    }, {
         title: '姓名',
         dataIndex: 'name',
         key: 2,
         width: "33%"
-    },{
+    }, {
         title: '部门',
         dataIndex: 'department',
         key: 3,
@@ -382,13 +382,13 @@ class Administrators extends Component {
             listData: [],
             selectedRows: [],
             ids: null,
-            TotleCount:null
+            TotleCount: null
         }
 
     }
     componentWillMount() {
         axios.get("/api/account/info/?page=1").then((res) => {
-          console.log(res)
+            console.log(res)
             this.setState({
                 listData: res.data.results,
                 TotleCount: res.data.count
@@ -430,26 +430,26 @@ class Administrators extends Component {
                             model: null
                         });
                     } else {
-                        
-                        this.state.selectedRows.forEach((item,index)=>{
+
+                        this.state.selectedRows.forEach((item, index) => {
                             axios.put("/api/account/info/" + item.id, {
                                 username: values.username,
                                 name: values.name,
                                 gender: values.gender,
                                 department: values.department,
                                 password: values.password,
-                               
+
                             }).then((res) => {
-                              //  ////console.log(res)
+                                //  ////console.log(res)
                                 message.success('修改成功');
                                 // setTimeout(()=>{
                                 //     window.location.reload()
                                 // },500)
-                             
+
                                 this.componentWillMount();
                             })
                         })
-                       
+
                     }
                 })
             } else {
@@ -462,7 +462,7 @@ class Administrators extends Component {
 
     }
     handleCancel = e => {
-     //   ////console.log(e);
+        //   ////console.log(e);
         this.setState({
             visible: false,
         });
@@ -479,7 +479,7 @@ class Administrators extends Component {
 
                 // alert(this.innerHTML)
                 //for循环遍历button数组长度
-                for (var j = 0; j < buttonArr.length; j++) { 
+                for (var j = 0; j < buttonArr.length; j++) {
                     //重置所有的button样式
                     buttonArr[j].style.backgroundColor = "#f2f7fd";
                     buttonArr[j].style.color = "#000";
@@ -490,36 +490,36 @@ class Administrators extends Component {
                     divArr[j].style.display = "none";
                     //判断当前点击是按钮数组中的哪一个？
                     if (this === buttonArr[j]) {
-                      
-                        
+
+
                         for (let k = 0; k < img.length; k++) {
                             // img[k].onclick = function () {
-                            if (k === 0 && j===k) {
-                           
+                            if (k === 0 && j === k) {
+
                                 img[0].src = require("../../img/USER _ ADD1.png")
                             } else {
                                 img[0].src = require("../../img/USER _ ADD0.png")
                             }
-                            if (k === 1  && j===k) {
+                            if (k === 1 && j === k) {
 
                                 img[1].src = require("../../img/COMPUTER _ OK1.png")
                             } else {
                                 img[1].src = require("../../img/tongji.png")
                             }
                             if (k === 2) {
-                           
+
                                 img[2].src = require("../../img/PEN1.png")
                             } else {
                                 img[2].src = require("../../img/PEN0.png")
                             }
-                            if (k === 3  && j===k) {
-                              
+                            if (k === 3 && j === k) {
+
                                 img[3].src = require("../../img/UNLOCK1.png")
                             } else {
                                 img[3].src = require("../../img/UNLOCK0.png")
                             }
-    
-    
+
+
                             // }
                         }
                         // alert(j);
@@ -568,14 +568,14 @@ class Administrators extends Component {
     deltet() {
         if (this.state.selectedRows.length > 0) {
             this.state.selectedRows.forEach((item) => {
-                if(item.username==="admin"){
+                if (item.username === "admin") {
                     return message.warning("管理员不能被删除！")
-                }else{
+                } else {
                     axios.delete("/api/account/info/" + item.id).then(res => {
-                       // ////console.log(res)
+                        // ////console.log(res)
                         if (res.status === 204) {
                             message.success("删除成功！")
-                      
+
                             this.componentWillMount();
                         } else {
                             message.warning("删除失败！")
@@ -587,7 +587,7 @@ class Administrators extends Component {
                         });
                     })
                 }
-               
+
             })
         } else {
             message.warning("请选择一组数据!");
@@ -600,15 +600,15 @@ class Administrators extends Component {
         sessionStorage.clear();
     }
     render() {
-       
+
         const rowSelection = {
             onChange: (selectedRowKeys, selectedRows) => {
-              console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+
                 this.setState({
                     selectedRows: selectedRows,
                     ids: selectedRowKeys,
-                    
+
                 })
             },
             getCheckboxProps: record => ({
@@ -649,16 +649,9 @@ class Administrators extends Component {
                         </div>
                         <div className="admin_one">
                             <div className="se" style={{ display: "block" }}>
-
-                                <button className="btn" onClick={this.handAdd.bind(this)}>
-                                    <i>+</i>新增
-                            </button>
-                                <button className="btn" onClick={this.deltet.bind(this)}>
-                                    <i>×</i>删除
-                            </button>
-                                <button className="btn" onClick={this.delted.bind(this)}>
-                                    <i>×</i>修改账户
-                            </button>
+                                <Button className='acton-btn' onClick={this.handAdd.bind(this)} type="primary">新增</Button>
+                                <Button className='acton-btn' onClick={this.deltet.bind(this)} type="primary">删除</Button>
+                                <Button className='acton-btn' onClick={this.delted.bind(this)} type="primary">修改账户</Button>
                                 <div>
                                     <Table
                                         rowSelection={rowSelection}
@@ -673,11 +666,11 @@ class Administrators extends Component {
                                                 onChange: (page, pageSize) => {
                                                     axios.get(`/api/account/info/?page=${page}`).then((res) => {
                                                         console.log(res)
-                                                          this.setState({
+                                                        this.setState({
                                                             listData: res.data.results,
                                                             TotleCount: res.data.count
-                                                          })
-                                                      })
+                                                        })
+                                                    })
                                                 }
                                             }
                                         }
