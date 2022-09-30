@@ -24,7 +24,7 @@ import Coke from "../components/xingjiaobi/coke";//性价比焦炭
 import ShaojieLiXian from '../components/budget/shaojielixian'
 import QiuTuanLiXian from '../components/budget/qiutuanlixian'
 import GaoLuLiXian from '../components/budget/gaolulixian'
-import DateClearDateSettlement from '../components/dateClearDateSettlement/index' // s烧结日清日结
+import DateClearDateSettlement from '../components/dateClearDateSettlement/shaojie' // s烧结日清日结
 import DateClearDateSettlementPellet from '../components/dateClearDateSettlement/qiutuanDateClear' // 球团日清日结
 import DateClearDateSettlementFurnace from '../components/dateClearDateSettlement/gaoluDateClear' // 高炉日清日结
 import CostAnalysis from '../components/costAnalysis/index' // 烧结成本分析
