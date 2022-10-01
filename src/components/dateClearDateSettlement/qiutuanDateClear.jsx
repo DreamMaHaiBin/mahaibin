@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './common.scss'
-import {Input, Tooltip,Checkbox,Button } from "antd";
+import { Input, Tooltip, Checkbox, Button } from "antd";
 import { tableListDataShaojie } from '../util/shaojieTable'
 // 球团日清日结
 const str = "0.00"
@@ -9,7 +9,7 @@ export default class DateClearDateSettlementPellet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ListData:tableListDataShaojie
+            ListData: tableListDataShaojie
         }
     }
     mustNumber(e) {
@@ -20,274 +20,270 @@ export default class DateClearDateSettlementPellet extends Component {
     }
     infoKuang(name, index) {
         return (e) => {
-            const value =  e.target.value;
+            const value = e.target.value;
             const newData = this.state.ListData;
             newData[index][name] = value;
-            // if(name === 'ssrcb' && index === 0){
-            //     newData[index]['ssycb'] = value*30
-            //     newData[index]['qcrcb'] = value + newData[index]['esrcb'] + newData[index]['ysrcb']
-            //     console.log(newData[index]['ssycb'])
-            // }
-            // if(name === 'esrcb' && index === 0){
-            //     newData[index]['esycb'] = value*30
-            //     newData[index]['qcrcb'] = value + newData[index]['ysrcb'] + newData[index]['ssrcb']
-            //     console.log(newData[index]['ssycb'])
-            // }
-            // if(name === 'ysrcb' && index === 0){
-            //     newData[index]['ysycb'] = value*30
-            //     newData[index]['qcrcb'] = value + newData[index]['esrcb'] + newData[index]['ssrcb']
-            //     console.log(newData[index]['ssycb'])
-            // }
-            // if(name === 'qcycb' && index === 2 ){
-            //     newData[index]['dj'] = value / newData[index]['qcrxh']
-            // }
-            // if(name === 'qcrxh' && index === 2 ){
-            //     newData[index]['dj'] = newData[index]['qcyxh'] / value
-            // }
             this.setState({ ListData: newData })
         }
     }
-    cmputendData(){
+    cmputendData() {
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
-        // dataComputed.forEach((element,index) => {
-        //     if(index === 2 || index === 6 || index === 10 || index === 15 || index ===19 || index === 42 ) { 
-        //         // 主要几个标黑的矿粉
-        //         element['dj'] = element['qcycb'] / element['qcyxh'] // 全厂单价
-        //         element['qcrxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['qcrxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['qcrxh']// 全厂日消耗
-        //         element['qcrxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['qcrxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['qcrxh']// 全厂月消耗
-        //         element['qcrcb'] = dataComputed[(index === 2 ? 6 : index + 1)]['qcrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrcb']  + dataComputed[(index === 2 ? 43 : index + 3)]['qcrcb']// 全厂日成本
-        //         element['qcyxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['qcyxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcyxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['qcyxh']// 全厂月成本
-        
-        //         element['ysrxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['ysrxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['ysrxh']// 一烧日消耗
-        //         element['esyxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['esyxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esyxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['esyxh']// 一烧月消耗
-        //         element['ysrcb'] = dataComputed[(index === 2 ? 6 : index + 1)]['ysrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrcb']  + dataComputed[(index === 2 ? 43 : index + 3)]['ysrcb']// 一烧日成本
-        //         element['ysycb'] = dataComputed[(index === 2 ? 6 : index + 1)]['ysycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysycb']  + dataComputed[(index === 2 ? 43 : index + 3)]['ysycb']// 一烧月成本
-        
-        //         element['esrxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['esrxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esrxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['esrxh']// 二烧日消耗
-        //         element['esyxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['esyxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esyxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['esyxh']// 二烧月消耗
-        //         element['esrcb'] = dataComputed[(index === 2 ? 6 : index + 1)]['esrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['esrcb']  + dataComputed[(index === 2 ? 43 : index + 3)]['esrcb']// 二烧日成本
-        //         element['esycb'] = dataComputed[(index === 2 ? 6 : index + 1)]['esycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['esycb']  + dataComputed[(index === 2 ? 43 : index + 3)]['esycb']// 二烧月成本
-        
-        //         element['ssrxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['ssrxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssrxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['ssrxh']// 二烧日消耗
-        //         element['ssyxh'] = dataComputed[(index === 2 ? 6 : index + 1)]['ssyxh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssyxh']  + dataComputed[(index === 2 ? 43 : index + 3)]['ssyxh']// 二烧月消耗
-        //         element['ssrcb'] = dataComputed[(index === 2 ? 6 : index + 1)]['ssrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssrcb']  + dataComputed[(index === 2 ? 43 : index + 3)]['ssrcb']// 二烧日成本
-        //         element['ssycb'] = dataComputed[(index === 2 ? 6 : index + 1)]['ssycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssycb']  + dataComputed[(index === 2 ? 43 : index + 3)]['ssycb']// 二烧月成本
+        dataComputed.forEach((element, index) => {
+            if (index !== 0 || index !== 1 || index !== 2 || index !== 3 || index !== 4 || index !== 10 || index !== 16 || index !== 21 || index !== 31) {
+                element['qcrcb'] = element['qcdj'] * element['qcrdh']
+                element['qcycb'] = element['qcdj'] * element['qcydh']
 
-        //     }
-        //     if(index !== 0 || index !== 1 || index !== 2 || index !== 3  || index !== 7 || index !== 12 || index !== 12 || index !== 17 || index !== 40 || index !== 44 || index !== 54 || index !== 55 || index !== 60 || index !== 71 ){
-        //         element['qcrcb'] =  element['dj'] *  element['qcrxh']
-        //         element['qcycb'] =  element['dj'] *  element['qcyxh']
+                element['yxlrcb'] = element['qcdj'] * element['yxlrdh']
+                element['yxlrcb'] = element['qcdj'] * element['yxlydh']
 
-        //         element['ysrcb'] =  element['dj'] *  element['ysrxh']
-        //         element['ysrcb'] =  element['dj'] *  element['ysyxh']
-                
-        //         element['esrcb'] =  element['dj'] *  element['esrxh']
-        //         element['esrcb'] =  element['dj'] *  element['esyxh']
+                element['exlrcb'] = element['qcdj'] * element['exlrdh']
+                element['exlrcb'] = element['qcdj'] * element['yxlydh']
 
-        //         element['ssrcb'] =  element['dj'] *  element['ssrxh']
-        //         element['ssrcb'] =  element['dj'] *  element['ssyxh']
+                element['ssrcb'] = element['qcdj'] * element['ssrdh']
+                element['ssrcb'] = element['qcdj'] * element['ssydh']
+            }
+        });
+        dataComputed.forEach((obj, index) => {
+            if (index === 3 || index === 4) {
+                // 主要几个标黑的矿粉
+                obj['qcrdh'] = this.sum(index + 2, index + 3, dataComputed, 'qcrdh')
+                obj['qcydh'] = this.sum(index + 2, index + 3, dataComputed, 'qcydh')
+                obj['qcrcb'] = this.sum(index + 2, index + 3, dataComputed, 'qcrcb')
+                obj['qcycb'] = this.sum(index + 2, index + 3, dataComputed, 'qcycb')
 
-        //     }
-        //     if(index === 44) {
-        //         element['qcrxh'] =  this.sum(9)
-        //         element['qcyxh'] =  this.sum(9)
-        //         element['qcrcb'] =  this.sum(9)
-        //         element['qcycb'] =  this.sum(9)
+                obj['yxlrdh'] = this.sum(index + 2, index + 3, dataComputed, 'yxlrdh')
+                obj['yxlydh'] = this.sum(index + 2, index + 3, dataComputed, 'yxlydh')
+                obj['yxlrcb'] = this.sum(index + 2, index + 3, dataComputed, 'yxlrcb')
+                obj['exlycb'] = this.sum(index + 2, index + 3, dataComputed, 'exlycb')
 
-        //         element['ysrxh'] =  this.sum(9)
-        //         element['ysyxh'] =  this.sum(9)
-        //         element['ysrcb'] =  this.sum(9)
-        //         element['ysycb'] =  this.sum(9)
+                obj['exlrdh'] = this.sum(index + 2, index + 3, dataComputed, 'exlrdh')
+                obj['yxlydh'] = this.sum(index + 2, index + 3, dataComputed, 'yxlydh')
+                obj['exlrcb'] = this.sum(index + 2, index + 3, dataComputed, 'exlrcb')
+                obj['exlycb'] = this.sum(index + 2, index + 3, dataComputed, 'exlycb')
 
-        //         element['esrxh'] =  this.sum(9)
-        //         element['esyxh'] =  this.sum(9)
-        //         element['esrcb'] =  this.sum(9)
-        //         element['esycb'] =  this.sum(9)
+                obj['ssrdh'] = this.sum(index + 2, index + 3, dataComputed, 'ssrdh')
+                obj['ssydh'] = this.sum(index + 2, index + 3, dataComputed, 'ssydh')
+                obj['ssrcb'] = this.sum(index + 2, index + 3, dataComputed, 'ssrcb')
+                obj['ssycb'] = this.sum(index + 2, index + 3, dataComputed, 'ssycb')
+            }
+            if (index === 10 || index === 17) {
+                // 主要几个标黑的矿粉
+                obj['qcrdh'] = this.sum(index + 1, index + 3, dataComputed, 'qcrdh')
+                obj['qcydh'] = this.sum(index + 1, index + 3, dataComputed, 'qcydh')
+                obj['qcrcb'] = this.sum(index + 1, index + 3, dataComputed, 'qcrcb')
+                obj['qcycb'] = this.sum(index + 1, index + 3, dataComputed, 'qcycb')
 
-        //         element['ssrxh'] =  this.sum(9)
-        //         element['ssyxh'] =  this.sum(9)
-        //         element['ssrcb'] =  this.sum(9)
-        //         element['ssycb'] =  this.sum(9)
-        //     }
-        //     // if(index === 60) {
-        //     //     element['qcrxh'] =  this.sum(10)
-        //     //     element['qcyxh'] =  this.sum(10)
-        //     //     element['qcrcb'] =  this.sum(10)
-        //     //     element['qcycb'] =  this.sum(10)
+                obj['yxlrdh'] = this.sum(index + 1, index + 3, dataComputed, 'yxlrdh')
+                obj['yxlydh'] = this.sum(index + 1, index + 3, dataComputed, 'yxlydh')
+                obj['yxlrcb'] = this.sum(index + 1, index + 3, dataComputed, 'yxlrcb')
+                obj['exlycb'] = this.sum(index + 1, index + 3, dataComputed, 'exlycb')
 
-        //     //     element['ysrxh'] =  this.sum(10)
-        //     //     element['ysyxh'] =  this.sum(10)
-        //     //     element['ysrcb'] =  this.sum(10)
-        //     //     element['ysycb'] =  this.sum(10)
+                obj['exlrdh'] = this.sum(index + 1, index + 3, dataComputed, 'exlrdh')
+                obj['exlydh'] = this.sum(index + 1, index + 3, dataComputed, 'exlydh')
+                obj['exlrcb'] = this.sum(index + 1, index + 3, dataComputed, 'exlrcb')
+                obj['exlycb'] = this.sum(index + 1, index + 3, dataComputed, 'exlycb')
 
-        //     //     element['esrxh'] =  this.sum(10)
-        //     //     element['esyxh'] =  this.sum(10)
-        //     //     element['esrcb'] =  this.sum(10)
-        //     //     element['esycb'] =  this.sum(10)
 
-        //     //     element['ssrxh'] =  this.sum(10)
-        //     //     element['ssyxh'] =  this.sum(10)
-        //     //     element['ssrcb'] =  this.sum(10)
-        //     //     element['ssycb'] =  this.sum(10)
-        //     // }
-        
-        // });
-        dataComputed[0]['ysycb'] =  dataComputed[0]['ysrcb'] * 30
-        dataComputed[0]['esycb'] =  dataComputed[0]['esrcb'] * 30
-        dataComputed[0]['ssycb'] =  dataComputed[0]['ssrcb'] * 30
-        dataComputed[0]['qcycb'] =  dataComputed[0]['ysycb'] * dataComputed[0]['esycb'] + dataComputed[0]['ssycb']
+            }
+            if (index === 16) {
+                // 主要几个标黑的矿粉
+                obj['qcrcb'] = dataComputed[17]['qcrcb'] + dataComputed[21]['qcrcb'] + dataComputed[28]['qcrcb'] + dataComputed[29]['qcrcb'] + dataComputed[30]['qcrcb']
+                obj['qcycb'] = dataComputed[17]['qcycb'] + dataComputed[21]['qcycb'] + dataComputed[28]['qcycb'] + dataComputed[29]['qcycb'] + dataComputed[30]['qcycb']
 
-        dataComputed[1]['qcycb'] =  dataComputed[3]['qcycb'] + dataComputed[54]['qcycb']
-        dataComputed[1]['ysycb'] =  dataComputed[3]['ysycb'] + dataComputed[54]['ysycb']
-        dataComputed[1]['esycb'] =  dataComputed[3]['esycb'] + dataComputed[54]['esycb']
-        dataComputed[1]['ssycb'] =  dataComputed[3]['ssycb'] + dataComputed[54]['ssycb']
+                obj['yxlrcb'] = dataComputed[17]['yxlrcb'] + dataComputed[21]['yxlrcb'] + dataComputed[28]['yxlrcb'] + dataComputed[29]['yxlrcb'] + dataComputed[30]['yxlrcb']
+                obj['exlycb'] = dataComputed[17]['exlycb'] + dataComputed[21]['exlycb'] + dataComputed[28]['exlycb'] + dataComputed[29]['exlycb'] + dataComputed[30]['exlycb']
+
+                obj['exlrcb'] = dataComputed[17]['exlrcb'] + dataComputed[21]['exlrcb'] + dataComputed[28]['exlrcb'] + dataComputed[29]['exlrcb'] + dataComputed[30]['exlrcb']
+                obj['exlycb'] = dataComputed[17]['exlycb'] + dataComputed[21]['exlycb'] + dataComputed[28]['exlycb'] + dataComputed[29]['exlycb'] + dataComputed[30]['exlycb']
+
+                obj['ssrcb'] = dataComputed[17]['ssrcb'] + dataComputed[21]['ssrcb'] + dataComputed[28]['ssrcb'] + dataComputed[29]['ssrcb'] + dataComputed[30]['ssrcb']
+                obj['ssycb'] = dataComputed[17]['ssycb'] + dataComputed[21]['ssycb'] + dataComputed[28]['ssycb'] + dataComputed[29]['ssycb'] + dataComputed[30]['ssycb']
+
+            }
+
+            if (index === 2) {
+                // 主要几个标黑的矿粉
+                obj['qcrdh'] = dataComputed[3]['qcrdh'] + dataComputed[4]['qcrdh'] + dataComputed[10]['qcrdh'] + dataComputed[14]['qcrdh'] + dataComputed[15]['qcrdh']
+                obj['qcydh'] = dataComputed[3]['qcydh'] + dataComputed[4]['qcydh'] + dataComputed[10]['qcydh'] + dataComputed[14]['qcydh'] + dataComputed[15]['qcydh']
+                obj['qcrcb'] = dataComputed[3]['qcrcb'] + dataComputed[4]['qcrcb'] + dataComputed[10]['qcrcb'] + dataComputed[14]['qcrcb'] + dataComputed[15]['qcrcb']
+                obj['qcycb'] = dataComputed[3]['qcycb'] + dataComputed[4]['qcycb'] + dataComputed[10]['qcycb'] + dataComputed[14]['qcycb'] + dataComputed[15]['qcycb']
+
+                obj['yxlrdh'] = dataComputed[3]['yxlrdh'] + dataComputed[4]['yxlrdh'] + dataComputed[10]['yxlrdh'] + dataComputed[14]['yxlrdh'] + dataComputed[15]['yxlrdh']
+                obj['yxlydh'] = dataComputed[3]['yxlydh'] + dataComputed[4]['yxlydh'] + dataComputed[10]['yxlydh'] + dataComputed[14]['yxlydh'] + dataComputed[15]['yxlydh']
+                obj['yxlrcb'] = dataComputed[3]['yxlrcb'] + dataComputed[4]['yxlrcb'] + dataComputed[10]['yxlrcb'] + dataComputed[14]['yxlrcb'] + dataComputed[15]['yxlrcb']
+                obj['exlycb'] = dataComputed[3]['exlycb'] + dataComputed[4]['exlycb'] + dataComputed[10]['exlycb'] + dataComputed[14]['exlycb'] + dataComputed[15]['exlycb']
+
+                obj['exlrdh'] = dataComputed[3]['exlrdh'] + dataComputed[4]['exlrdh'] + dataComputed[10]['exlrdh'] + dataComputed[14]['exlrdh'] + dataComputed[15]['exlrdh']
+                obj['exlydh'] = dataComputed[3]['exlydh'] + dataComputed[4]['exlydh'] + dataComputed[10]['exlydh'] + dataComputed[14]['exlydh'] + dataComputed[15]['exlydh']
+                obj['exlrcb'] = dataComputed[3]['exlrcb'] + dataComputed[4]['exlrcb'] + dataComputed[10]['exlrcb'] + dataComputed[14]['exlrcb'] + dataComputed[15]['exlrcb']
+                obj['exlycb'] = dataComputed[3]['exlycb'] + dataComputed[4]['exlycb'] + dataComputed[10]['exlycb'] + dataComputed[14]['exlycb'] + dataComputed[15]['exlycb']
+            }
+            if (index === 2 || index === 3 || index === 4 || index === 10 || index === 17) {
+                obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+            }
+
+
+        })
+        dataComputed[0]['exlycb'] = dataComputed[0]['yxlrcb'] * 30
+        dataComputed[0]['exlycb'] = dataComputed[0]['exlrcb'] * 30
+        dataComputed[0]['qcycb'] = dataComputed[0]['exlycb'] + dataComputed[0]['exlycb'] + dataComputed[0]['ssycb']
+
+        dataComputed[1]['qcycb'] = dataComputed[2]['qcycb'] + dataComputed[53]['qcycb']
+        dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[53]['exlycb']
+        dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[53]['exlycb']
 
         this.setState({ ListData: dataComputed })
     }
     // 累加函数
-     sum(num) {
-        var sum=0; 
-        for (var i=1;i<=num;i++){
-            sum += i;
+    sum(startName, num, array, name) {
+        var sum = 0;
+        for (var i = startName; i <= num; i++) {
+            console.log(i)
+            sum += array[i][name];
         }
         return sum;
-    
+
     }
     render() {
         return (
             <div className="date-clear-date-settlemen-body">
-                <table className="date-clear-date-settlemen-table">
-                    <tbody>
-                        <tr>
-                            <td rowSpan="2">成本项目</td>
-                            <td rowSpan="2">单位</td>
-                            <td colSpan={5}>全厂</td>
-                            <td colSpan={4}>一系列</td>
-                            <td colSpan={4}>二系列</td>
-                        </tr>
-                        <tr>
-                            <td>单价</td>
-                            <td>日消耗</td>
-                            <td>月消耗</td>
-                            <td>日成本</td>
-                            <td>月成本</td>
-                            <td>日消耗</td>
-                            <td>月消耗</td>
-                            <td>日成本</td>
-                            <td>月成本</td>
-                            <td>日消耗</td>
-                            <td>月消耗</td>
-                            <td>日成本</td>
-                            <td>月成本</td>
-                        </tr>
-                        {
-                this.state.ListData.map((item, index) => {
-                        if(index<31){
-                            return (
-                                <tr key={index} className={
-                                    index === 0 ? 'date-clear-date-settlemen-table-blue' :
-                                        index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 ? 'date-clear-date-settlemen-table-yellow' :
-                                            'date-clear-date-settlemen-table-none'
-                                } >
-                                    <td><Input
-                                        value={item.name}
-                                        onChange={this.infoKuang("name", index).bind(this)}
-                                    /></td>
-                                    <td><Input
-                                        value={item.dw}
-                                        onChange={this.infoKuang("dw", index).bind(this)}
-                                    >
-                                    </Input>
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.dj === str || item.dj === 0 ? null : item.dj}
-                                        onChange={this.infoKuang("dj", index).bind(this)}
-                                        >
-                                    </Input>
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.qcrxh === str || item.qcrxh === 0 ? null : item.qcrxh}
-                                        onChange={this.infoKuang("qcrxh", index).bind(this)}
-                                        >
-                                    </Input>
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.qcyxh === str || item.qcyxh === 0 ? null : item.qcyxh}
-                                        onChange={this.infoKuang("qcyxh", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.qcrcb === str || item.qcrcb === 0 ? null : item.qcrcb}
-                                        onChange={this.infoKuang("qcrcb", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.qcycb === str || item.qcycb === 0 ? null : item.qcycb}
-                                        onChange={this.infoKuang("qcycb", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ysrxh === str || item.ysrxh === 0 ? null : item.ysrxh}
-                                        onChange={this.infoKuang("ysrxh", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ysyxh === str || item.ysyxh === 0 ? null : item.ysyxh}
-                                        onChange={this.infoKuang("ysyxh", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ysrcb === str || item.ysrcb === 0 ? null : item.ysrcb}
-                                        onChange={this.infoKuang("ysrcb", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ysycb === str || item.ysycb === 0 ? null : item.ysycb}
-                                        onChange={this.infoKuang("ysycb", index).bind(this)}
-                                        />
-                                    </td>
-                                   
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ssrxh === str || item.ssrxh === 0 ? null : item.ssrxh}
-                                        onChange={this.infoKuang("ssrxh", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ssyxh === str || item.ssyxh === 0 ? null : item.ssyxh}
-                                        onChange={this.infoKuang("ssyxh", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ssrcb === str || item.ssrcb === 0 ? null : item.ssrcb}
-                                        onChange={this.infoKuang("ssrcb", index).bind(this)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Input onKeyUp={this.mustNumber.bind(this)}
-                                        value={item.ssycb === str || item.ssycb === 0 ? null : item.ssycb}
-                                        onChange={this.infoKuang("ssycb", index).bind(this)}
-                                        />
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    
-                })
-            }
-                    </tbody>
-                </table>
+                <div className="date-clear-date-settlemen-title">
+                    <Button type="primary" onClick={this.cmputendData.bind(this)}>计算</Button>
+                </div>
+                <div className="date-clear-date-settlemen-div">
+                    <table className="date-clear-date-settlemen-table">
+                        <tbody>
+                            <tr>
+                                <td rowSpan="2">成本项目</td>
+                                <td rowSpan="2">单位</td>
+                                <td colSpan={5}>全厂</td>
+                                <td colSpan={4}>一系列</td>
+                                <td colSpan={4}>二系列</td>
+                            </tr>
+                            <tr>
+                                <td>单价</td>
+                                <td>日单耗</td>
+                                <td>月单耗</td>
+                                <td>日成本</td>
+                                <td>月成本</td>
+                                <td>日单耗</td>
+                                <td>月单耗</td>
+                                <td>日成本</td>
+                                <td>月成本</td>
+                                <td>日单耗</td>
+                                <td>月单耗</td>
+                                <td>日成本</td>
+                                <td>月成本</td>
+                            </tr>
+                            {
+                                this.state.ListData.map((item, index) => {
+                                    if (index < 30) {
+                                        return (
+                                            <tr key={index} className={
+                                                index === 0 ? 'date-clear-date-settlemen-table-blue' :
+                                                    index === 1 || index === 2 || index === 3 || index === 4 || index === 10 || index === 16 || index === 17 || index === 21 ? 'date-clear-date-settlemen-table-yellow' :
+                                                        'date-clear-date-settlemen-table-none'
+                                            } >
+                                                <td><Input
+                                                    value={item.name}
+                                                    onChange={this.infoKuang("name", index).bind(this)}
+                                                /></td>
+                                                <td><Input
+                                                    value={item.dw}
+                                                    onChange={this.infoKuang("dw", index).bind(this)}
+                                                >
+                                                </Input>
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.qcdj === str || item.qcdj === 0 ? null : item.qcdj}
+                                                        onChange={this.infoKuang("qcdj", index).bind(this)}
+                                                    >
+                                                    </Input>
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.qcrdh === str || item.qcrdh === 0 ? null : item.qcrdh}
+                                                        onChange={this.infoKuang("qcrdh", index).bind(this)}
+                                                    >
+                                                    </Input>
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.qcydh === str || item.qcydh === 0 ? null : item.qcydh}
+                                                        onChange={this.infoKuang("qcydh", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.qcrcb === str || item.qcrcb === 0 ? null : item.qcrcb}
+                                                        onChange={this.infoKuang("qcrcb", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.qcycb === str || item.qcycb === 0 ? null : item.qcycb}
+                                                        onChange={this.infoKuang("qcycb", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.yxlrdh === str || item.yxlrdh === 0 ? null : item.yxlrdh}
+                                                        onChange={this.infoKuang("yxlrdh", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.yxlydh === str || item.yxlydh === 0 ? null : item.yxlydh}
+                                                        onChange={this.infoKuang("yxlydh", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.yxlrcb === str || item.yxlrcb === 0 ? null : item.yxlrcb}
+                                                        onChange={this.infoKuang("yxlrcb", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.exlycb === str || item.exlycb === 0 ? null : item.exlycb}
+                                                        onChange={this.infoKuang("exlycb", index).bind(this)}
+                                                    />
+                                                </td>
+
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.ssrdh === str || item.ssrdh === 0 ? null : item.ssrdh}
+                                                        onChange={this.infoKuang("ssrdh", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.ssydh === str || item.ssydh === 0 ? null : item.ssydh}
+                                                        onChange={this.infoKuang("ssydh", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.ssrcb === str || item.ssrcb === 0 ? null : item.ssrcb}
+                                                        onChange={this.infoKuang("ssrcb", index).bind(this)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <Input onKeyUp={this.mustNumber.bind(this)}
+                                                        value={item.ssycb === str || item.ssycb === 0 ? null : item.ssycb}
+                                                        onChange={this.infoKuang("ssycb", index).bind(this)}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
+
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }

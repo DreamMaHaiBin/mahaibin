@@ -1,11 +1,18 @@
 .date-clear-date-settlemen-body {
     width: 100%;
-    border: 1px solid #7596c1;
+    // border: 1px solid #7596c1;
     padding: 10px;
-
+    .date-clear-date-settlemen-title {
+        text-align: right;
+        margin: 10px;
+    }
+    .date-clear-date-settlemen-div {
+        border: 1px solid #7596c1;
+        padding: 10px;
+    }
     .date-clear-date-settlemen-table {
         width: 100%;
-
+        border: 1px solid #7596c1;
         tbody {
             tr {
                 td {
@@ -14,6 +21,7 @@
                     font-size: 14px;
 
                     .ant-input {
+                        height: 25px;
                         border: none;
                         border-radius: 0;
                         outline: none;
@@ -26,6 +34,7 @@
 
                 .ant-input {
                     background-color: #00b0f0;
+                    height: 25px;
 
                 }
 
@@ -36,7 +45,8 @@
 
                 .ant-input {
                     background-color: #ffc000;
-
+                    height: 25px;
+                    font-weight: 600;
                 }
             }
 
@@ -55,7 +65,7 @@
 
                         .ant-input {
                             background-color: #00b0f0;
-
+                            height: 25px;
                         }
                     }
 
@@ -64,7 +74,7 @@
 
                         .ant-input {
                             background-color: #92d050;
-
+                            height: 25px;
                         }
                     }
 
@@ -80,7 +90,7 @@
 
                         .ant-input {
                             background-color: #ffc000;
-
+                            height: 25px;
                         }
                     }
                 }
