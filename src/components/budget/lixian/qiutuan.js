@@ -952,7 +952,7 @@ export default class QiuTuan extends Component {
         })
     }
     mustNumber(e) {
-        if(!e.target.value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
+        if(!e.target.value.replace(/[^\d^]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
             e.target.value = ''
         }
    

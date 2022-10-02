@@ -6,7 +6,7 @@ import Header from "./header";
 import Footer from "./footer"
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { Menu, Icon, Button } from 'antd';
+import { Menu } from 'antd';
 import { databaseList } from '../util/databaseList'
 
 const { SubMenu } = Menu;

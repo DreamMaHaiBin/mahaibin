@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Input, Tooltip, Checkbox, Button } from "antd";
+import { Input, Tooltip, message, Button } from "antd";
 import { tableListDataShaojie } from '../util/shaojieTable'
+import axios from "axios";
 import './common.scss'
 const str = "0.00"
 const strFour = "0.0000"
@@ -26,6 +27,27 @@ export default class DateClearDateSettlement extends Component {
             this.setState({ ListData: newData })
         }
     }
+    componentDidMount() {
+        this.initData()
+    }
+    async initData() {
+    const data = await axios.get("/api/rqrjs/")
+     data.then(res=>{
+         console.log(res)
+         if(res.status === 200 && res.data && res.data.dos) {
+             this.setState({
+                 ListData: res.data.dos
+             })
+         }else {
+             this.setState({
+                 ListData: tableListDataShaojie
+             })
+         }
+     }).catch( error =>{
+         console.log(error)
+         message.error("数据获取错，请稍后重试")
+     })
+    }
     cmputendData() {
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
         dataComputed.forEach((element, index) => {
@@ -33,8 +55,8 @@ export default class DateClearDateSettlement extends Component {
                 element['qcrcb'] = element['qcdj'] * element['qcrdh']
                 element['qcycb'] = element['qcdj'] * element['qcydh']
 
-                element['ysrcb'] = element['qcdj'] * element['ysrdh']
-                element['ysrcb'] = element['qcdj'] * element['ysydh']
+                // element['ysrcb'] = element['qcdj'] * element['ysrdh']
+                // element['ysrcb'] = element['qcdj'] * element['ysydh']
 
                 element['esrcb'] = element['qcdj'] * element['esrdh']
                 element['esrcb'] = element['qcdj'] * element['esydh']
@@ -52,10 +74,10 @@ export default class DateClearDateSettlement extends Component {
                 obj['qcrcb'] = dataComputed[(index + 1)]['qcrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcrcb'] + (index === 54 ? dataComputed[index + 4]['qcrcb'] : 0)// 全厂日成本
                 obj['qcycb'] = dataComputed[(index + 1)]['qcycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcycb'] + (index === 54 ? dataComputed[index + 4]['qcycb'] : 0)// 全厂月成本
 
-                obj['ysrdh'] = dataComputed[(index + 1)]['ysrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysrdh'] + (index === 54 ? dataComputed[index + 4]['ysrdh'] : 0)// 一烧日消耗
-                obj['ysydh'] = dataComputed[(index + 1)]['ysydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysydh'] + (index === 54 ? dataComputed[index + 4]['ysydh'] : 0)// 一烧月消耗
-                obj['ysrcb'] = dataComputed[(index + 1)]['ysrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysrcb'] + (index === 54 ? dataComputed[index + 4]['ysrcb'] : 0)// 一烧日成本
-                obj['ysycb'] = dataComputed[(index + 1)]['ysycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysycb'] + (index === 54 ? dataComputed[index + 4]['ysycb'] : 0)// 一烧月成本
+                // obj['ysrdh'] = dataComputed[(index + 1)]['ysrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysrdh'] + (index === 54 ? dataComputed[index + 4]['ysrdh'] : 0)// 一烧日消耗
+                // obj['ysydh'] = dataComputed[(index + 1)]['ysydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysydh'] + (index === 54 ? dataComputed[index + 4]['ysydh'] : 0)// 一烧月消耗
+                // obj['ysrcb'] = dataComputed[(index + 1)]['ysrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysrcb'] + (index === 54 ? dataComputed[index + 4]['ysrcb'] : 0)// 一烧日成本
+                // obj['ysycb'] = dataComputed[(index + 1)]['ysycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysycb'] + (index === 54 ? dataComputed[index + 4]['ysycb'] : 0)// 一烧月成本
 
                 obj['esrdh'] = dataComputed[(index + 1)]['esrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['esrdh'] + (index === 54 ? dataComputed[index + 4]['esrdh'] : 0)// 二烧日消耗
                 obj['esydh'] = dataComputed[(index + 1)]['esydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['esydh'] + (index === 54 ? dataComputed[index + 4]['esydh'] : 0)// 二烧月消耗
@@ -75,10 +97,10 @@ export default class DateClearDateSettlement extends Component {
                 obj['qcrcb'] = dataComputed[index + 1]['qcrcb'] + dataComputed[index + 2]['qcrcb'] + dataComputed[index + 3]['qcrcb'] + dataComputed[index + 4]['qcrcb'] + dataComputed[index + 5]['qcrcb'] + dataComputed[index + 6]['qcrcb'] + dataComputed[index + 7]['qcrcb'] + dataComputed[index + 8]['qcrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['qcrcb'])
                 obj['qcycb'] = dataComputed[index + 1]['qcycb'] + dataComputed[index + 2]['qcycb'] + dataComputed[index + 3]['qcycb'] + dataComputed[index + 4]['qcycb'] + dataComputed[index + 5]['qcycb'] + dataComputed[index + 6]['qcycb'] + dataComputed[index + 7]['qcycb'] + dataComputed[index + 8]['qcycb'] + (index === 59 ? 0 : dataComputed[index + 9]['qcycb'])
 
-                obj['ysrdh'] = dataComputed[index + 1]['ysrdh'] + dataComputed[index + 2]['ysrdh'] + dataComputed[index + 3]['ysrdh'] + dataComputed[index + 4]['ysrdh'] + dataComputed[index + 5]['ysrdh'] + dataComputed[index + 6]['ysrdh'] + dataComputed[index + 7]['ysrdh'] + dataComputed[index + 8]['ysrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['ysrdh'])
-                obj['ysydh'] = dataComputed[index + 1]['ysydh'] + dataComputed[index + 2]['ysydh'] + dataComputed[index + 3]['ysydh'] + dataComputed[index + 4]['ysydh'] + dataComputed[index + 5]['ysydh'] + dataComputed[index + 6]['ysydh'] + dataComputed[index + 7]['ysydh'] + dataComputed[index + 8]['ysydh'] + (index === 59 ? 0 : dataComputed[index + 9]['ysydh'])
-                obj['ysrcb'] = dataComputed[index + 1]['ysrcb'] + dataComputed[index + 2]['ysrcb'] + dataComputed[index + 3]['ysrcb'] + dataComputed[index + 4]['ysrcb'] + dataComputed[index + 5]['ysrcb'] + dataComputed[index + 6]['ysrcb'] + dataComputed[index + 7]['ysrcb'] + dataComputed[index + 8]['ysrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['ysrcb'])
-                obj['ysycb'] = dataComputed[index + 1]['ysycb'] + dataComputed[index + 2]['ysycb'] + dataComputed[index + 3]['ysycb'] + dataComputed[index + 4]['ysycb'] + dataComputed[index + 5]['ysycb'] + dataComputed[index + 6]['ysycb'] + dataComputed[index + 7]['ysycb'] + dataComputed[index + 8]['ysycb'] + (index === 59 ? 0 : dataComputed[index + 9]['ysycb'])
+                // obj['ysrdh'] = dataComputed[index + 1]['ysrdh'] + dataComputed[index + 2]['ysrdh'] + dataComputed[index + 3]['ysrdh'] + dataComputed[index + 4]['ysrdh'] + dataComputed[index + 5]['ysrdh'] + dataComputed[index + 6]['ysrdh'] + dataComputed[index + 7]['ysrdh'] + dataComputed[index + 8]['ysrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['ysrdh'])
+                // obj['ysydh'] = dataComputed[index + 1]['ysydh'] + dataComputed[index + 2]['ysydh'] + dataComputed[index + 3]['ysydh'] + dataComputed[index + 4]['ysydh'] + dataComputed[index + 5]['ysydh'] + dataComputed[index + 6]['ysydh'] + dataComputed[index + 7]['ysydh'] + dataComputed[index + 8]['ysydh'] + (index === 59 ? 0 : dataComputed[index + 9]['ysydh'])
+                // obj['ysrcb'] = dataComputed[index + 1]['ysrcb'] + dataComputed[index + 2]['ysrcb'] + dataComputed[index + 3]['ysrcb'] + dataComputed[index + 4]['ysrcb'] + dataComputed[index + 5]['ysrcb'] + dataComputed[index + 6]['ysrcb'] + dataComputed[index + 7]['ysrcb'] + dataComputed[index + 8]['ysrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['ysrcb'])
+                // obj['ysycb'] = dataComputed[index + 1]['ysycb'] + dataComputed[index + 2]['ysycb'] + dataComputed[index + 3]['ysycb'] + dataComputed[index + 4]['ysycb'] + dataComputed[index + 5]['ysycb'] + dataComputed[index + 6]['ysycb'] + dataComputed[index + 7]['ysycb'] + dataComputed[index + 8]['ysycb'] + (index === 59 ? 0 : dataComputed[index + 9]['ysycb'])
 
                 obj['esrdh'] = dataComputed[index + 1]['esrdh'] + dataComputed[index + 2]['esrdh'] + dataComputed[index + 3]['esrdh'] + dataComputed[index + 4]['esrdh'] + dataComputed[index + 5]['esrdh'] + dataComputed[index + 6]['esrdh'] + dataComputed[index + 7]['esrdh'] + dataComputed[index + 8]['esrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['esrdh'])
                 obj['esydh'] = dataComputed[index + 1]['esydh'] + dataComputed[index + 2]['esydh'] + dataComputed[index + 3]['esydh'] + dataComputed[index + 4]['esydh'] + dataComputed[index + 5]['esydh'] + dataComputed[index + 6]['esydh'] + dataComputed[index + 7]['esydh'] + dataComputed[index + 8]['esydh'] + (index === 59 ? 0 : dataComputed[index + 9]['esydh'])
@@ -95,13 +117,14 @@ export default class DateClearDateSettlement extends Component {
             }
 
         })
-        dataComputed[0]['ysycb'] = dataComputed[0]['ysrcb'] * 30
+        // dataComputed[0]['ysycb'] = dataComputed[0]['ysrcb'] * 30
         dataComputed[0]['esycb'] = dataComputed[0]['esrcb'] * 30
         dataComputed[0]['ssycb'] = dataComputed[0]['ssrcb'] * 30
-        dataComputed[0]['qcycb'] = dataComputed[0]['ysycb'] + dataComputed[0]['esycb'] + dataComputed[0]['ssycb']
+        // dataComputed[0]['qcycb'] = dataComputed[0]['ysycb'] + dataComputed[0]['esycb'] + dataComputed[0]['ssycb']
+        dataComputed[0]['qcycb'] = dataComputed[0]['esycb'] + dataComputed[0]['ssycb']
 
         dataComputed[1]['qcycb'] = dataComputed[2]['qcycb'] + dataComputed[53]['qcycb']
-        dataComputed[1]['ysycb'] = dataComputed[2]['ysycb'] + dataComputed[53]['ysycb']
+        // dataComputed[1]['ysycb'] = dataComputed[2]['ysycb'] + dataComputed[53]['ysycb']
         dataComputed[1]['esycb'] = dataComputed[2]['esycb'] + dataComputed[53]['esycb']
         dataComputed[1]['ssycb'] = dataComputed[2]['ssycb'] + dataComputed[53]['ssycb']
 
@@ -129,7 +152,7 @@ export default class DateClearDateSettlement extends Component {
                                 <td rowSpan="2">成本项目</td>
                                 <td rowSpan="2">单位</td>
                                 <td colSpan={5}>全厂</td>
-                                <td colSpan={4}>一烧</td>
+                                {/* <td colSpan={4}>一烧</td> */}
                                 <td colSpan={4}>二烧</td>
                                 <td colSpan={4}>三烧</td>
                             </tr>
@@ -139,10 +162,10 @@ export default class DateClearDateSettlement extends Component {
                                 <td>月单耗</td>
                                 <td>日成本</td>
                                 <td>月成本</td>
-                                <td>日单耗</td>
+                                {/* <td>日单耗</td>
                                 <td>月单耗</td>
                                 <td>日成本</td>
-                                <td>月成本</td>
+                                <td>月成本</td> */}
                                 <td>日单耗</td>
                                 <td>月单耗</td>
                                 <td>日成本</td>
@@ -202,7 +225,7 @@ export default class DateClearDateSettlement extends Component {
                                                     onChange={this.infoKuang("qcycb", index).bind(this)}
                                                 />
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.ysrdh === str || item.ysrdh === 0 ? null : item.ysrdh}
                                                     onChange={this.infoKuang("ysrdh", index).bind(this)}
@@ -225,7 +248,7 @@ export default class DateClearDateSettlement extends Component {
                                                     value={item.ysycb === str || item.ysycb === 0 ? null : item.ysycb}
                                                     onChange={this.infoKuang("ysycb", index).bind(this)}
                                                 />
-                                            </td>
+                                            </td> */}
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.esrdh === str || item.esrdh === 0 ? null : item.esrdh}

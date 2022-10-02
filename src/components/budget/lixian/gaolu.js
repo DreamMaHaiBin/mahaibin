@@ -973,13 +973,13 @@ export default class GaoLu extends Component {
         })
     }
     mustNumber(e) {
-        if(!e.target.value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
+        if(!e.target.value.replace(/[^\d]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')){
             e.target.value = ''
         }
    
     }
     render() {
-        let tscb = Number(this.state.outSone) * this.state.hjOne / Number(this.state.outSone)
+        // let tscb = Number(this.state.outSone) * this.state.hjOne / Number(this.state.outSone)
 
         const sub = {
             dataNumber: 0

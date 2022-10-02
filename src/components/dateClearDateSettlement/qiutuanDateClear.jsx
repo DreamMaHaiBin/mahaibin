@@ -1,19 +1,41 @@
 import React, { Component } from "react";
 import './common.scss'
-import { Input, Tooltip, Checkbox, Button } from "antd";
-import { tableListDataShaojie } from '../util/shaojieTable'
+import { Input, message, Button } from "antd";
+import axios from 'axios'
+import { qiuTuanListData } from '../util/shaojieTable'
 // 球团日清日结
 const str = "0.00"
-const strFour = "0.0000"
+// const strFour = "0.0000"
 export default class DateClearDateSettlementPellet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ListData: tableListDataShaojie
+            ListData: qiuTuanListData
         }
     }
+    componentDidMount() {
+        this.initData()
+    }
+    async initData() {
+        const data = await axios.get("/api/rqrjqt/")
+        data.then(res => {
+            console.log(res)
+            if (res.status === 200 && res.data && res.data.dos) {
+                this.setState({
+                    ListData: res.data.dos
+                })
+            } else {
+                this.setState({
+                    ListData: qiuTuanListData
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+            message.error("数据获取错，请稍后重试")
+        })
+    }
     mustNumber(e) {
-        if (!e.target.value.replace(/[^\d^\.]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
+        if (!e.target.value.replace(/[^\d]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
             e.target.value = ''
         }
 
@@ -101,7 +123,7 @@ export default class DateClearDateSettlementPellet extends Component {
 
             }
 
-            if (index === 2) {
+            if (index === 2) { // 球团原料
                 // 主要几个标黑的矿粉
                 obj['qcrdh'] = dataComputed[3]['qcrdh'] + dataComputed[4]['qcrdh'] + dataComputed[10]['qcrdh'] + dataComputed[14]['qcrdh'] + dataComputed[15]['qcrdh']
                 obj['qcydh'] = dataComputed[3]['qcydh'] + dataComputed[4]['qcydh'] + dataComputed[10]['qcydh'] + dataComputed[14]['qcydh'] + dataComputed[15]['qcydh']
@@ -119,6 +141,7 @@ export default class DateClearDateSettlementPellet extends Component {
                 obj['exlycb'] = dataComputed[3]['exlycb'] + dataComputed[4]['exlycb'] + dataComputed[10]['exlycb'] + dataComputed[14]['exlycb'] + dataComputed[15]['exlycb']
             }
             if (index === 2 || index === 3 || index === 4 || index === 10 || index === 17) {
+                // 不包含几个总计的
                 obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
             }
 

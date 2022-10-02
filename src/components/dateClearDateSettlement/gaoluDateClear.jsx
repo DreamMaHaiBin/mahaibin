@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './common.scss'
-import { Input, Button } from "antd";
+import { Input, Button, message } from "antd";
+import axios from "axios";
 import { gaoluListData } from '../util/shaojieTable'
 // 高炉日清日结
 const str = '0.00'
@@ -10,6 +11,27 @@ export default class DateClearDateSettlementFurnace extends Component {
         this.state = {
             ListData: gaoluListData
         }
+    }
+    componentDidMount() {
+        this.initData()
+    }
+    async initData() {
+    const data = await axios.get("/api/rqrjgl/")
+     data.then(res=>{
+         console.log(res)
+         if(res.status === 200 && res.data && res.data.dos) {
+             this.setState({
+                 ListData: res.data.dos
+             })
+         }else {
+             this.setState({
+                 ListData: gaoluListData
+             })
+         }
+     }).catch( error =>{
+         console.log(error)
+         message.error("数据获取错，请稍后重试")
+     })
     }
     mustNumber(e) {
         if (!e.target.value.replace(/[^\d^\.]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {

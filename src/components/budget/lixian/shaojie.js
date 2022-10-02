@@ -4,7 +4,7 @@ import axios from "axios";
 import ExportJsonExcel from 'js-export-excel';
 import WrappedBudgetFen from "../shaojie/daoru.js"
 import BuildTitle from "../../model/model"
-import { Modal, Input, Button, message, Checkbox, Tooltip } from "antd";
+import { Modal, Input, Button, message, Checkbox } from "antd";
 import WrappedFeiliao from "../shaojie/gufeu"
 import WrappedGongFei from "../shaojie/kbjgf"
 import WrappedBuGuDing from "../shaojie/gdjgf"

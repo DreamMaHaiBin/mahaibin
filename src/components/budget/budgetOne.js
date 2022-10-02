@@ -332,6 +332,7 @@ export default class BudgetOne extends Component {
                 Authorization: sessionStorage.getItem("token")
             }
         }).then((res) => {
+            console.log(res)
             res.data.forEach((item) => {
                 item.tFe = Number(item.tFe).toFixed(2);
                 item.siO2 = Number(item.siO2).toFixed(2);     // 二氧化硅含量
