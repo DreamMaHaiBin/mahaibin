@@ -107,10 +107,10 @@ export default class DateClearDateSettlementPellet extends Component {
                 obj['exlrcb'] = this.sum(index + 2, index + 3, dataComputed, 'exlrcb')
                 obj['exlycb'] = this.sum(index + 2, index + 3, dataComputed, 'exlycb')
 
-                obj['ssrdh'] = this.sum(index + 2, index + 3, dataComputed, 'ssrdh')
-                obj['ssydh'] = this.sum(index + 2, index + 3, dataComputed, 'ssydh')
-                obj['ssrcb'] = this.sum(index + 2, index + 3, dataComputed, 'ssrcb')
-                obj['ssycb'] = this.sum(index + 2, index + 3, dataComputed, 'ssycb')
+                // obj['ssrdh'] = this.sum(index + 2, index + 3, dataComputed, 'ssrdh')
+                // obj['ssydh'] = this.sum(index + 2, index + 3, dataComputed, 'ssydh')
+                // obj['ssrcb'] = this.sum(index + 2, index + 3, dataComputed, 'ssrcb')
+                // obj['ssycb'] = this.sum(index + 2, index + 3, dataComputed, 'ssycb')
             }
             if (index === 10 || index === 17) {
                 // 主要几个标黑的矿粉
@@ -142,8 +142,8 @@ export default class DateClearDateSettlementPellet extends Component {
                 obj['exlrcb'] = dataComputed[17]['exlrcb'] + dataComputed[21]['exlrcb'] + dataComputed[28]['exlrcb'] + dataComputed[29]['exlrcb'] + dataComputed[30]['exlrcb']
                 obj['exlycb'] = dataComputed[17]['exlycb'] + dataComputed[21]['exlycb'] + dataComputed[28]['exlycb'] + dataComputed[29]['exlycb'] + dataComputed[30]['exlycb']
 
-                obj['ssrcb'] = dataComputed[17]['ssrcb'] + dataComputed[21]['ssrcb'] + dataComputed[28]['ssrcb'] + dataComputed[29]['ssrcb'] + dataComputed[30]['ssrcb']
-                obj['ssycb'] = dataComputed[17]['ssycb'] + dataComputed[21]['ssycb'] + dataComputed[28]['ssycb'] + dataComputed[29]['ssycb'] + dataComputed[30]['ssycb']
+                // obj['ssrcb'] = dataComputed[17]['ssrcb'] + dataComputed[21]['ssrcb'] + dataComputed[28]['ssrcb'] + dataComputed[29]['ssrcb'] + dataComputed[30]['ssrcb']
+                // obj['ssycb'] = dataComputed[17]['ssycb'] + dataComputed[21]['ssycb'] + dataComputed[28]['ssycb'] + dataComputed[29]['ssycb'] + dataComputed[30]['ssycb']
 
             }
 
@@ -157,7 +157,7 @@ export default class DateClearDateSettlementPellet extends Component {
                 obj['yxlrdh'] = dataComputed[3]['yxlrdh'] + dataComputed[4]['yxlrdh'] + dataComputed[10]['yxlrdh'] + dataComputed[14]['yxlrdh'] + dataComputed[15]['yxlrdh']
                 obj['yxlydh'] = dataComputed[3]['yxlydh'] + dataComputed[4]['yxlydh'] + dataComputed[10]['yxlydh'] + dataComputed[14]['yxlydh'] + dataComputed[15]['yxlydh']
                 obj['yxlrcb'] = dataComputed[3]['yxlrcb'] + dataComputed[4]['yxlrcb'] + dataComputed[10]['yxlrcb'] + dataComputed[14]['yxlrcb'] + dataComputed[15]['yxlrcb']
-                obj['exlycb'] = dataComputed[3]['exlycb'] + dataComputed[4]['exlycb'] + dataComputed[10]['exlycb'] + dataComputed[14]['exlycb'] + dataComputed[15]['exlycb']
+                obj['yxlycb'] = dataComputed[3]['yxlycb'] + dataComputed[4]['yxlycb'] + dataComputed[10]['yxlycb'] + dataComputed[14]['yxlycb'] + dataComputed[15]['yxlycb']
 
                 obj['exlrdh'] = dataComputed[3]['exlrdh'] + dataComputed[4]['exlrdh'] + dataComputed[10]['exlrdh'] + dataComputed[14]['exlrdh'] + dataComputed[15]['exlrdh']
                 obj['exlydh'] = dataComputed[3]['exlydh'] + dataComputed[4]['exlydh'] + dataComputed[10]['exlydh'] + dataComputed[14]['exlydh'] + dataComputed[15]['exlydh']
@@ -169,7 +169,7 @@ export default class DateClearDateSettlementPellet extends Component {
                 obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
             }
 
-
+            
         })
         dataComputed[0]['exlycb'] = dataComputed[0]['yxlrcb'] * 30
         dataComputed[0]['exlycb'] = dataComputed[0]['exlrcb'] * 30
@@ -179,6 +179,21 @@ export default class DateClearDateSettlementPellet extends Component {
         dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[16]['exlycb']
         dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[16]['exlycb']
 
+        dataComputed.forEach(obj=>{
+            console.log(String(obj.exlrcb)==="NaN")
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb
+            obj.yxlrdh = String(obj.exlrcb) === "NaN" || String(obj.yxlrdh) === "null" ? null : obj.yxlrdh
+            obj.yxlydh = String(obj.yxlydh) === "NaN" || String(obj.yxlydh) === "null" ? null : obj.yxlydh
+            obj.yxlrcb = String(obj.yxlrcb) === "NaN" || String(obj.yxlrcb) === "null" ? null : obj.yxlrcb
+            obj.yxlycb = String(obj.yxlycb) === "NaN" || String(obj.yxlycb) === "null" ? null : obj.yxlycb
+            obj.exlrdh = String(obj.exlrdh) === "NaN" || String(obj.exlrdh) === "null" ? null : obj.exlrdh
+            obj.exlydh = String(obj.exlydh) === "NaN" || String(obj.exlydh) === "null" ? null : obj.exlydh
+            obj.exlrcb = String(obj.exlrcb) === "NaN" || String(obj.exlrcb) === "null" ? null : obj.exlrcb
+            obj.exlycb = String(obj.exlycb) === "NaN" || String(obj.exlycb) === "null" ? null : obj.exlycb
+        })
         this.setState({ ListData: dataComputed },()=>{message.success("计算成功！")})
     }
     // 累加函数
@@ -299,32 +314,32 @@ export default class DateClearDateSettlementPellet extends Component {
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
                                                         value={item.exlycb === str || item.exlycb === 0 ? 0 : item.exlycb}
-                                                        onChange={this.infoKuang("exlycb", index).bind(this)}
+                                                        onChange={this.infoKuang("yxlycb", index).bind(this)}
                                                     />
                                                 </td>
 
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.ssrdh === str || item.ssrdh === 0 ? 0 : item.ssrdh}
-                                                        onChange={this.infoKuang("ssrdh", index).bind(this)}
+                                                        value={item.exlrdh === str || item.exlrdh === 0 ? 0 : item.exlrdh}
+                                                        onChange={this.infoKuang("exlrdh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.ssydh === str || item.ssydh === 0 ? 0 : item.ssydh}
-                                                        onChange={this.infoKuang("ssydh", index).bind(this)}
+                                                        value={item.exlydh === str || item.exlydh === 0 ? 0 : item.exlydh}
+                                                        onChange={this.infoKuang("exlydh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.ssrcb === str || item.ssrcb === 0 ? 0 : item.ssrcb}
-                                                        onChange={this.infoKuang("ssrcb", index).bind(this)}
+                                                        value={item.exlrcb === str || item.exlrcb === 0 ? 0 : item.exlrcb}
+                                                        onChange={this.infoKuang("exlrcb", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.ssycb === str || item.ssycb === 0 ? 0 : item.ssycb}
-                                                        onChange={this.infoKuang("ssycb", index).bind(this)}
+                                                        value={item.exlycb === str || item.exlycb === 0 ? 0 : item.exlycb}
+                                                        onChange={this.infoKuang("exlycb", index).bind(this)}
                                                     />
                                                 </td>
                                             </tr>

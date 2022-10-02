@@ -313,8 +313,12 @@
 .abc{
     text-align: right;
     }
-.abc>td>input>{
-    width: 100px !important; 
+.abc{
+    td{
+        input{
+            width: 100px !important; 
+        }
+    }
 }
 /*qiutuan*/
 .ant-drawer-wrapper-body{

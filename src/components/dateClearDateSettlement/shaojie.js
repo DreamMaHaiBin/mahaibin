@@ -139,8 +139,9 @@ export default class DateClearDateSettlement extends Component {
             if (index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 54) {
                 obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
             }
-
+   
         })
+
         // dataComputed[0]['ysycb'] = dataComputed[0]['ysrcb'] * 30
         dataComputed[0]['esycb'] = dataComputed[0]['esrcb'] * 30
         dataComputed[0]['ssycb'] = dataComputed[0]['ssrcb'] * 30
@@ -152,6 +153,20 @@ export default class DateClearDateSettlement extends Component {
         dataComputed[1]['esycb'] = dataComputed[2]['esycb'] + dataComputed[53]['esycb']
         dataComputed[1]['ssycb'] = dataComputed[2]['ssycb'] + dataComputed[53]['ssycb']
 
+        dataComputed.forEach(obj=>{
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb
+            obj.esrdh = String(obj.esrdh) === "NaN" || String(obj.esrdh) === "null" ? null : obj.esrdh
+            obj.esydh = String(obj.esydh) === "NaN" || String(obj.esydh) === "null" ? null : obj.esydh
+            obj.esrcb = String(obj.esrcb) === "NaN" || String(obj.esrcb) === "null" ? null : obj.esrcb
+            obj.esycb = String(obj.esycb) === "NaN" || String(obj.esycb) === "null" ? null : obj.esycb
+            obj.ssrdh = String(obj.ssrdh) === "NaN" || String(obj.ssrdh) === "null" ? null : obj.ssrdh
+            obj.ssydh = String(obj.ssydh) === "NaN" || String(obj.ssydh) === "null" ? null : obj.ssydh
+            obj.ssrcb = String(obj.ssrcb) === "NaN" || String(obj.ssrcb) === "null" ? null : obj.ssrcb
+            obj.ssycb = String(obj.ssycb) === "NaN" || String(obj.ssycb) === "null" ? null : obj.ssycb
+        })
         this.setState({ ListData: dataComputed }, () => { message.success("计算成功！") })
     }
     // 累加函数

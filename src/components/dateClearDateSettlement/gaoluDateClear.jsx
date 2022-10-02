@@ -78,8 +78,8 @@ export default class DateClearDateSettlementFurnace extends Component {
                 obj['qcrcb'] = obj['qcdj'] * obj['qcrdh']
                 obj['qcycb'] = obj['qcdj'] * obj['qcydh']
 
-                obj['yglcb'] = obj['qcdj'] * obj['yglrdh']
-                obj['yglcb'] = obj['qcdj'] * obj['yglydh']
+                obj['yglrcb'] = obj['qcdj'] * obj['yglrdh']
+                obj['yglrcb'] = obj['qcdj'] * obj['yglydh']
 
                 obj['eglrcb'] = obj['qcdj'] * obj['eglrdh']
                 obj['eglrcb'] = obj['qcdj'] * obj['eglydh']
@@ -131,8 +131,8 @@ export default class DateClearDateSettlementFurnace extends Component {
 
                 obj['yglrdh'] = this.sum(startNum, endNum, dataComputed, 'yglrdh')
                 obj['yglydh'] = this.sum(startNum, endNum, dataComputed, 'yglydh')
-                obj['yglcb'] = this.sum(startNum, endNum, dataComputed, 'yglcb')
-                obj['ysycb'] = this.sum(startNum, endNum, dataComputed, 'ysycb')
+                obj['yglrcb'] = this.sum(startNum, endNum, dataComputed, 'yglrcb')
+                obj['yglycb'] = this.sum(startNum, endNum, dataComputed, 'yglycb')
 
                 obj['eglrdh'] = this.sum(startNum, endNum, dataComputed, 'eglrdh')
                 obj['eglydh'] = this.sum(startNum, endNum, dataComputed, 'eglydh')
@@ -147,19 +147,19 @@ export default class DateClearDateSettlementFurnace extends Component {
             }
             if (index === 34) {
                 obj['qcycb'] = dataComputed[35]['qcycb'] + dataComputed[43]['qcycb'] + dataComputed[65]['qcycb'] + dataComputed[82]['qcycb']
-                obj['ysycb'] = dataComputed[35]['ysycb'] + dataComputed[43]['ysycb'] + dataComputed[65]['ysycb'] + dataComputed[82]['ysycb']
+                obj['yglycb'] = dataComputed[35]['yglycb'] + dataComputed[43]['yglycb'] + dataComputed[65]['yglycb'] + dataComputed[82]['yglycb']
                 obj['eglycb'] = dataComputed[35]['eglycb'] + dataComputed[43]['eglycb'] + dataComputed[65]['qcycb'] + dataComputed[82]['qcycb']
                 obj['sglycb'] = dataComputed[35]['sglycb'] + dataComputed[43]['sglycb'] + dataComputed[65]['sglycb'] + dataComputed[82]['sglycb']
             }
             if (index === 43) {
                 obj['qcycb'] = dataComputed[44]['qcycb'] + dataComputed[44]['qcycb']
-                obj['ysycb'] = dataComputed[44]['ysycb'] + dataComputed[44]['ysycb']
+                obj['yglycb'] = dataComputed[44]['yglycb'] + dataComputed[44]['yglycb']
                 obj['eglycb'] = dataComputed[44]['eglycb'] + dataComputed[44]['eglycb']
                 obj['sglycb'] = dataComputed[44]['sglycb'] + dataComputed[44]['sglycb']
             }
             if (index === 65) {
                 obj['qcycb'] = this.sum(66, 81, dataComputed, 'qcycb')
-                obj['ysycb'] = this.sum(66, 81, dataComputed, 'ysycb')
+                obj['yglycb'] = this.sum(66, 81, dataComputed, 'yglycb')
                 obj['eglycb'] = this.sum(66, 81, dataComputed, 'eglycb')
                 obj['sglycb'] = this.sum(66, 81, dataComputed, 'sglycb')
             }
@@ -172,8 +172,8 @@ export default class DateClearDateSettlementFurnace extends Component {
 
                 obj['yglrdh'] = dataComputed[3]['yglrdh'] + dataComputed[26]['yglrdh'] + dataComputed[26]['yglrdh']
                 obj['yglydh'] = dataComputed[3]['yglydh'] + dataComputed[26]['yglydh'] + dataComputed[26]['yglydh']
-                obj['yglcb'] = dataComputed[3]['yglcb'] + dataComputed[26]['yglcb'] + dataComputed[26]['yglcb']
-                obj['ysycb'] = dataComputed[3]['ysycb'] + dataComputed[26]['ysycb'] + dataComputed[26]['ysycb']
+                obj['yglrcb'] = dataComputed[3]['yglrcb'] + dataComputed[26]['yglrcb'] + dataComputed[26]['yglrcb']
+                obj['yglycb'] = dataComputed[3]['yglycb'] + dataComputed[26]['yglycb'] + dataComputed[26]['yglycb']
 
                 obj['eglrdh'] = dataComputed[3]['eglrdh'] + dataComputed[26]['eglrdh'] + dataComputed[26]['eglrdh']
                 obj['eglydh'] = dataComputed[3]['eglydh'] + dataComputed[26]['eglydh'] + dataComputed[26]['eglydh']
@@ -190,18 +190,39 @@ export default class DateClearDateSettlementFurnace extends Component {
             if (index === 2 || index === 3 || index === 26 || index === 30 || index === 36 || index === 43 || index === 44 || index === 55 || index === 77) {
                 obj['qcdj'] = obj['qcycb'] / obj['qcrdh'] * 1000
             }
-            console.log(obj.ysycb === NaN)
+            console.log(obj.yglycb === NaN)
         })
-        dataComputed[0]['ysycb'] = dataComputed[0]['yglcb'] * 30
+        dataComputed[0]['yglycb'] = dataComputed[0]['yglrcb'] * 30
         dataComputed[0]['eglycb'] = dataComputed[0]['eglrcb'] * 30
         dataComputed[0]['sglycb'] = dataComputed[0]['sglrcb'] * 30
-        dataComputed[0]['qcycb'] = dataComputed[0]['ysycb'] * dataComputed[0]['eglycb'] + dataComputed[0]['sglycb']
+        dataComputed[0]['qcycb'] = dataComputed[0]['yglycb'] * dataComputed[0]['eglycb'] + dataComputed[0]['sglycb']
 
         dataComputed[1]['qcycb'] = dataComputed[6]['qcycb'] + dataComputed[34]['qcycb']
-        dataComputed[1]['ysycb'] = dataComputed[6]['ysycb'] + dataComputed[34]['ysycb']
+        dataComputed[1]['yglycb'] = dataComputed[6]['yglycb'] + dataComputed[34]['yglycb']
         dataComputed[1]['eglycb'] = dataComputed[6]['eglycb'] + dataComputed[34]['eglycb']
         dataComputed[1]['sglycb'] = dataComputed[6]['sglycb'] + dataComputed[34]['sglycb']
         
+        dataComputed.forEach(obj=>{
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb
+
+            obj.yglrdh = String(obj.yglrdh) === "NaN" || String(obj.yglrdh) === "null" ? null : obj.yglrdh
+            obj.yglydh = String(obj.yglydh) === "NaN" || String(obj.yglydh) === "null" ? null : obj.yglydh
+            obj.yglrcb = String(obj.yglrcb) === "NaN" || String(obj.yglrcb) === "null" ? null : obj.yglrcb
+            obj.yglycb = String(obj.yglycb) === "NaN" || String(obj.yglycb) === "null" ? null : obj.yglycb
+
+            obj.eglrdh = String(obj.eglrdh) === "NaN" || String(obj.eglrdh) === "null" ? null : obj.eglrdh
+            obj.eglydh = String(obj.eglydh) === "NaN" || String(obj.eglydh) === "null" ? null : obj.eglydh
+            obj.eglrcb = String(obj.eglrcb) === "NaN" || String(obj.eglrcb) === "null" ? null : obj.eglrcb
+            obj.eglycb = String(obj.eglycb) === "NaN" || String(obj.eglycb) === "null" ? null : obj.eglycb
+
+            obj.sglrdh = String(obj.sglrdh) === "NaN" || String(obj.sglrdh) === "null" ? null : obj.sglrdh
+            obj.sglydh = String(obj.sglydh) === "NaN" || String(obj.sglydh) === "null" ? null : obj.sglydh
+            obj.sglrcb = String(obj.sglrcb) === "NaN" || String(obj.sglrcb) === "null" ? null : obj.sglrcb
+            obj.sglycb = String(obj.sglycb) === "NaN" || String(obj.sglycb) === "null" ? null : obj.seglycb
+        })
         this.setState({ ListData: dataComputed },()=>{console.log(this.state.ListData)})
     }
     // 累加函数
@@ -319,14 +340,14 @@ export default class DateClearDateSettlementFurnace extends Component {
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.yglcb === str || item.yglcb === 0 ? 0 : item.yglcb}
-                                                    onChange={this.infoKuang("yglcb", index).bind(this)}
+                                                    value={item.yglrcb === str || item.yglrcb === 0 ? 0 : item.yglrcb}
+                                                    onChange={this.infoKuang("yglrcb", index).bind(this)}
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ysycb === str || item.ysycb === 0 ? 0 : item.ysycb}
-                                                    onChange={this.infoKuang("ysycb", index).bind(this)}
+                                                    value={item.yglycb === str || item.yglycb === 0 ? 0 : item.yglycb}
+                                                    onChange={this.infoKuang("yglycb", index).bind(this)}
                                                 />
                                             </td>
                                             <td>
