@@ -15,8 +15,8 @@ export default class DateClearDateSettlementFurnace extends Component {
     componentDidMount() {
         this.initData()
     }
-    async initData() {
-        await axios({
+     initData() {
+        axios({
             method: "get",
             url: "/api/rqrjgl/",
             headers: {
@@ -36,6 +36,9 @@ export default class DateClearDateSettlementFurnace extends Component {
         }).catch(error => {
             console.log(error)
             message.error("数据获取错，请稍后重试")
+            this.setState({
+                ListData: gaoluListData
+            })
         })
     }
     mustNumber(e) {
@@ -55,7 +58,7 @@ export default class DateClearDateSettlementFurnace extends Component {
     saveData() {
         axios({
             method: "post",
-            url: "/api/rqrjqt/",
+            url: "/api/rqrjgl/",
             headers: {
                 Authorization: sessionStorage.getItem("token")
             },
@@ -203,25 +206,25 @@ export default class DateClearDateSettlementFurnace extends Component {
         dataComputed[1]['sglycb'] = dataComputed[6]['sglycb'] + dataComputed[34]['sglycb']
         
         dataComputed.forEach(obj=>{
-            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh
-            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh
-            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb
-            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh.toFixed(4)
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh.toFixed(4)
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb.toFixed(2)
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb.toFixed(2)
 
-            obj.yglrdh = String(obj.yglrdh) === "NaN" || String(obj.yglrdh) === "null" ? null : obj.yglrdh
-            obj.yglydh = String(obj.yglydh) === "NaN" || String(obj.yglydh) === "null" ? null : obj.yglydh
-            obj.yglrcb = String(obj.yglrcb) === "NaN" || String(obj.yglrcb) === "null" ? null : obj.yglrcb
-            obj.yglycb = String(obj.yglycb) === "NaN" || String(obj.yglycb) === "null" ? null : obj.yglycb
+            obj.yglrdh = String(obj.yglrdh) === "NaN" || String(obj.yglrdh) === "null" ? null : obj.yglrdh.toFixed(4)
+            obj.yglydh = String(obj.yglydh) === "NaN" || String(obj.yglydh) === "null" ? null : obj.yglydh.toFixed(4)
+            obj.yglrcb = String(obj.yglrcb) === "NaN" || String(obj.yglrcb) === "null" ? null : obj.yglrcb.toFixed(2)
+            obj.yglycb = String(obj.yglycb) === "NaN" || String(obj.yglycb) === "null" ? null : obj.yglycb.toFixed(2)
 
-            obj.eglrdh = String(obj.eglrdh) === "NaN" || String(obj.eglrdh) === "null" ? null : obj.eglrdh
-            obj.eglydh = String(obj.eglydh) === "NaN" || String(obj.eglydh) === "null" ? null : obj.eglydh
-            obj.eglrcb = String(obj.eglrcb) === "NaN" || String(obj.eglrcb) === "null" ? null : obj.eglrcb
-            obj.eglycb = String(obj.eglycb) === "NaN" || String(obj.eglycb) === "null" ? null : obj.eglycb
+            obj.eglrdh = String(obj.eglrdh) === "NaN" || String(obj.eglrdh) === "null" ? null : obj.eglrdh.toFixed(4)
+            obj.eglydh = String(obj.eglydh) === "NaN" || String(obj.eglydh) === "null" ? null : obj.eglydh.toFixed(4)
+            obj.eglrcb = String(obj.eglrcb) === "NaN" || String(obj.eglrcb) === "null" ? null : obj.eglrcb.toFixed(2)
+            obj.eglycb = String(obj.eglycb) === "NaN" || String(obj.eglycb) === "null" ? null : obj.eglycb.toFixed(2)
 
-            obj.sglrdh = String(obj.sglrdh) === "NaN" || String(obj.sglrdh) === "null" ? null : obj.sglrdh
-            obj.sglydh = String(obj.sglydh) === "NaN" || String(obj.sglydh) === "null" ? null : obj.sglydh
-            obj.sglrcb = String(obj.sglrcb) === "NaN" || String(obj.sglrcb) === "null" ? null : obj.sglrcb
-            obj.sglycb = String(obj.sglycb) === "NaN" || String(obj.sglycb) === "null" ? null : obj.seglycb
+            obj.sglrdh = String(obj.sglrdh) === "NaN" || String(obj.sglrdh) === "null" ? null : obj.sglrdh.toFixed(4)
+            obj.sglydh = String(obj.sglydh) === "NaN" || String(obj.sglydh) === "null" ? null : obj.sglydh.toFixed(4)
+            obj.sglrcb = String(obj.sglrcb) === "NaN" || String(obj.sglrcb) === "null" ? null : obj.sglrcb.toFixed(2)
+            obj.sglycb = String(obj.sglycb) === "NaN" || String(obj.sglycb) === "null" ? null : obj.seglycb.toFixed(2)
         })
         this.setState({ ListData: dataComputed },()=>{console.log(this.state.ListData)})
     }

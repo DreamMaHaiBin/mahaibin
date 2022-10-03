@@ -16,8 +16,8 @@ export default class DateClearDateSettlementPellet extends Component {
     componentDidMount() {
         this.initData()
     }
-    async initData() {
-        await axios({
+    initData() {
+        axios({
             method: 'get',
             url: "/api/rqrjqt/",
             headers: {
@@ -35,6 +35,9 @@ export default class DateClearDateSettlementPellet extends Component {
                 })
             }
         }).catch(error => {
+            this.setState({
+                ListData: qiuTuanListData
+            })
             console.log(error)
             message.error("数据获取错，请稍后重试")
         })
@@ -181,18 +184,18 @@ export default class DateClearDateSettlementPellet extends Component {
 
         dataComputed.forEach(obj=>{
             console.log(String(obj.exlrcb)==="NaN")
-            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh
-            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh
-            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb
-            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb
-            obj.yxlrdh = String(obj.exlrcb) === "NaN" || String(obj.yxlrdh) === "null" ? null : obj.yxlrdh
-            obj.yxlydh = String(obj.yxlydh) === "NaN" || String(obj.yxlydh) === "null" ? null : obj.yxlydh
-            obj.yxlrcb = String(obj.yxlrcb) === "NaN" || String(obj.yxlrcb) === "null" ? null : obj.yxlrcb
-            obj.yxlycb = String(obj.yxlycb) === "NaN" || String(obj.yxlycb) === "null" ? null : obj.yxlycb
-            obj.exlrdh = String(obj.exlrdh) === "NaN" || String(obj.exlrdh) === "null" ? null : obj.exlrdh
-            obj.exlydh = String(obj.exlydh) === "NaN" || String(obj.exlydh) === "null" ? null : obj.exlydh
-            obj.exlrcb = String(obj.exlrcb) === "NaN" || String(obj.exlrcb) === "null" ? null : obj.exlrcb
-            obj.exlycb = String(obj.exlycb) === "NaN" || String(obj.exlycb) === "null" ? null : obj.exlycb
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh.toFixed(4)
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh.toFixed(4)
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb.toFixed(2)
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb.toFixed(2)
+            obj.yxlrdh = String(obj.exlrcb) === "NaN" || String(obj.yxlrdh) === "null" ? null : obj.yxlrdh.toFixed(4)
+            obj.yxlydh = String(obj.yxlydh) === "NaN" || String(obj.yxlydh) === "null" ? null : obj.yxlydh.toFixed(4)
+            obj.yxlrcb = String(obj.yxlrcb) === "NaN" || String(obj.yxlrcb) === "null" ? null : obj.yxlrcb.toFixed(2)
+            obj.yxlycb = String(obj.yxlycb) === "NaN" || String(obj.yxlycb) === "null" ? null : obj.yxlycb.toFixed(2)
+            obj.exlrdh = String(obj.exlrdh) === "NaN" || String(obj.exlrdh) === "null" ? null : obj.exlrdh.toFixed(4)
+            obj.exlydh = String(obj.exlydh) === "NaN" || String(obj.exlydh) === "null" ? null : obj.exlydh.toFixed(4)
+            obj.exlrcb = String(obj.exlrcb) === "NaN" || String(obj.exlrcb) === "null" ? null : obj.exlrcb.toFixed(2)
+            obj.exlycb = String(obj.exlycb) === "NaN" || String(obj.exlycb) === "null" ? null : obj.exlycb.toFixed(2)
         })
         this.setState({ ListData: dataComputed },()=>{message.success("计算成功！")})
     }
