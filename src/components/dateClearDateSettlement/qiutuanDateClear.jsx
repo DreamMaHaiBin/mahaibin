@@ -64,19 +64,55 @@ export default class DateClearDateSettlementPellet extends Component {
                 Authorization: sessionStorage.getItem("token")
             },
             data: {
-                dos: this.state.ListData
+                dos: this.saveTwoNumber(this.state.ListData)
             }
         }).then(res => {
             console.log(res)
-            message.success("保持成功")
+            message.success("保存成功")
 
         }).catch(error => {
             console.log(error)
             message.error("数据保存失败，请稍后重试！")
         })
     }
-    cmputendData() {
+    arrItemNumber(Array){
+        Array.forEach( obj =>{
+            obj.qcdj = String(obj.qcdj) === "NaN" || String(obj.qcdj) === "null" ? 0 : Number(obj.qcdj)            
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? 0 : Number(obj.qcrdh)
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? 0 : Number(obj.qcydh)
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? 0 : Number(obj.qcrcb)
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? 0 : Number(obj.qcycb)
+            obj.yxlrdh = String(obj.yxlrdh) === "NaN" || String(obj.yxlrdh) === "null" ? 0 : Number(obj.yxlrdh)
+            obj.yxlydh = String(obj.yxlydh) === "NaN" || String(obj.yxlydh) === "null" ? 0 : Number(obj.yxlydh)
+            obj.yxlrcb = String(obj.yxlrcb) === "NaN" || String(obj.yxlrcb) === "null" ? 0 : Number(obj.yxlrcb)
+            obj.yxlycb = String(obj.yxlycb) === "NaN" || String(obj.yxlycb) === "null" ? 0 : Number(obj.yxlycb)
+            obj.exlrdh = String(obj.exlrdh) === "NaN" || String(obj.exlrdh) === "null" ? 0 : Number(obj.exlrdh)
+            obj.exlydh = String(obj.exlydh) === "NaN" || String(obj.exlydh) === "null" ? 0 : Number(obj.exlydh)
+            obj.exlrcb = String(obj.exlrcb) === "NaN" || String(obj.exlrcb) === "null" ? 0 : Number(obj.exlrcb)
+            obj.exlycb = String(obj.exlycb) === "NaN" || String(obj.exlycb) === "null" ? 0 : Number(obj.exlycb)
+        })
+        return Array
+    }
+    saveTwoNumber(Array){
+        Array.forEach( obj =>{
+            obj.qcdj = Number(obj.qcdj).toFixed(2)
+            obj.qcrdh = Number(obj.qcrdh).toFixed(4)
+            obj.qcydh = Number(obj.qcydh).toFixed(4)
+            obj.qcrcb = Number(obj.qcrcb).toFixed(2)
+            obj.qcycb = Number(obj.qcycb).toFixed(2)
+            obj.yxlrdh = Number(obj.yxlrdh).toFixed(4)
+            obj.yxlydh = Number(obj.yxlydh).toFixed(4)
+            obj.yxlrcb = Number(obj.yxlrcb).toFixed(2)
+            obj.yxlycb = Number(obj.yxlycb).toFixed(2)
+            obj.exlrdh = Number(obj.exlrdh).toFixed(4)
+            obj.exlydh = Number(obj.exlydh).toFixed(4)
+            obj.exlrcb = Number(obj.exlrcb).toFixed(2)
+            obj.exlycb = Number(obj.exlycb).toFixed(2)
+        })
+    }
+    cmputendData() {    
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
+        this.arrItemNumber(dataComputed)
         dataComputed.forEach((element, index) => {
             if (index !== 0 || index !== 1 || index !== 2 || index !== 3 || index !== 4 || index !== 10 || index !== 16 || index !== 21 || index !== 31) {
                 element['qcrcb'] = element['qcdj'] * element['qcrdh']
@@ -167,36 +203,26 @@ export default class DateClearDateSettlementPellet extends Component {
                 obj['exlrcb'] = dataComputed[3]['exlrcb'] + dataComputed[4]['exlrcb'] + dataComputed[10]['exlrcb'] + dataComputed[14]['exlrcb'] + dataComputed[15]['exlrcb']
                 obj['exlycb'] = dataComputed[3]['exlycb'] + dataComputed[4]['exlycb'] + dataComputed[10]['exlycb'] + dataComputed[14]['exlycb'] + dataComputed[15]['exlycb']
             }
+        })
+
+        dataComputed.forEach((obj,index)=>{
             if (index === 2 || index === 3 || index === 4 || index === 10 || index === 17) {
                 // 不包含几个总计的
-                obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+                if(obj['qcycb'] === 0 && obj['qcydh'] === 0) {
+                    obj['qcdj'] = null
+                } else {
+                    obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+                }
             }
-
-            
         })
         dataComputed[0]['exlycb'] = dataComputed[0]['yxlrcb'] * 30
         dataComputed[0]['exlycb'] = dataComputed[0]['exlrcb'] * 30
-        dataComputed[0]['qcycb'] = dataComputed[0]['exlycb'] + dataComputed[0]['exlycb'] + dataComputed[0]['ssycb']
+        dataComputed[0]['qcycb'] = dataComputed[0]['exlycb'] + dataComputed[0]['exlycb']
 
         dataComputed[1]['qcycb'] = dataComputed[2]['qcycb'] + dataComputed[16]['qcycb']
         dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[16]['exlycb']
         dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[16]['exlycb']
-
-        dataComputed.forEach(obj=>{
-            console.log(String(obj.exlrcb)==="NaN")
-            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh.toFixed(4)
-            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh.toFixed(4)
-            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb.toFixed(2)
-            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb.toFixed(2)
-            obj.yxlrdh = String(obj.exlrcb) === "NaN" || String(obj.yxlrdh) === "null" ? null : obj.yxlrdh.toFixed(4)
-            obj.yxlydh = String(obj.yxlydh) === "NaN" || String(obj.yxlydh) === "null" ? null : obj.yxlydh.toFixed(4)
-            obj.yxlrcb = String(obj.yxlrcb) === "NaN" || String(obj.yxlrcb) === "null" ? null : obj.yxlrcb.toFixed(2)
-            obj.yxlycb = String(obj.yxlycb) === "NaN" || String(obj.yxlycb) === "null" ? null : obj.yxlycb.toFixed(2)
-            obj.exlrdh = String(obj.exlrdh) === "NaN" || String(obj.exlrdh) === "null" ? null : obj.exlrdh.toFixed(4)
-            obj.exlydh = String(obj.exlydh) === "NaN" || String(obj.exlydh) === "null" ? null : obj.exlydh.toFixed(4)
-            obj.exlrcb = String(obj.exlrcb) === "NaN" || String(obj.exlrcb) === "null" ? null : obj.exlrcb.toFixed(2)
-            obj.exlycb = String(obj.exlycb) === "NaN" || String(obj.exlycb) === "null" ? null : obj.exlycb.toFixed(2)
-        })
+        this.saveTwoNumber(dataComputed)
         this.setState({ ListData: dataComputed },()=>{message.success("计算成功！")})
     }
     // 累加函数

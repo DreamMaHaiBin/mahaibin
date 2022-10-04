@@ -82,3 +82,13 @@ p:hover{
     background: green;
     float: left;
 }
+
+/* input::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+}
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+input[type="number"]{
+    -moz-animation: textfield;
+} */

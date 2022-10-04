@@ -1,15 +1,15 @@
 
 const list = []
 
-for (let i = 0; i < 72; i++) {
+for (let i = 0; i < 70; i++) {
     list.push({
         name: i === 1 ? '总成本' : i === 2 ? '金属料合计' : "产量",
         line: i+1,
         dw: "吨",
         qcdj: 10,
         qcrdh: 2,
-        qcydh: 2,
-        qcrcb: 2,
+        qcydh: null,
+        qcrcb: null,
         qcycb: 2,
         // ysrdh: 2,
         // ysydh: 2,
@@ -44,8 +44,8 @@ for (let i = 0; i < 31; i++) {
         // ysydh: 2,
         // ysrcb: 2,
         // ysycb: 2,
-        yxlrcb : 2,
-        yxlycb : 2,
+        yxlrdh : 2,
+        yxlydh: 2,
         yxlrcb: 2,
         yxlycb: 2,
         exlrdh: 2,
@@ -69,8 +69,8 @@ for (let i = 0; i < 83; i++) {
         qcydh: 2,
         qcrcb: 2,
         qcycb: 2,
-        yglrdh: 2,
-        yglydh: 2,
+        yglrdh: null,
+        yglydh: null,
         yglrcb: 2,
         yglycb: 2,
         eglrdh: 2,

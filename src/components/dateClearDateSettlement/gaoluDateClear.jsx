@@ -63,19 +63,69 @@ export default class DateClearDateSettlementFurnace extends Component {
                 Authorization: sessionStorage.getItem("token")
             },
             data: {
-                dos: this.state.ListData
+                dos: this.saveTwoNumber(this.state.ListData)
             }
         }).then(res => {
             console.log(res)
-            message.success("保持成功")
+            message.success("保成功")
 
         }).catch(error => {
             console.log(error)
             message.error("数据保存失败，请稍后重试！")
         })
     }
+    arrItemNumber(Array){
+        Array.forEach( obj => {
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : Number(obj.qcrdh)
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : Number(obj.qcydh)
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : Number(obj.qcrcb)
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : Number(obj.qcycb)
+
+            obj.yglrdh = String(obj.yglrdh) === "NaN" || String(obj.yglrdh) === "null" ? null : Number(obj.yglrdh)
+            obj.yglydh = String(obj.yglydh) === "NaN" || String(obj.yglydh) === "null" ? null : Number(obj.yglydh)
+            obj.yglrcb = String(obj.yglrcb) === "NaN" || String(obj.yglrcb) === "null" ? null : Number(obj.yglrcb)
+            obj.yglycb = String(obj.yglycb) === "NaN" || String(obj.yglycb) === "null" ? null : Number(obj.yglycb)
+
+            obj.eglrdh = String(obj.eglrdh) === "NaN" || String(obj.eglrdh) === "null" ? null : Number(obj.eglrdh)
+            obj.eglydh = String(obj.eglydh) === "NaN" || String(obj.eglydh) === "null" ? null : Number(obj.eglydh)
+            obj.eglrcb = String(obj.eglrcb) === "NaN" || String(obj.eglrcb) === "null" ? null : Number(obj.eglrcb)
+            obj.eglycb = String(obj.eglycb) === "NaN" || String(obj.eglycb) === "null" ? null : Number(obj.eglycb)
+
+            obj.sglrdh = String(obj.sglrdh) === "NaN" || String(obj.sglrdh) === "null" ? null : Number(obj.sglrdh)
+            obj.sglydh = String(obj.sglydh) === "NaN" || String(obj.sglydh) === "null" ? null : Number(obj.sglydh)
+            obj.sglrcb = String(obj.sglrcb) === "NaN" || String(obj.sglrcb) === "null" ? null : Number(obj.sglrcb)
+            obj.sglycb = String(obj.sglycb) === "NaN" || String(obj.sglycb) === "null" ? null : Number(obj.sglycb)
+        })
+        return Array
+    }
+    saveTwoNumber(Array) {
+        Array.forEach((obj, index) => {
+            obj.qcdj = Number(obj.qcdj).toFixed(2)
+            obj.qcrdh = Number(obj.qcrdh).toFixed(4)
+            obj.qcydh = Number(obj.qcydh).toFixed(4)
+            obj.qcrcb = Number(obj.qcrcb).toFixed(2)
+            obj.qcycb = Number(obj.qcycb).toFixed(2)
+
+            obj.yglrdh = Number(obj.yglrdh).toFixed(4)
+            obj.yglydh = Number(obj.yglydh).toFixed(4)
+            obj.yglrcb = Number(obj.yglrcb).toFixed(2)
+            obj.yglycb = Number(obj.yglycb).toFixed(2)
+
+            obj.eglrdh = Number(obj.eglrdh).toFixed(4)
+            obj.eglydh = Number(obj.eglydh).toFixed(4)
+            obj.eglrcb = Number(obj.eglrcb).toFixed(2)
+            obj.eglycb = Number(obj.eglycb).toFixed(2)
+
+            obj.sglrdh = Number(obj.sglrdh).toFixed(4)
+            obj.sglydh = Number(obj.sglydh).toFixed(4)
+            obj.sglrcb = Number(obj.sglrcb).toFixed(2)
+            obj.sglycb = Number(obj.sglycb).toFixed(2)
+        })
+        return Array
+    }
     cmputendData() {
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
+        this.arrItemNumber(dataComputed)
         dataComputed.forEach((obj, index) => {
             if (index === 1 || index === 2 || index === 3 || index === 26 || index === 30 || index === 34 || index === 35 || index === 36 || index === 43 || index === 44 || index === 55 || index === 65 || index === 77) {
                 obj['qcrcb'] = obj['qcdj'] * obj['qcrdh']
@@ -148,6 +198,8 @@ export default class DateClearDateSettlementFurnace extends Component {
                 obj['sglycb'] = this.sum(startNum, endNum, dataComputed, 'sglycb')
 
             }
+        })
+        dataComputed.forEach((obj,index)=>{
             if (index === 34) {
                 obj['qcycb'] = dataComputed[35]['qcycb'] + dataComputed[43]['qcycb'] + dataComputed[65]['qcycb'] + dataComputed[82]['qcycb']
                 obj['yglycb'] = dataComputed[35]['yglycb'] + dataComputed[43]['yglycb'] + dataComputed[65]['yglycb'] + dataComputed[82]['yglycb']
@@ -191,9 +243,13 @@ export default class DateClearDateSettlementFurnace extends Component {
         })
         dataComputed.forEach((obj, index) => {
             if (index === 2 || index === 3 || index === 26 || index === 30 || index === 36 || index === 43 || index === 44 || index === 55 || index === 77) {
-                obj['qcdj'] = obj['qcycb'] / obj['qcrdh'] * 1000
+                // obj['qcdj'] = obj['qcycb'] / obj['qcrdh'] * 1000
+                if(obj['qcycb'] === 0 && obj['qcydh'] === 0) {
+                    obj['qcdj'] = null
+                } else {
+                    obj['qcdj'] = obj['qcycb'] / obj['qcydh'] * 1000// 全厂单价
+                }
             }
-            console.log(obj.yglycb === NaN)
         })
         dataComputed[0]['yglycb'] = dataComputed[0]['yglrcb'] * 30
         dataComputed[0]['eglycb'] = dataComputed[0]['eglrcb'] * 30
@@ -205,28 +261,7 @@ export default class DateClearDateSettlementFurnace extends Component {
         dataComputed[1]['eglycb'] = dataComputed[6]['eglycb'] + dataComputed[34]['eglycb']
         dataComputed[1]['sglycb'] = dataComputed[6]['sglycb'] + dataComputed[34]['sglycb']
         
-        dataComputed.forEach(obj=>{
-            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh.toFixed(4)
-            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh.toFixed(4)
-            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb.toFixed(2)
-            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb.toFixed(2)
-
-            obj.yglrdh = String(obj.yglrdh) === "NaN" || String(obj.yglrdh) === "null" ? null : obj.yglrdh.toFixed(4)
-            obj.yglydh = String(obj.yglydh) === "NaN" || String(obj.yglydh) === "null" ? null : obj.yglydh.toFixed(4)
-            obj.yglrcb = String(obj.yglrcb) === "NaN" || String(obj.yglrcb) === "null" ? null : obj.yglrcb.toFixed(2)
-            obj.yglycb = String(obj.yglycb) === "NaN" || String(obj.yglycb) === "null" ? null : obj.yglycb.toFixed(2)
-
-            obj.eglrdh = String(obj.eglrdh) === "NaN" || String(obj.eglrdh) === "null" ? null : obj.eglrdh.toFixed(4)
-            obj.eglydh = String(obj.eglydh) === "NaN" || String(obj.eglydh) === "null" ? null : obj.eglydh.toFixed(4)
-            obj.eglrcb = String(obj.eglrcb) === "NaN" || String(obj.eglrcb) === "null" ? null : obj.eglrcb.toFixed(2)
-            obj.eglycb = String(obj.eglycb) === "NaN" || String(obj.eglycb) === "null" ? null : obj.eglycb.toFixed(2)
-
-            obj.sglrdh = String(obj.sglrdh) === "NaN" || String(obj.sglrdh) === "null" ? null : obj.sglrdh.toFixed(4)
-            obj.sglydh = String(obj.sglydh) === "NaN" || String(obj.sglydh) === "null" ? null : obj.sglydh.toFixed(4)
-            obj.sglrcb = String(obj.sglrcb) === "NaN" || String(obj.sglrcb) === "null" ? null : obj.sglrcb.toFixed(2)
-            obj.sglycb = String(obj.sglycb) === "NaN" || String(obj.sglycb) === "null" ? null : obj.seglycb.toFixed(2)
-        })
-        this.setState({ ListData: dataComputed },()=>{console.log(this.state.ListData)})
+        this.setState({ ListData: dataComputed },()=>{ message.success("计算成功！")})
     }
     // 累加函数
     sum(startName, num, array, name) {
@@ -300,6 +335,7 @@ export default class DateClearDateSettlementFurnace extends Component {
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.qcdj === str || item.qcdj === 0 ? 0 : item.qcdj}
+                                                    
                                                     onChange={this.infoKuang("qcdj", index).bind(this)}
                                                 >
                                                 </Input>
@@ -308,6 +344,7 @@ export default class DateClearDateSettlementFurnace extends Component {
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.qcrdh === str || item.qcrdh === 0 ? 0 : item.qcrdh}
                                                     onChange={this.infoKuang("qcrdh", index).bind(this)}
+                                                    
                                                 >
                                                 </Input>
                                             </td>
@@ -315,90 +352,105 @@ export default class DateClearDateSettlementFurnace extends Component {
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.qcydh === str || item.qcydh === 0 ? 0 : item.qcydh}
                                                     onChange={this.infoKuang("qcydh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.qcrcb === str || item.qcrcb === 0 ? 0 : item.qcrcb}
                                                     onChange={this.infoKuang("qcrcb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.qcycb === str || item.qcycb === 0 ? 0 : item.qcycb}
                                                     onChange={this.infoKuang("qcycb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.yglrdh === str || item.yglrdh === 0 ? 0 : item.yglrdh}
                                                     onChange={this.infoKuang("yglrdh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.yglydh === str || item.yglydh === 0 ? 0 : item.yglydh}
                                                     onChange={this.infoKuang("yglydh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.yglrcb === str || item.yglrcb === 0 ? 0 : item.yglrcb}
                                                     onChange={this.infoKuang("yglrcb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.yglycb === str || item.yglycb === 0 ? 0 : item.yglycb}
                                                     onChange={this.infoKuang("yglycb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.eglrdh === str || item.eglrdh === 0 ? 0 : item.eglrdh}
                                                     onChange={this.infoKuang("eglrdh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.eglydh === str || item.eglydh === 0 ? 0 : item.eglydh}
                                                     onChange={this.infoKuang("eglydh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.eglrcb === str || item.eglrcb === 0 ? 0 : item.eglrcb}
                                                     onChange={this.infoKuang("eglrcb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.eglycb === str || item.eglycb === 0 ? 0 : item.eglycb}
                                                     onChange={this.infoKuang("eglycb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.sglrdh === str || item.sglrdh === 0 ? 0 : item.sglrdh}
                                                     onChange={this.infoKuang("sglrdh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.sglydh === str || item.sglydh === 0 ? 0 : item.sglydh}
                                                     onChange={this.infoKuang("sglydh", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.sglrcb === str || item.sglrcb === 0 ? 0 : item.sglrcb}
                                                     onChange={this.infoKuang("sglrcb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
                                                     value={item.sglycb === str || item.sglycb === 0 ? 0 : item.sglycb}
                                                     onChange={this.infoKuang("sglycb", index).bind(this)}
+                                                    
                                                 />
                                             </td>
                                         </tr>

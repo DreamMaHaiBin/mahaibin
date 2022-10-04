@@ -27,6 +27,7 @@ class Home extends Component {
     };
     clickHtmlText(e) {
         sessionStorage.setItem("titleName", e.target.innerHTML)
+        console.log("http://192.168.2.130:8000")
     }
     render() {
         return (

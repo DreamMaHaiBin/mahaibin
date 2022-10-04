@@ -13,18 +13,13 @@ export default class DateClearDateSettlement extends Component {
 
         }
     }
-    mustNumber(e) {
-        if (!e.target.value.replace(/[^\d^\.]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
-            e.target.value = ''
-        }
-
-    }
     infoKuang(name, index) {
         return (e) => {
             const value = e.target.value;
             const newData = this.state.ListData;
             newData[index][name] = value;
-            this.setState({ ListData: newData })
+            // this.arrItemNumber(newData) // 改为数字类型
+            this.setState({ ListData: newData }, () => { console.log(this.state.ListData) })
         }
     }
     componentDidMount() {
@@ -68,7 +63,7 @@ export default class DateClearDateSettlement extends Component {
             }
         }).then(res => {
             console.log(res)
-            message.success("保持成功")
+            message.success("保存成功")
             if (res.status === 200 && res.data && res.data.dos) {
                 this.setState({
                     ListData: res.data.dos
@@ -84,10 +79,48 @@ export default class DateClearDateSettlement extends Component {
             message.error("数据保存失败，请稍后重试！")
         })
     }
+    arrItemNumber(Array) {
+        Array.forEach((obj, index) => {
+            obj.qcdj = String(obj.qcdj) === "NaN" || String(obj.qcdj) === "null" ? 0 : Number(obj.qcdj)
+            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? 0 : Number(obj.qcrdh)
+            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? 0 : Number(obj.qcydh)
+            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? 0 : Number(obj.qcrcb)
+            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? 0 : Number(obj.qcycb)
+            obj.esrdh = String(obj.esrdh) === "NaN" || String(obj.esrdh) === "null" ? 0 : Number(obj.esrdh)
+            obj.esydh = String(obj.esydh) === "NaN" || String(obj.esydh) === "null" ? 0 : Number(obj.esydh)
+            obj.esrcb = String(obj.esrcb) === "NaN" || String(obj.esrcb) === "null" ? 0 : Number(obj.esrcb)
+            obj.esycb = String(obj.esycb) === "NaN" || String(obj.esycb) === "null" ? 0 : Number(obj.esycb)
+            obj.ssrdh = String(obj.ssrdh) === "NaN" || String(obj.ssrdh) === "null" ? 0 : Number(obj.ssrdh)
+            obj.ssydh = String(obj.ssydh) === "NaN" || String(obj.ssydh) === "null" ? 0 : Number(obj.ssydh)
+            obj.ssrcb = String(obj.ssrcb) === "NaN" || String(obj.ssrcb) === "null" ? 0 : Number(obj.ssrcb)
+            obj.ssycb = String(obj.ssycb) === "NaN" || String(obj.ssycb) === "null" ? 0 : Number(obj.ssycb)
+        })
+        return Array
+    }
+    saveTwoNumber(Array) {
+        Array.forEach((obj, index) => {
+            obj.qcdj = Number(obj.qcdj).toFixed(2)
+            obj.qcrdh = Number(obj.qcrdh).toFixed(4)
+            obj.qcydh = Number(obj.qcydh).toFixed(4)
+            obj.qcrcb = Number(obj.qcrcb).toFixed(2)
+            obj.qcycb = Number(obj.qcycb).toFixed(2)
+            obj.esrdh = Number(obj.esrdh).toFixed(4)
+            obj.esydh = Number(obj.esydh).toFixed(2)
+            obj.esrcb = Number(obj.esrcb).toFixed(2)
+            obj.esycb = Number(obj.esycb).toFixed(2)
+            obj.ssrdh = Number(obj.ssrdh).toFixed(4)
+            obj.ssydh = Number(obj.ssydh).toFixed(4)
+            obj.ssrcb = Number(obj.ssrcb).toFixed(2)
+            obj.ssycb = Number(obj.ssycb).toFixed(2)
+        })
+        return Array
+    }
     cmputendData() {
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
+        console.log(dataComputed)
+        this.arrItemNumber(dataComputed)
         dataComputed.forEach((element, index) => {
-            if (index !== 0 || index !== 1 || index !== 2 || index !== 3 || index !== 7 || index !== 12 || index !== 12 || index !== 17 || index !== 40 || index !== 44 || index !== 54 || index !== 55 || index !== 60 || index !== 71) {
+            if (index !== 0 || index !== 1 || index !== 2 || index !== 3 || index !== 7 || index !== 11 || index !== 12 || index !== 16 || index !== 39 || index !== 43 || index !== 53 || index !== 54 || index !== 59 || index !== 70) {
                 element['qcrcb'] = element['qcdj'] * element['qcrdh']
                 element['qcycb'] = element['qcdj'] * element['qcydh']
 
@@ -103,8 +136,9 @@ export default class DateClearDateSettlement extends Component {
             }
         });
         dataComputed.forEach((obj, index) => {
-            if (index === 2 || index === 3 || index === 7 || index === 12 || index === 16 || index === 29 || index === 39 || index === 54) {
+            if (index === 2 || index === 3 || index === 7 || index === 12 || index === 16 || index === 39 || index === 54) {
                 // 主要几个标黑的矿粉
+                console.log(dataComputed[(index + 1)]['qcrdh'])
                 obj['qcrdh'] = dataComputed[(index + 1)]['qcrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcrdh'] + (index === 54 ? dataComputed[index + 4]['qcrdh'] : 0)// 全厂日消耗
                 obj['qcydh'] = dataComputed[(index + 1)]['qcydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcydh'] + (index === 54 ? dataComputed[index + 4]['qcydh'] : 0)// 全厂月消耗
                 obj['qcrcb'] = dataComputed[(index + 1)]['qcrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcrcb'] + (index === 54 ? dataComputed[index + 4]['qcrcb'] : 0)// 全厂日成本
@@ -124,7 +158,7 @@ export default class DateClearDateSettlement extends Component {
                 obj['ssydh'] = dataComputed[(index + 1)]['ssydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssydh'] + (index === 54 ? dataComputed[index + 4]['ssydh'] : 0)// 二烧月消耗
                 obj['ssrcb'] = dataComputed[(index + 1)]['ssrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssrcb'] + (index === 54 ? dataComputed[index + 4]['ssrcb'] : 0)// 二烧日成本
                 obj['ssycb'] = dataComputed[(index + 1)]['ssycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssycb'] + (index === 54 ? dataComputed[index + 4]['ssycb'] : 0)// 二烧月成本
-                obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+                // obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
 
             }
             if (index === 43 || index === 59) {
@@ -148,12 +182,20 @@ export default class DateClearDateSettlement extends Component {
                 obj['ssrcb'] = dataComputed[index + 1]['ssrcb'] + dataComputed[index + 2]['ssrcb'] + dataComputed[index + 3]['ssrcb'] + dataComputed[index + 4]['ssrcb'] + dataComputed[index + 5]['ssrcb'] + dataComputed[index + 6]['ssrcb'] + dataComputed[index + 7]['ssrcb'] + dataComputed[index + 8]['ssrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['ssrcb'])
                 obj['ssycb'] = dataComputed[index + 1]['ssycb'] + dataComputed[index + 2]['ssycb'] + dataComputed[index + 3]['ssycb'] + dataComputed[index + 4]['ssycb'] + dataComputed[index + 5]['ssycb'] + dataComputed[index + 6]['ssycb'] + dataComputed[index + 7]['ssycb'] + dataComputed[index + 8]['ssycb'] + (index === 59 ? 0 : dataComputed[index + 9]['ssycb'])
             }
-            if (index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 54) {
-                obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
-            }
-   
+
         })
 
+        dataComputed.forEach((obj, index) => {
+            if (index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 54) {
+                // console.log(obj['qcycb'] , obj['qcydh'])
+                if (obj['qcycb'] === 0 && obj['qcydh'] === 0) {
+                    obj['qcdj'] = null
+                } else {
+                    obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+                }
+
+            }
+        })
         // dataComputed[0]['ysycb'] = dataComputed[0]['ysrcb'] * 30
         dataComputed[0]['esycb'] = dataComputed[0]['esrcb'] * 30
         dataComputed[0]['ssycb'] = dataComputed[0]['ssrcb'] * 30
@@ -165,21 +207,12 @@ export default class DateClearDateSettlement extends Component {
         dataComputed[1]['esycb'] = dataComputed[2]['esycb'] + dataComputed[53]['esycb']
         dataComputed[1]['ssycb'] = dataComputed[2]['ssycb'] + dataComputed[53]['ssycb']
 
-        dataComputed.forEach(obj=>{
-            obj.qcrdh = String(obj.qcrdh) === "NaN" || String(obj.qcrdh) === "null" ? null : obj.qcrdh.toFixed(4)
-            obj.qcydh = String(obj.qcydh) === "NaN" || String(obj.qcydh) === "null" ? null : obj.qcydh.toFixed(4)
-            obj.qcrcb = String(obj.qcrcb) === "NaN" || String(obj.qcrcb) === "null" ? null : obj.qcrcb.toFixed(2)
-            obj.qcycb = String(obj.qcycb) === "NaN" || String(obj.qcycb) === "null" ? null : obj.qcycb.toFixed(2)
-            obj.esrdh = String(obj.esrdh) === "NaN" || String(obj.esrdh) === "null" ? null : obj.esrdh.toFixed(4)
-            obj.esydh = String(obj.esydh) === "NaN" || String(obj.esydh) === "null" ? null : obj.esydh.toFixed(4)
-            obj.esrcb = String(obj.esrcb) === "NaN" || String(obj.esrcb) === "null" ? null : obj.esrcb.toFixed(2)
-            obj.esycb = String(obj.esycb) === "NaN" || String(obj.esycb) === "null" ? null : obj.esycb.toFixed(2)
-            obj.ssrdh = String(obj.ssrdh) === "NaN" || String(obj.ssrdh) === "null" ? null : obj.ssrdh.toFixed(4)
-            obj.ssydh = String(obj.ssydh) === "NaN" || String(obj.ssydh) === "null" ? null : obj.ssydh.toFixed(4)
-            obj.ssrcb = String(obj.ssrcb) === "NaN" || String(obj.ssrcb) === "null" ? null : obj.ssrcb.toFixed(2)
-            obj.ssycb = String(obj.ssycb) === "NaN" || String(obj.ssycb) === "null" ? null : obj.ssycb.toFixed(2)
+        this.saveTwoNumber(dataComputed)
+
+        this.setState({ ListData: dataComputed }, () => {
+            message.success("计算成功！")
+            console.log(this.state.ListData)
         })
-        this.setState({ ListData: dataComputed }, () => { message.success("计算成功！") })
     }
     // 累加函数
     sum(num) {
@@ -201,8 +234,8 @@ export default class DateClearDateSettlement extends Component {
                     <table className="date-clear-date-settlemen-table">
                         <tbody>
                             <tr>
-                                <td rowSpan="2" style={{width:70}}>成本项目</td>
-                                <td rowSpan="2" style={{width:40}}>单位</td>
+                                <td rowSpan="2" style={{ width: 70 }}>成本项目</td>
+                                <td rowSpan="2" style={{ width: 40 }}>单位</td>
                                 <td colSpan={5}>全厂</td>
                                 {/* <td colSpan={4}>一烧</td> */}
                                 <td colSpan={4}>二烧</td>
@@ -232,7 +265,7 @@ export default class DateClearDateSettlement extends Component {
                                     return (
                                         <tr key={index} className={
                                             index === 0 ? 'date-clear-date-settlemen-table-blue' :
-                                                index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === index + 9 || index === 54 || index === 59 ? 'date-clear-date-settlemen-table-yellow' :
+                                                index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 53 || index === 54 || index === 59 ? 'date-clear-date-settlemen-table-yellow' :
                                                     'date-clear-date-settlemen-table-none'
                                         } >
                                             <td><Input
@@ -251,107 +284,128 @@ export default class DateClearDateSettlement extends Component {
                                                 }
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcdj === str || item.qcdj === 0 ? NaN : item.qcdj}
+                                                <Input
+                                                    value={item.qcdj === str ? null : item.qcdj}
                                                     onChange={this.infoKuang("qcdj", index).bind(this)}
+
                                                 >
                                                 </Input>
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcrdh === str || item.qcrdh === 0 ? NaN : item.qcrdh}
+                                                <Input
+                                                    value={item.qcrdh === strFour ? null : item.qcrdh}
                                                     onChange={this.infoKuang("qcrdh", index).bind(this)}
+
                                                 >
                                                 </Input>
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcydh === str || item.qcydh === 0 ? NaN : item.qcydh}
+                                                <Input
+                                                    value={item.qcydh === strFour ? null : item.qcydh}
                                                     onChange={this.infoKuang("qcydh", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcrcb === str || item.qcrcb === 0 ? NaN : item.qcrcb}
+                                                <Input
+
+                                                    value={item.qcrcb === str ? null : item.qcrcb}
                                                     onChange={this.infoKuang("qcrcb", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcycb === str || item.qcycb === 0 ? NaN : item.qcycb}
+                                                <Input
+                                                    value={item.qcycb === str ? null : item.qcycb}
                                                     onChange={this.infoKuang("qcycb", index).bind(this)}
+
                                                 />
                                             </td>
                                             {/* <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ysrdh === str || item.ysrdh === 0 ? NaN : item.ysrdh}
+                                                <Input 
+                                                    value={item.ysrdh === str || item.ysrdh === 0 ? 0 : item.ysrdh}
                                                     onChange={this.infoKuang("ysrdh", index).bind(this)}
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ysydh === str || item.ysydh === 0 ? NaN : item.ysydh}
+                                                <Input 
+                                                    value={item.ysydh === str || item.ysydh === 0 ? 0 : item.ysydh}
                                                     onChange={this.infoKuang("ysydh", index).bind(this)}
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ysrcb === str || item.ysrcb === 0 ? NaN : item.ysrcb}
+                                                <Input 
+                                                    value={item.ysrcb === str || item.ysrcb === 0 ? 0 : item.ysrcb}
                                                     onChange={this.infoKuang("ysrcb", index).bind(this)}
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ysycb === str || item.ysycb === 0 ? NaN : item.ysycb}
+                                                <Input 
+                                                    value={item.ysycb === str || item.ysycb === 0 ? 0 : item.ysycb}
                                                     onChange={this.infoKuang("ysycb", index).bind(this)}
                                                 />
                                             </td> */}
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.esrdh === str || item.esrdh === 0 ? NaN : item.esrdh}
+                                                <Input
+
+                                                    value={item.esrdh === strFour ? null : item.esrdh}
                                                     onChange={this.infoKuang("esrdh", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.esydh === str || item.esydh === 0 ? NaN : item.esydh}
+                                                <Input
+
+                                                    value={item.esydh === strFour ? null : item.esydh}
                                                     onChange={this.infoKuang("esydh", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.esrcb === str || item.esrcb === 0 ? NaN : item.esrcb}
+                                                <Input
+
+                                                    value={item.esrcb === str ? null : item.esrcb}
                                                     onChange={this.infoKuang("esrcb", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.esycb === str || item.esycb === 0 ? NaN : item.esycb}
+                                                <Input
+
+                                                    value={item.esycb === str ? null : item.esycb}
                                                     onChange={this.infoKuang("esycb", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ssrdh === str || item.ssrdh === 0 ? NaN : item.ssrdh}
+                                                <Input
+
+                                                    value={item.ssrdh === strFour ? null : item.ssrdh}
                                                     onChange={this.infoKuang("ssrdh", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ssydh === str || item.ssydh === 0 ? NaN : item.ssydh}
+                                                <Input
+                                                    value={item.ssydh === strFour ? null : item.ssydh}
+
                                                     onChange={this.infoKuang("ssydh", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ssrcb === str || item.ssrcb === 0 ? NaN : item.ssrcb}
+                                                <Input
+                                                    value={item.ssrcb === str ? null : item.ssrcb}
                                                     onChange={this.infoKuang("ssrcb", index).bind(this)}
+
                                                 />
                                             </td>
                                             <td>
-                                                <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.ssycb === str || item.ssycb === 0 ? NaN : item.ssycb}
+                                                <Input
+
+                                                    value={item.ssycb === str ? null : item.ssycb}
                                                     onChange={this.infoKuang("ssycb", index).bind(this)}
+
                                                 />
                                             </td>
                                         </tr>
