@@ -64,7 +64,7 @@ export default class DateClearDateSettlementPellet extends Component {
                 Authorization: sessionStorage.getItem("token")
             },
             data: {
-                dos: this.saveTwoNumber(this.state.ListData)
+                dos: this.state.ListData
             }
         }).then(res => {
             console.log(res)
@@ -109,6 +109,7 @@ export default class DateClearDateSettlementPellet extends Component {
             obj.exlrcb = Number(obj.exlrcb).toFixed(2)
             obj.exlycb = Number(obj.exlycb).toFixed(2)
         })
+        return Array
     }
     cmputendData() {    
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
@@ -268,12 +269,11 @@ export default class DateClearDateSettlementPellet extends Component {
                             </tr>
                             {
                                 this.state.ListData.map((item, index) => {
-                                    if (index < 30) {
                                         return (
                                             <tr key={index} className={
                                                 index === 0 ? 'date-clear-date-settlemen-table-blue' :
                                                     index === 1 || index === 2 || index === 3 || index === 4 || index === 10 || index === 16 || index === 17 || index === 21 ? 'date-clear-date-settlemen-table-yellow' :
-                                                        'date-clear-date-settlemen-table-none'
+                                                       index === 30 ? 'date-clear-date-settlemen-table-purple' : 'date-clear-date-settlemen-table-none'
                                             } >
                                                 <td><Input
                                                     value={item.name}
@@ -287,7 +287,7 @@ export default class DateClearDateSettlementPellet extends Component {
                                                 </td> */}
                                                 <td>
                                                     {
-                                                        index === 1 || index === 2 || index === 3 || index === 16 || index == 34 ? '元' : '吨'
+                                                        index === 1 || index === 2 || index === 3 || index === 16 || index === 34 ? '元' : '吨'
                                                     }
                                                 </td>
                                                 <td>
@@ -373,7 +373,6 @@ export default class DateClearDateSettlementPellet extends Component {
                                                 </td>
                                             </tr>
                                         )
-                                    }
 
                                 })
                             }

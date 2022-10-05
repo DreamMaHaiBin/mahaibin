@@ -1,7 +1,7 @@
 
 const list = []
 
-for (let i = 0; i < 70; i++) {
+for (let i = 0; i < 71; i++) {
     list.push({
         name: i === 1 ? '总成本' : i === 2 ? '金属料合计' : "产量",
         line: i+1,

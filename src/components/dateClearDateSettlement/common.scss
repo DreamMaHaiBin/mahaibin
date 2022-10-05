@@ -52,6 +52,25 @@
                     font-weight: 600;
                 }
             }
+            .date-clear-date-settlemen-table-purple {
+                background-color: #fff;
+                .ant-input {
+                    background-color: #fff;
+                    height: 25px;
+                    font-weight: 600;
+                }
+                td{
+                    &:nth-child(7),
+                    &:nth-child(11),
+                    &:nth-child(15){
+                        .ant-input {
+                            background-color: purple;
+                            height: 25px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
 
             .date-clear-date-settlemen-table-none {
                 td {

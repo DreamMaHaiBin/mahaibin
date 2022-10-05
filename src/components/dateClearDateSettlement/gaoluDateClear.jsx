@@ -63,7 +63,7 @@ export default class DateClearDateSettlementFurnace extends Component {
                 Authorization: sessionStorage.getItem("token")
             },
             data: {
-                dos: this.saveTwoNumber(this.state.ListData)
+                dos: this.state.ListData
             }
         }).then(res => {
             console.log(res)
@@ -315,7 +315,7 @@ export default class DateClearDateSettlementFurnace extends Component {
                                         <tr key={index} className={
                                             index === 0 ? 'date-clear-date-settlemen-table-blue' :
                                                 index === 1 || index === 2 || index === 3 || index === 26 || index === 30 || index === 34 || index === 35 || index === 36 || index === 43 || index === 44 || index === 55 || index === 65 || index === 77 ? 'date-clear-date-settlemen-table-yellow' :
-                                                    'date-clear-date-settlemen-table-none'
+                                                index === 39 || index === 40 || index === 41 || index === 42 || index === 51 || index === 52 || index === 53 || index === 54 || index === 80 || index === 81 || index === 82? 'date-clear-date-settlemen-table-purple' : 'date-clear-date-settlemen-table-none'
                                         } >
                                             <td><Input
                                                 value={item.name}
@@ -334,7 +334,7 @@ export default class DateClearDateSettlementFurnace extends Component {
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcdj === str || item.qcdj === 0 ? 0 : item.qcdj}
+                                                    value={item.qcdj === str || item.qcdj === 0 ? null : item.qcdj}
                                                     
                                                     onChange={this.infoKuang("qcdj", index).bind(this)}
                                                 >
@@ -342,7 +342,7 @@ export default class DateClearDateSettlementFurnace extends Component {
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcrdh === str || item.qcrdh === 0 ? 0 : item.qcrdh}
+                                                    value={item.qcrdh === str || item.qcrdh === 0 ? null : item.qcrdh}
                                                     onChange={this.infoKuang("qcrdh", index).bind(this)}
                                                     
                                                 >
@@ -350,105 +350,105 @@ export default class DateClearDateSettlementFurnace extends Component {
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcydh === str || item.qcydh === 0 ? 0 : item.qcydh}
+                                                    value={item.qcydh === str || item.qcydh === 0 ? null : item.qcydh}
                                                     onChange={this.infoKuang("qcydh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcrcb === str || item.qcrcb === 0 ? 0 : item.qcrcb}
+                                                    value={item.qcrcb === str || item.qcrcb === 0 ? null : item.qcrcb}
                                                     onChange={this.infoKuang("qcrcb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.qcycb === str || item.qcycb === 0 ? 0 : item.qcycb}
+                                                    value={item.qcycb === str || item.qcycb === 0 ? null : item.qcycb}
                                                     onChange={this.infoKuang("qcycb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.yglrdh === str || item.yglrdh === 0 ? 0 : item.yglrdh}
+                                                    value={item.yglrdh === str || item.yglrdh === 0 ? null : item.yglrdh}
                                                     onChange={this.infoKuang("yglrdh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.yglydh === str || item.yglydh === 0 ? 0 : item.yglydh}
+                                                    value={item.yglydh === str || item.yglydh === 0 ? null : item.yglydh}
                                                     onChange={this.infoKuang("yglydh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.yglrcb === str || item.yglrcb === 0 ? 0 : item.yglrcb}
+                                                    value={item.yglrcb === str || item.yglrcb === 0 ? null : item.yglrcb}
                                                     onChange={this.infoKuang("yglrcb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.yglycb === str || item.yglycb === 0 ? 0 : item.yglycb}
+                                                    value={item.yglycb === str || item.yglycb === 0 ? null : item.yglycb}
                                                     onChange={this.infoKuang("yglycb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.eglrdh === str || item.eglrdh === 0 ? 0 : item.eglrdh}
+                                                    value={item.eglrdh === str || item.eglrdh === 0 ? null : item.eglrdh}
                                                     onChange={this.infoKuang("eglrdh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.eglydh === str || item.eglydh === 0 ? 0 : item.eglydh}
+                                                    value={item.eglydh === str || item.eglydh === 0 ? null : item.eglydh}
                                                     onChange={this.infoKuang("eglydh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.eglrcb === str || item.eglrcb === 0 ? 0 : item.eglrcb}
+                                                    value={item.eglrcb === str || item.eglrcb === 0 ? null : item.eglrcb}
                                                     onChange={this.infoKuang("eglrcb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.eglycb === str || item.eglycb === 0 ? 0 : item.eglycb}
+                                                    value={item.eglycb === str || item.eglycb === 0 ? null : item.eglycb}
                                                     onChange={this.infoKuang("eglycb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.sglrdh === str || item.sglrdh === 0 ? 0 : item.sglrdh}
+                                                    value={item.sglrdh === str || item.sglrdh === 0 ? null : item.sglrdh}
                                                     onChange={this.infoKuang("sglrdh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.sglydh === str || item.sglydh === 0 ? 0 : item.sglydh}
+                                                    value={item.sglydh === str || item.sglydh === 0 ? null : item.sglydh}
                                                     onChange={this.infoKuang("sglydh", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.sglrcb === str || item.sglrcb === 0 ? 0 : item.sglrcb}
+                                                    value={item.sglrcb === str || item.sglrcb === 0 ? null : item.sglrcb}
                                                     onChange={this.infoKuang("sglrcb", index).bind(this)}
                                                     
                                                 />
                                             </td>
                                             <td>
                                                 <Input onKeyUp={this.mustNumber.bind(this)}
-                                                    value={item.sglycb === str || item.sglycb === 0 ? 0 : item.sglycb}
+                                                    value={item.sglycb === str || item.sglycb === 0 ? null : item.sglycb}
                                                     onChange={this.infoKuang("sglycb", index).bind(this)}
                                                     
                                                 />

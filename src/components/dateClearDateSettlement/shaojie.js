@@ -266,7 +266,7 @@ export default class DateClearDateSettlement extends Component {
                                         <tr key={index} className={
                                             index === 0 ? 'date-clear-date-settlemen-table-blue' :
                                                 index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 53 || index === 54 || index === 59 ? 'date-clear-date-settlemen-table-yellow' :
-                                                    'date-clear-date-settlemen-table-none'
+                                                index === 70 ? "date-clear-date-settlemen-table-purple" : 'date-clear-date-settlemen-table-none'
                                         } >
                                             <td><Input
                                                 value={item.name}
@@ -285,7 +285,7 @@ export default class DateClearDateSettlement extends Component {
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcdj === str ? null : item.qcdj}
+                                                    value={item.qcdj === str || item.qcdj ===  0 ? null : item.qcdj}
                                                     onChange={this.infoKuang("qcdj", index).bind(this)}
 
                                                 >
@@ -293,7 +293,7 @@ export default class DateClearDateSettlement extends Component {
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcrdh === strFour ? null : item.qcrdh}
+                                                    value={item.qcrdh === strFour || item.qcrdh ===  0  ? null : item.qcrdh}
                                                     onChange={this.infoKuang("qcrdh", index).bind(this)}
 
                                                 >
@@ -301,7 +301,7 @@ export default class DateClearDateSettlement extends Component {
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcydh === strFour ? null : item.qcydh}
+                                                    value={item.qcydh === strFour || item.qcydh ===  0   ? null : item.qcydh}
                                                     onChange={this.infoKuang("qcydh", index).bind(this)}
 
                                                 />
@@ -309,14 +309,14 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.qcrcb === str ? null : item.qcrcb}
+                                                    value={item.qcrcb === str || item.qcrcb ===  0 ? null : item.qcrcb}
                                                     onChange={this.infoKuang("qcrcb", index).bind(this)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcycb === str ? null : item.qcycb}
+                                                    value={item.qcycb === str || item.qcycb ===  0   ? null : item.qcycb}
                                                     onChange={this.infoKuang("qcycb", index).bind(this)}
 
                                                 />
@@ -348,7 +348,7 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.esrdh === strFour ? null : item.esrdh}
+                                                    value={item.esrdh === strFour || item.esrdh ===  0   ? null : item.esrdh}
                                                     onChange={this.infoKuang("esrdh", index).bind(this)}
 
                                                 />
@@ -356,7 +356,7 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.esydh === strFour ? null : item.esydh}
+                                                    value={item.esydh === strFour || item.esydh ===  0   ? null : item.esydh}
                                                     onChange={this.infoKuang("esydh", index).bind(this)}
 
                                                 />
@@ -364,7 +364,7 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.esrcb === str ? null : item.esrcb}
+                                                    value={item.esrcb === str || item.esrcb ===  0   ? null : item.esrcb}
                                                     onChange={this.infoKuang("esrcb", index).bind(this)}
 
                                                 />
@@ -372,7 +372,7 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.esycb === str ? null : item.esycb}
+                                                    value={item.esycb === str || item.esycb ===  0   ? null : item.esycb}
                                                     onChange={this.infoKuang("esycb", index).bind(this)}
 
                                                 />
@@ -380,14 +380,14 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.ssrdh === strFour ? null : item.ssrdh}
+                                                    value={item.ssrdh === strFour || item.ssrdh ===  0   ? null : item.ssrdh}
                                                     onChange={this.infoKuang("ssrdh", index).bind(this)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.ssydh === strFour ? null : item.ssydh}
+                                                    value={item.ssydh === strFour || item.ssydh ===  0   ? null : item.ssydh}
 
                                                     onChange={this.infoKuang("ssydh", index).bind(this)}
 
@@ -395,7 +395,7 @@ export default class DateClearDateSettlement extends Component {
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.ssrcb === str ? null : item.ssrcb}
+                                                    value={item.ssrcb === str || item.ssrcb ===  0   ? null : item.ssrcb}
                                                     onChange={this.infoKuang("ssrcb", index).bind(this)}
 
                                                 />
@@ -403,7 +403,7 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.ssycb === str ? null : item.ssycb}
+                                                    value={item.ssycb === str || item.ssycb ===  0   ? null : item.ssycb}
                                                     onChange={this.infoKuang("ssycb", index).bind(this)}
 
                                                 />
