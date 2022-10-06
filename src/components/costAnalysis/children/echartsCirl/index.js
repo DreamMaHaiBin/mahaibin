@@ -11,8 +11,8 @@ export default function EchartsPie (props) {
     function getOption(props) {
         let option = {
             title: {
-              text: 'Weather Statistics',
-              subtext: 'Fake Data',
+              text: '9月球团成本构成',
+              // subtext: 'Fake Data',
               left: 'center'
             },
             tooltip: {
@@ -20,9 +20,11 @@ export default function EchartsPie (props) {
               formatter: '{a} <br/>{b} : {c} ({d}%)'
             },
             legend: {
-              bottom: 10,
+              bottom: -10,
+              itemWidth:10,
+              itemHeight: 5,
               left: 'center',
-              data: ['CityA', 'CityB', 'CityD', 'CityC', 'CityE']
+              data: ['精矿粉', '迁钢返矿', '迁钢废料', '溶剂', '燃烧及动力', '制造费']
             },
             series: [
               {
@@ -97,10 +99,12 @@ export default function EchartsPie (props) {
                       }
                     }
                   },
-                  { value: 735, name: 'CityC' },
-                  { value: 510, name: 'CityD' },
-                  { value: 434, name: 'CityB' },
-                  { value: 335, name: 'CityA' }
+                  { value: 735, name: '精矿粉' },
+                  { value: 510, name: '迁钢返矿' },
+                  { value: 434, name: '迁钢废料' },
+                  { value: 335, name: '溶剂' },
+                  { value: 335, name: '燃烧及动力' },
+                  { value: 335, name: '制造费' }
                 ],
                 emphasis: {
                   itemStyle: {

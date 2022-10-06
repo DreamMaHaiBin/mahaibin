@@ -5,7 +5,7 @@ import axios from 'axios'
 import { qiuTuanListData } from '../util/shaojieTable'
 // 球团日清日结
 const str = "0.00"
-// const strFour = "0.0000"
+const strFour = "0.0000"
 export default class DateClearDateSettlementPellet extends Component {
     constructor(props) {
         super(props)
@@ -64,7 +64,7 @@ export default class DateClearDateSettlementPellet extends Component {
                 Authorization: sessionStorage.getItem("token")
             },
             data: {
-                dos: this.state.ListData
+                dos: this.arrItemNumber(this.state.ListData)
             }
         }).then(res => {
             console.log(res)
@@ -111,11 +111,17 @@ export default class DateClearDateSettlementPellet extends Component {
         })
         return Array
     }
-    cmputendData() {    
+   async cmputendData() {    
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
         this.arrItemNumber(dataComputed)
-        dataComputed.forEach((element, index) => {
-            if (index !== 0 || index !== 1 || index !== 2 || index !== 3 || index !== 4 || index !== 10 || index !== 16 || index !== 21 || index !== 31) {
+        await dataComputed.forEach((obj,index)=>{
+            if (index !== 1 && index !== 2 && index !== 3 && index !== 4 && index !== 10 && index !== 16 && index !== 21 && index !== 31) {
+            obj['qcrdh'] = obj['yxlrdh'] + obj['exlrdh']
+            obj['qcydh'] = obj['yxlydh'] + obj['yxlydh']
+            }
+        })
+      await  dataComputed.forEach((element, index) => {
+            if (index !== 0 && index !== 1 && index !== 2 && index !== 3 && index !== 4 && index !== 10 && index !== 16 && index !== 21 && index !== 31) {
                 element['qcrcb'] = element['qcdj'] * element['qcrdh']
                 element['qcycb'] = element['qcdj'] * element['qcydh']
 
@@ -125,11 +131,11 @@ export default class DateClearDateSettlementPellet extends Component {
                 element['exlrcb'] = element['qcdj'] * element['exlrdh']
                 element['exlrcb'] = element['qcdj'] * element['yxlydh']
 
-                element['ssrcb'] = element['qcdj'] * element['ssrdh']
-                element['ssrcb'] = element['qcdj'] * element['ssydh']
+                // element['ssrcb'] = element['qcdj'] * element['ssrdh']
+                // element['ssrcb'] = element['qcdj'] * element['ssydh']
             }
         });
-        dataComputed.forEach((obj, index) => {
+        await  dataComputed.forEach((obj, index) => {
             if (index === 3 || index === 4) {
                 // 主要几个标黑的矿粉
                 obj['qcrdh'] = this.sum(index + 2, index + 3, dataComputed, 'qcrdh')
@@ -171,6 +177,8 @@ export default class DateClearDateSettlementPellet extends Component {
 
 
             }
+        })
+        await dataComputed.forEach((obj,index)=>{
             if (index === 16) {
                 // 主要几个标黑的矿粉
                 obj['qcrcb'] = dataComputed[17]['qcrcb'] + dataComputed[21]['qcrcb'] + dataComputed[28]['qcrcb'] + dataComputed[29]['qcrcb'] + dataComputed[30]['qcrcb']
@@ -186,7 +194,8 @@ export default class DateClearDateSettlementPellet extends Component {
                 // obj['ssycb'] = dataComputed[17]['ssycb'] + dataComputed[21]['ssycb'] + dataComputed[28]['ssycb'] + dataComputed[29]['ssycb'] + dataComputed[30]['ssycb']
 
             }
-
+        })
+        await  dataComputed.forEach((obj,index)=>{
             if (index === 2) { // 球团原料
                 // 主要几个标黑的矿粉
                 obj['qcrdh'] = dataComputed[3]['qcrdh'] + dataComputed[4]['qcrdh'] + dataComputed[10]['qcrdh'] + dataComputed[14]['qcrdh'] + dataComputed[15]['qcrdh']
@@ -206,7 +215,7 @@ export default class DateClearDateSettlementPellet extends Component {
             }
         })
 
-        dataComputed.forEach((obj,index)=>{
+        await dataComputed.forEach((obj,index)=>{
             if (index === 2 || index === 3 || index === 4 || index === 10 || index === 17) {
                 // 不包含几个总计的
                 if(obj['qcycb'] === 0 && obj['qcydh'] === 0) {
@@ -218,12 +227,13 @@ export default class DateClearDateSettlementPellet extends Component {
         })
         dataComputed[0]['exlycb'] = dataComputed[0]['yxlrcb'] * 30
         dataComputed[0]['exlycb'] = dataComputed[0]['exlrcb'] * 30
-        dataComputed[0]['qcycb'] = dataComputed[0]['exlycb'] + dataComputed[0]['exlycb']
+        dataComputed[0]['qcycb'] = dataComputed[0]['yxlycb'] + dataComputed[0]['exlycb']
+        dataComputed[0]['qcrcb'] = dataComputed[0]['yxlrcb'] + dataComputed[0]['exlrcb']
 
         dataComputed[1]['qcycb'] = dataComputed[2]['qcycb'] + dataComputed[16]['qcycb']
         dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[16]['exlycb']
         dataComputed[1]['exlycb'] = dataComputed[2]['exlycb'] + dataComputed[16]['exlycb']
-        this.saveTwoNumber(dataComputed)
+        await this.saveTwoNumber(dataComputed)
         this.setState({ ListData: dataComputed },()=>{message.success("计算成功！")})
     }
     // 累加函数
@@ -292,82 +302,82 @@ export default class DateClearDateSettlementPellet extends Component {
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.qcdj === str || item.qcdj === 0 ? 0 : item.qcdj}
+                                                        value={item.qcdj === str || item.qcdj === 0 ? null : item.qcdj}
                                                         onChange={this.infoKuang("qcdj", index).bind(this)}
                                                     >
                                                     </Input>
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.qcrdh === str || item.qcrdh === 0 ? 0 : item.qcrdh}
+                                                        value={item.qcrdh === strFour || item.qcrdh === 0 ? null : item.qcrdh}
                                                         onChange={this.infoKuang("qcrdh", index).bind(this)}
                                                     >
                                                     </Input>
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.qcydh === str || item.qcydh === 0 ? 0 : item.qcydh}
+                                                        value={item.qcydh === strFour || item.qcydh === 0 ? null : item.qcydh}
                                                         onChange={this.infoKuang("qcydh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.qcrcb === str || item.qcrcb === 0 ? 0 : item.qcrcb}
+                                                        value={item.qcrcb === str || item.qcrcb === 0 ? null : item.qcrcb}
                                                         onChange={this.infoKuang("qcrcb", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.qcycb === str || item.qcycb === 0 ? 0 : item.qcycb}
+                                                        value={item.qcycb === str || item.qcycb === 0 ? null : item.qcycb}
                                                         onChange={this.infoKuang("qcycb", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.yxlrdh === str || item.yxlrdh === 0 ? 0 : item.yxlrdh}
+                                                        value={item.yxlrdh === strFour || item.yxlrdh === 0 ? null : item.yxlrdh}
                                                         onChange={this.infoKuang("yxlrdh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.yxlydh === str || item.yxlydh === 0 ? 0 : item.yxlydh}
+                                                        value={item.yxlydh === strFour || item.yxlydh === 0 ? null : item.yxlydh}
                                                         onChange={this.infoKuang("yxlydh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.yxlrcb === str || item.yxlrcb === 0 ? 0 : item.yxlrcb}
+                                                        value={item.yxlrcb === str || item.yxlrcb === 0 ? null : item.yxlrcb}
                                                         onChange={this.infoKuang("yxlrcb", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.exlycb === str || item.exlycb === 0 ? 0 : item.exlycb}
+                                                        value={item.exlycb === str || item.exlycb === 0 ? null : item.exlycb}
                                                         onChange={this.infoKuang("yxlycb", index).bind(this)}
                                                     />
                                                 </td>
 
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.exlrdh === str || item.exlrdh === 0 ? 0 : item.exlrdh}
+                                                        value={item.exlrdh === strFour || item.exlrdh === 0 ? null : item.exlrdh}
                                                         onChange={this.infoKuang("exlrdh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.exlydh === str || item.exlydh === 0 ? 0 : item.exlydh}
+                                                        value={item.exlydh === strFour || item.exlydh === 0 ? null : item.exlydh}
                                                         onChange={this.infoKuang("exlydh", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.exlrcb === str || item.exlrcb === 0 ? 0 : item.exlrcb}
+                                                        value={item.exlrcb === str || item.exlrcb === 0 ? null : item.exlrcb}
                                                         onChange={this.infoKuang("exlrcb", index).bind(this)}
                                                     />
                                                 </td>
                                                 <td>
                                                     <Input onKeyUp={this.mustNumber.bind(this)}
-                                                        value={item.exlycb === str || item.exlycb === 0 ? 0 : item.exlycb}
+                                                        value={item.exlycb === str || item.exlycb === 0 ? null : item.exlycb}
                                                         onChange={this.infoKuang("exlycb", index).bind(this)}
                                                     />
                                                 </td>

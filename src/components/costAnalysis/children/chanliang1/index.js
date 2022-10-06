@@ -8,11 +8,15 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 import {mockEchartsDataList} from '../../../util/mockData'
-export default function ChangLiang(props) {
+
+export default function ChangLiang(props) { 
+    console.log(props)
+    const index = props.index
+    const xZHou = ['1日','2日','3日','4日','5日','6日','7日','8日','9日','10日','11日','12日','13日','14日',]
     function getOption(props) {
         let option = {
             title: {
-                text: '2020年烧结产量',
+                text:index === 2  ?"7月球团产量": index === 3?'7月球团成本':index === 4?'含铁料占成本比':index === 5?'价格趋势':index === 6?'单耗趋势': '2021年球团产量',
                 x: 'center'
             },
             legend: {
@@ -25,7 +29,7 @@ export default function ChangLiang(props) {
                 trigger: 'axis',
             },
             xAxis: {
-                data: mockEchartsDataList.xAxisData
+                data: index === 2 || index === 3?xZHou:  mockEchartsDataList.xAxisData
             },
             yAxis: {
                 type: 'value',
@@ -33,16 +37,16 @@ export default function ChangLiang(props) {
             },
             series: [
                 {
-                    name: 'OFO订单量',
+                    name: '产量',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
                     data: mockEchartsDataList.seriesData.data1
 
                 }, {
-                    name: '小米订单量',
+                    name: '一球',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
                     data: mockEchartsDataList.seriesData.data2
                 }, {
-                    name: '华为订单量',
+                    name: '二球',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
                     data: mockEchartsDataList.seriesData.data2
                 }

@@ -74,9 +74,6 @@
 
             .date-clear-date-settlemen-table-none {
                 td {
-
-                    &:nth-child(4),
-                    &:nth-child(5),
                     &:nth-child(8),
                     &:nth-child(9),
                     &:nth-child(12),
@@ -90,7 +87,7 @@
                             height: 25px;
                         }
                     }
-
+                    
                     &:nth-child(3) {
                         background-color: #92d050;
 
@@ -99,7 +96,8 @@
                             height: 25px;
                         }
                     }
-
+                    &:nth-child(4),
+                    &:nth-child(5),
                     &:nth-child(6),
                     &:nth-child(7),
                     &:nth-child(10),

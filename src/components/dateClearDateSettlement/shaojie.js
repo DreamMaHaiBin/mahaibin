@@ -24,6 +24,7 @@ export default class DateClearDateSettlement extends Component {
     }
     componentDidMount() {
         this.initData()
+        console.log(this.state.ListData)
     }
     async initData() {
         await axios({
@@ -59,7 +60,7 @@ export default class DateClearDateSettlement extends Component {
                 Authorization: sessionStorage.getItem("token")
             },
             data: {
-                dos: this.state.ListData
+                dos: this.arrItemNumber(this.state.ListData)
             }
         }).then(res => {
             console.log(res)
@@ -78,6 +79,12 @@ export default class DateClearDateSettlement extends Component {
             console.log(error)
             message.error("数据保存失败，请稍后重试！")
         })
+    }
+    mustNumber(e) {
+        if (!e.target.value.replace(/[^\d]+/g, '').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')) {
+            e.target.value = ''
+        }
+
     }
     arrItemNumber(Array) {
         Array.forEach((obj, index) => {
@@ -105,7 +112,7 @@ export default class DateClearDateSettlement extends Component {
             obj.qcrcb = Number(obj.qcrcb).toFixed(2)
             obj.qcycb = Number(obj.qcycb).toFixed(2)
             obj.esrdh = Number(obj.esrdh).toFixed(4)
-            obj.esydh = Number(obj.esydh).toFixed(2)
+            obj.esydh = Number(obj.esydh).toFixed(4)
             obj.esrcb = Number(obj.esrcb).toFixed(2)
             obj.esycb = Number(obj.esycb).toFixed(2)
             obj.ssrdh = Number(obj.ssrdh).toFixed(4)
@@ -115,77 +122,93 @@ export default class DateClearDateSettlement extends Component {
         })
         return Array
     }
-    cmputendData() {
+   async cmputendData() {
         const dataComputed = JSON.parse(JSON.stringify(this.state.ListData))
         console.log(dataComputed)
         this.arrItemNumber(dataComputed)
-        dataComputed.forEach((element, index) => {
-            if (index !== 0 || index !== 1 || index !== 2 || index !== 3 || index !== 7 || index !== 11 || index !== 12 || index !== 16 || index !== 39 || index !== 43 || index !== 53 || index !== 54 || index !== 59 || index !== 70) {
+
+        await dataComputed.forEach((element, index) => {
+            if (index !== 1 || index !== 2 || index !== 3 || index !== 7 || index !== 11 || index !== 12 || index !== 16 || index !== 39 || index !== 43 || index !== 53 || index !== 54 || index !== 59 || index !== 70) {
+                element['qcrdh'] = element['esrdh'] + element['ssrdh']
+                element['qcydh'] = element['esydh'] + element['ssydh']
+            }
+        })
+        await dataComputed.forEach((element, index) => {
+            if (index !== 0 && index !== 1 && index !== 2 && index !== 3 && index !== 7 && index !== 11 && index !== 12 && index !== 16 && index !== 39 && index !== 43 && index !== 53 && index !== 54 && index !== 59 && index !== 70) {
+                // element['qcrdh'] = element['esrdh'] + element['ssrdh']
+                // element['qcydh'] = element['esydh'] + element['ssydh']
+
                 element['qcrcb'] = element['qcdj'] * element['qcrdh']
-                element['qcycb'] = element['qcdj'] * element['qcydh']
-
-                // element['ysrcb'] = element['qcdj'] * element['ysrdh']
-                // element['ysrcb'] = element['qcdj'] * element['ysydh']
-
                 element['esrcb'] = element['qcdj'] * element['esrdh']
-                element['esrcb'] = element['qcdj'] * element['esydh']
-
                 element['ssrcb'] = element['qcdj'] * element['ssrdh']
-                element['ssrcb'] = element['qcdj'] * element['ssydh']
+
+
+                element['esycb'] = element['qcdj'] * element['esydh']
+                element['ssycb'] = element['qcdj'] * element['ssydh']
+                element['qcycb'] = element['qcdj'] * element['qcydh']
 
             }
         });
-        dataComputed.forEach((obj, index) => {
+
+        await dataComputed.forEach((obj, index) => {
             if (index === 2 || index === 3 || index === 7 || index === 12 || index === 16 || index === 39 || index === 54) {
                 // 主要几个标黑的矿粉
-                console.log(dataComputed[(index + 1)]['qcrdh'])
-                obj['qcrdh'] = dataComputed[(index + 1)]['qcrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcrdh'] + (index === 54 ? dataComputed[index + 4]['qcrdh'] : 0)// 全厂日消耗
-                obj['qcydh'] = dataComputed[(index + 1)]['qcydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcydh'] + (index === 54 ? dataComputed[index + 4]['qcydh'] : 0)// 全厂月消耗
-                obj['qcrcb'] = dataComputed[(index + 1)]['qcrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcrcb'] + (index === 54 ? dataComputed[index + 4]['qcrcb'] : 0)// 全厂日成本
-                obj['qcycb'] = dataComputed[(index + 1)]['qcycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['qcycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['qcycb'] + (index === 54 ? dataComputed[index + 4]['qcycb'] : 0)// 全厂月成本
-
-                // obj['ysrdh'] = dataComputed[(index + 1)]['ysrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysrdh'] + (index === 54 ? dataComputed[index + 4]['ysrdh'] : 0)// 一烧日消耗
-                // obj['ysydh'] = dataComputed[(index + 1)]['ysydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysydh'] + (index === 54 ? dataComputed[index + 4]['ysydh'] : 0)// 一烧月消耗
-                // obj['ysrcb'] = dataComputed[(index + 1)]['ysrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysrcb'] + (index === 54 ? dataComputed[index + 4]['ysrcb'] : 0)// 一烧日成本
-                // obj['ysycb'] = dataComputed[(index + 1)]['ysycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ysycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ysycb'] + (index === 54 ? dataComputed[index + 4]['ysycb'] : 0)// 一烧月成本
-
-                obj['esrdh'] = dataComputed[(index + 1)]['esrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['esrdh'] + (index === 54 ? dataComputed[index + 4]['esrdh'] : 0)// 二烧日消耗
-                obj['esydh'] = dataComputed[(index + 1)]['esydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['esydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['esydh'] + (index === 54 ? dataComputed[index + 4]['esydh'] : 0)// 二烧月消耗
-                obj['esrcb'] = dataComputed[(index + 1)]['esrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['esrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['esrcb'] + (index === 54 ? dataComputed[index + 4]['esrcb'] : 0)// 二烧日成本
-                obj['esycb'] = dataComputed[(index + 1)]['esycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['esycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['esycb'] + (index === 54 ? dataComputed[index + 4]['esycb'] : 0)// 二烧月成本
-
-                obj['ssrdh'] = dataComputed[(index + 1)]['ssrdh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssrdh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssrdh'] + (index === 54 ? dataComputed[index + 4]['ssrdh'] : 0)// 二烧日消耗
-                obj['ssydh'] = dataComputed[(index + 1)]['ssydh'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssydh'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssydh'] + (index === 54 ? dataComputed[index + 4]['ssydh'] : 0)// 二烧月消耗
-                obj['ssrcb'] = dataComputed[(index + 1)]['ssrcb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssrcb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssrcb'] + (index === 54 ? dataComputed[index + 4]['ssrcb'] : 0)// 二烧日成本
-                obj['ssycb'] = dataComputed[(index + 1)]['ssycb'] + dataComputed[(index === 2 ? 39 : index + 2)]['ssycb'] + dataComputed[(index === 2 ? 43 : index + 3)]['ssycb'] + (index === 54 ? dataComputed[index + 4]['ssycb'] : 0)// 二烧月成本
+                console.log(dataComputed[(3)]['qcrdh']+dataComputed[(39)]['qcrdh']+dataComputed[(43)]['qcrdh'])
+                obj['qcrdh'] = dataComputed[(index + 1)]['qcrdh'] + dataComputed[index + 2]['qcrdh'] + dataComputed[index + 3]['qcrdh'] + (index === 54 ? dataComputed[index + 4]['qcrdh'] : 0)// 全厂日消耗
+                obj['qcrcb'] = dataComputed[(index + 1)]['qcrcb'] + dataComputed[index + 2]['qcrcb'] + dataComputed[index + 3]['qcrcb'] + (index === 54 ? dataComputed[index + 4]['qcrcb'] : 0)// 全厂日成本
+                obj['esrdh'] = dataComputed[(index + 1)]['esrdh'] + dataComputed[index + 2]['esrdh'] + dataComputed[index + 3]['esrdh'] + (index === 54 ? dataComputed[index + 4]['esrdh'] : 0)// 二烧日消耗
+                obj['esrcb'] = dataComputed[(index + 1)]['esrcb'] + dataComputed[index + 2]['esrcb'] + dataComputed[index + 3]['esrcb'] + (index === 54 ? dataComputed[index + 4]['esrcb'] : 0)// 二烧日成本
+                obj['ssrdh'] = dataComputed[(index + 1)]['ssrdh'] + dataComputed[index + 2]['ssrdh'] + dataComputed[index + 3]['ssrdh'] + (index === 54 ? dataComputed[index + 4]['ssrdh'] : 0)// 二烧日消耗
+                obj['ssrcb'] = dataComputed[(index + 1)]['ssrcb'] + dataComputed[index + 2]['ssrcb'] + dataComputed[index + 3]['ssrcb'] + (index === 54 ? dataComputed[index + 4]['ssrcb'] : 0)// 二烧日成本
                 // obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+                obj['qcydh'] = dataComputed[(index + 1)]['qcydh'] + dataComputed[index + 2]['qcydh'] + dataComputed[index + 3]['qcydh'] + (index === 54 ? dataComputed[index + 4]['qcydh'] : 0)// 全厂月消耗
+                obj['qcycb'] = dataComputed[(index + 1)]['qcycb'] + dataComputed[index + 2]['qcycb'] + dataComputed[index + 3]['qcycb'] + (index === 54 ? dataComputed[index + 4]['qcycb'] : 0)// 全厂月成本
+                obj['esydh'] = dataComputed[(index + 1)]['esydh'] + dataComputed[index + 2]['esydh'] + dataComputed[index + 3]['esydh'] + (index === 54 ? dataComputed[index + 4]['esydh'] : 0)// 二烧月消耗
+                obj['esycb'] = dataComputed[(index + 1)]['esycb'] + dataComputed[index + 2]['esycb'] + dataComputed[index + 3]['esycb'] + (index === 54 ? dataComputed[index + 4]['esycb'] : 0)// 二烧月成本
+                obj['ssydh'] = dataComputed[(index + 1)]['ssydh'] + dataComputed[index + 2]['ssydh'] + dataComputed[index + 3]['ssydh'] + (index === 54 ? dataComputed[index + 4]['ssydh'] : 0)// 二烧月消耗
+                obj['ssycb'] = dataComputed[(index + 1)]['ssycb'] + dataComputed[index + 2]['ssycb'] + dataComputed[index + 3]['ssycb'] + (index === 54 ? dataComputed[index + 4]['ssycb'] : 0)// 二烧月成本
 
             }
             if (index === 43 || index === 59) {
                 obj['qcrdh'] = dataComputed[index + 1]['qcrdh'] + dataComputed[index + 2]['qcrdh'] + dataComputed[index + 3]['qcrdh'] + dataComputed[index + 4]['qcrdh'] + dataComputed[index + 5]['qcrdh'] + dataComputed[index + 6]['qcrdh'] + dataComputed[index + 7]['qcrdh'] + dataComputed[index + 8]['qcrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['qcrdh'])
-                obj['qcydh'] = dataComputed[index + 1]['qcydh'] + dataComputed[index + 2]['qcydh'] + dataComputed[index + 3]['qcydh'] + dataComputed[index + 4]['qcydh'] + dataComputed[index + 5]['qcydh'] + dataComputed[index + 6]['qcydh'] + dataComputed[index + 7]['qcydh'] + dataComputed[index + 8]['qcydh'] + (index === 59 ? 0 : dataComputed[index + 9]['qcydh'])
                 obj['qcrcb'] = dataComputed[index + 1]['qcrcb'] + dataComputed[index + 2]['qcrcb'] + dataComputed[index + 3]['qcrcb'] + dataComputed[index + 4]['qcrcb'] + dataComputed[index + 5]['qcrcb'] + dataComputed[index + 6]['qcrcb'] + dataComputed[index + 7]['qcrcb'] + dataComputed[index + 8]['qcrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['qcrcb'])
-                obj['qcycb'] = dataComputed[index + 1]['qcycb'] + dataComputed[index + 2]['qcycb'] + dataComputed[index + 3]['qcycb'] + dataComputed[index + 4]['qcycb'] + dataComputed[index + 5]['qcycb'] + dataComputed[index + 6]['qcycb'] + dataComputed[index + 7]['qcycb'] + dataComputed[index + 8]['qcycb'] + (index === 59 ? 0 : dataComputed[index + 9]['qcycb'])
-
-                // obj['ysrdh'] = dataComputed[index + 1]['ysrdh'] + dataComputed[index + 2]['ysrdh'] + dataComputed[index + 3]['ysrdh'] + dataComputed[index + 4]['ysrdh'] + dataComputed[index + 5]['ysrdh'] + dataComputed[index + 6]['ysrdh'] + dataComputed[index + 7]['ysrdh'] + dataComputed[index + 8]['ysrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['ysrdh'])
-                // obj['ysydh'] = dataComputed[index + 1]['ysydh'] + dataComputed[index + 2]['ysydh'] + dataComputed[index + 3]['ysydh'] + dataComputed[index + 4]['ysydh'] + dataComputed[index + 5]['ysydh'] + dataComputed[index + 6]['ysydh'] + dataComputed[index + 7]['ysydh'] + dataComputed[index + 8]['ysydh'] + (index === 59 ? 0 : dataComputed[index + 9]['ysydh'])
-                // obj['ysrcb'] = dataComputed[index + 1]['ysrcb'] + dataComputed[index + 2]['ysrcb'] + dataComputed[index + 3]['ysrcb'] + dataComputed[index + 4]['ysrcb'] + dataComputed[index + 5]['ysrcb'] + dataComputed[index + 6]['ysrcb'] + dataComputed[index + 7]['ysrcb'] + dataComputed[index + 8]['ysrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['ysrcb'])
-                // obj['ysycb'] = dataComputed[index + 1]['ysycb'] + dataComputed[index + 2]['ysycb'] + dataComputed[index + 3]['ysycb'] + dataComputed[index + 4]['ysycb'] + dataComputed[index + 5]['ysycb'] + dataComputed[index + 6]['ysycb'] + dataComputed[index + 7]['ysycb'] + dataComputed[index + 8]['ysycb'] + (index === 59 ? 0 : dataComputed[index + 9]['ysycb'])
-
                 obj['esrdh'] = dataComputed[index + 1]['esrdh'] + dataComputed[index + 2]['esrdh'] + dataComputed[index + 3]['esrdh'] + dataComputed[index + 4]['esrdh'] + dataComputed[index + 5]['esrdh'] + dataComputed[index + 6]['esrdh'] + dataComputed[index + 7]['esrdh'] + dataComputed[index + 8]['esrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['esrdh'])
-                obj['esydh'] = dataComputed[index + 1]['esydh'] + dataComputed[index + 2]['esydh'] + dataComputed[index + 3]['esydh'] + dataComputed[index + 4]['esydh'] + dataComputed[index + 5]['esydh'] + dataComputed[index + 6]['esydh'] + dataComputed[index + 7]['esydh'] + dataComputed[index + 8]['esydh'] + (index === 59 ? 0 : dataComputed[index + 9]['esydh'])
                 obj['esrcb'] = dataComputed[index + 1]['esrcb'] + dataComputed[index + 2]['esrcb'] + dataComputed[index + 3]['esrcb'] + dataComputed[index + 4]['esrcb'] + dataComputed[index + 5]['esrcb'] + dataComputed[index + 6]['esrcb'] + dataComputed[index + 7]['esrcb'] + dataComputed[index + 8]['esrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['esrcb'])
-                obj['esycb'] = dataComputed[index + 1]['esycb'] + dataComputed[index + 2]['esycb'] + dataComputed[index + 3]['esycb'] + dataComputed[index + 4]['esycb'] + dataComputed[index + 5]['esycb'] + dataComputed[index + 6]['esycb'] + dataComputed[index + 7]['esycb'] + dataComputed[index + 8]['esycb'] + (index === 59 ? 0 : dataComputed[index + 9]['esycb'])
-
                 obj['ssrdh'] = dataComputed[index + 1]['ssrdh'] + dataComputed[index + 2]['ssrdh'] + dataComputed[index + 3]['ssrdh'] + dataComputed[index + 4]['ssrdh'] + dataComputed[index + 5]['ssrdh'] + dataComputed[index + 6]['ssrdh'] + dataComputed[index + 7]['ssrdh'] + dataComputed[index + 8]['ssrdh'] + (index === 59 ? 0 : dataComputed[index + 9]['ssrdh'])
-                obj['ssydh'] = dataComputed[index + 1]['ssydh'] + dataComputed[index + 2]['ssydh'] + dataComputed[index + 3]['ssydh'] + dataComputed[index + 4]['ssydh'] + dataComputed[index + 5]['ssydh'] + dataComputed[index + 6]['ssydh'] + dataComputed[index + 7]['ssydh'] + dataComputed[index + 8]['ssydh'] + (index === 59 ? 0 : dataComputed[index + 9]['ssydh'])
                 obj['ssrcb'] = dataComputed[index + 1]['ssrcb'] + dataComputed[index + 2]['ssrcb'] + dataComputed[index + 3]['ssrcb'] + dataComputed[index + 4]['ssrcb'] + dataComputed[index + 5]['ssrcb'] + dataComputed[index + 6]['ssrcb'] + dataComputed[index + 7]['ssrcb'] + dataComputed[index + 8]['ssrcb'] + (index === 59 ? 0 : dataComputed[index + 9]['ssrcb'])
-                obj['ssycb'] = dataComputed[index + 1]['ssycb'] + dataComputed[index + 2]['ssycb'] + dataComputed[index + 3]['ssycb'] + dataComputed[index + 4]['ssycb'] + dataComputed[index + 5]['ssycb'] + dataComputed[index + 6]['ssycb'] + dataComputed[index + 7]['ssycb'] + dataComputed[index + 8]['ssycb'] + (index === 59 ? 0 : dataComputed[index + 9]['ssycb'])
-            }
 
+                obj['qcydh'] = dataComputed[index + 1]['qcydh'] + dataComputed[index + 2]['qcydh'] + dataComputed[index + 3]['qcydh'] + dataComputed[index + 4]['qcydh'] + dataComputed[index + 5]['qcydh'] + dataComputed[index + 6]['qcydh'] + dataComputed[index + 7]['qcydh'] + dataComputed[index + 8]['qcydh'] + (index === 59 ? 0 : dataComputed[index + 9]['qcydh'])
+                obj['qcycb'] = dataComputed[index + 1]['qcycb'] + dataComputed[index + 2]['qcycb'] + dataComputed[index + 3]['qcycb'] + dataComputed[index + 4]['qcycb'] + dataComputed[index + 5]['qcycb'] + dataComputed[index + 6]['qcycb'] + dataComputed[index + 7]['qcycb'] + dataComputed[index + 8]['qcycb'] + (index === 59 ? 0 : dataComputed[index + 9]['qcycb'])
+                obj['esydh'] = dataComputed[index + 1]['esydh'] + dataComputed[index + 2]['esydh'] + dataComputed[index + 3]['esydh'] + dataComputed[index + 4]['esydh'] + dataComputed[index + 5]['esydh'] + dataComputed[index + 6]['esydh'] + dataComputed[index + 7]['esydh'] + dataComputed[index + 8]['esydh'] + (index === 59 ? 0 : dataComputed[index + 9]['esydh'])
+                obj['esycb'] = dataComputed[index + 1]['esycb'] + dataComputed[index + 2]['esycb'] + dataComputed[index + 3]['esycb'] + dataComputed[index + 4]['esycb'] + dataComputed[index + 5]['esycb'] + dataComputed[index + 6]['esycb'] + dataComputed[index + 7]['esycb'] + dataComputed[index + 8]['esycb'] + (index === 59 ? 0 : dataComputed[index + 9]['esycb'])
+                obj['ssydh'] = dataComputed[index + 1]['ssydh'] + dataComputed[index + 2]['ssydh'] + dataComputed[index + 3]['ssydh'] + dataComputed[index + 4]['ssydh'] + dataComputed[index + 5]['ssydh'] + dataComputed[index + 6]['ssydh'] + dataComputed[index + 7]['ssydh'] + dataComputed[index + 8]['ssydh'] + (index === 59 ? 0 : dataComputed[index + 9]['ssydh'])
+                obj['ssycb'] = dataComputed[index + 1]['ssycb'] + dataComputed[index + 2]['ssycb'] + dataComputed[index + 3]['ssycb'] + dataComputed[index + 4]['ssycb'] + dataComputed[index + 5]['ssycb'] + dataComputed[index + 6]['ssycb'] + dataComputed[index + 7]['ssycb'] + dataComputed[index + 8]['ssycb'] + (index === 59 ? 0 : dataComputed[index + 9]['ssycb'])
+
+                
+            }
         })
 
-        dataComputed.forEach((obj, index) => {
+
+        dataComputed.forEach((obj,index)=>{
+            if(index ===2){
+                obj['qcrdh'] = dataComputed[(index + 1)]['qcrdh'] + dataComputed[39]['qcrdh'] + dataComputed[43]['qcrdh']
+                obj['qcrcb'] = dataComputed[(index + 1)]['qcrcb'] + dataComputed[39]['qcrcb'] + dataComputed[43]['qcrcb']
+                obj['esrdh'] = dataComputed[(index + 1)]['esrdh'] + dataComputed[39]['esrdh'] + dataComputed[43]['esrdh'] 
+                obj['esrcb'] = dataComputed[(index + 1)]['esrcb'] + dataComputed[39]['esrcb'] + dataComputed[43]['esrcb']
+                obj['ssrdh'] = dataComputed[(index + 1)]['ssrdh'] + dataComputed[39]['ssrdh'] + dataComputed[43]['ssrdh']
+                obj['ssrcb'] = dataComputed[(index + 1)]['ssrcb'] + dataComputed[39]['ssrcb'] + dataComputed[43]['ssrcb'] 
+                // obj['qcdj'] = obj['qcycb'] / obj['qcydh'] // 全厂单价
+                obj['qcydh'] = dataComputed[(index + 1)]['qcydh'] + dataComputed[39]['qcydh'] + dataComputed[43]['qcydh']
+                obj['qcycb'] = dataComputed[(index + 1)]['qcycb'] + dataComputed[39]['qcycb'] + dataComputed[43]['qcycb']
+                obj['esydh'] = dataComputed[(index + 1)]['esydh'] + dataComputed[39]['esydh'] + dataComputed[43]['esydh']
+                obj['esycb'] = dataComputed[(index + 1)]['esycb'] + dataComputed[39]['esycb'] + dataComputed[43]['esycb']
+                obj['ssydh'] = dataComputed[(index + 1)]['ssydh'] + dataComputed[39]['ssydh'] + dataComputed[43]['ssydh']
+                obj['ssycb'] = dataComputed[(index + 1)]['ssycb'] + dataComputed[39]['ssycb'] + dataComputed[43]['ssycb']
+            }
+        })
+
+
+        await dataComputed.forEach((obj, index) => {
             if (index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 54) {
                 // console.log(obj['qcycb'] , obj['qcydh'])
                 if (obj['qcycb'] === 0 && obj['qcydh'] === 0) {
@@ -196,19 +219,17 @@ export default class DateClearDateSettlement extends Component {
 
             }
         })
-        // dataComputed[0]['ysycb'] = dataComputed[0]['ysrcb'] * 30
         dataComputed[0]['esycb'] = dataComputed[0]['esrcb'] * 30
         dataComputed[0]['ssycb'] = dataComputed[0]['ssrcb'] * 30
-        // dataComputed[0]['qcycb'] = dataComputed[0]['ysycb'] + dataComputed[0]['esycb'] + dataComputed[0]['ssycb']
+        dataComputed[0]['qcrcb'] = dataComputed[0]['esrcb'] + dataComputed[0]['ssrcb']
         dataComputed[0]['qcycb'] = dataComputed[0]['esycb'] + dataComputed[0]['ssycb']
 
         dataComputed[1]['qcycb'] = dataComputed[2]['qcycb'] + dataComputed[53]['qcycb']
         // dataComputed[1]['ysycb'] = dataComputed[2]['ysycb'] + dataComputed[53]['ysycb']
         dataComputed[1]['esycb'] = dataComputed[2]['esycb'] + dataComputed[53]['esycb']
         dataComputed[1]['ssycb'] = dataComputed[2]['ssycb'] + dataComputed[53]['ssycb']
-
-        this.saveTwoNumber(dataComputed)
-
+        console.log(dataComputed)
+        await this.saveTwoNumber(dataComputed)
         this.setState({ ListData: dataComputed }, () => {
             message.success("计算成功！")
             console.log(this.state.ListData)
@@ -266,7 +287,7 @@ export default class DateClearDateSettlement extends Component {
                                         <tr key={index} className={
                                             index === 0 ? 'date-clear-date-settlemen-table-blue' :
                                                 index === 1 || index === 2 || index === 3 || index === 7 || index === 11 || index === 12 || index === 16 || index === 39 || index === 43 || index === 53 || index === 54 || index === 59 ? 'date-clear-date-settlemen-table-yellow' :
-                                                index === 70 ? "date-clear-date-settlemen-table-purple" : 'date-clear-date-settlemen-table-none'
+                                                    index === 70 ? "date-clear-date-settlemen-table-purple" : 'date-clear-date-settlemen-table-none'
                                         } >
                                             <td><Input
                                                 value={item.name}
@@ -285,40 +306,40 @@ export default class DateClearDateSettlement extends Component {
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcdj === str || item.qcdj ===  0 ? null : item.qcdj}
+                                                    value={item.qcdj === str || item.qcdj === 0 ? null : item.qcdj}
                                                     onChange={this.infoKuang("qcdj", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 >
                                                 </Input>
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcrdh === strFour || item.qcrdh ===  0  ? null : item.qcrdh}
+                                                    value={item.qcrdh === strFour || item.qcrdh === 0 ? null : item.qcrdh}
                                                     onChange={this.infoKuang("qcrdh", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 >
                                                 </Input>
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcydh === strFour || item.qcydh ===  0   ? null : item.qcydh}
+                                                    value={item.qcydh === strFour || item.qcydh === 0 ? null : item.qcydh}
                                                     onChange={this.infoKuang("qcydh", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 />
                                             </td>
                                             <td>
                                                 <Input
 
-                                                    value={item.qcrcb === str || item.qcrcb ===  0 ? null : item.qcrcb}
+                                                    value={item.qcrcb === str || item.qcrcb === 0 ? null : item.qcrcb}
                                                     onChange={this.infoKuang("qcrcb", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.qcycb === str || item.qcycb ===  0   ? null : item.qcycb}
+                                                    value={item.qcycb === str || item.qcycb === 0 ? null : item.qcycb}
                                                     onChange={this.infoKuang("qcycb", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 />
                                             </td>
                                             {/* <td>
@@ -347,16 +368,16 @@ export default class DateClearDateSettlement extends Component {
                                             </td> */}
                                             <td>
                                                 <Input
-
-                                                    value={item.esrdh === strFour || item.esrdh ===  0   ? null : item.esrdh}
+                                                    onKeyUp={this.mustNumber.bind(this)}
+                                                    value={item.esrdh === strFour || item.esrdh === 0 ? null : item.esrdh}
                                                     onChange={this.infoKuang("esrdh", index).bind(this)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-
-                                                    value={item.esydh === strFour || item.esydh ===  0   ? null : item.esydh}
+                                                    onKeyUp={this.mustNumber.bind(this)}
+                                                    value={item.esydh === strFour || item.esydh === 0 ? null : item.esydh}
                                                     onChange={this.infoKuang("esydh", index).bind(this)}
 
                                                 />
@@ -364,46 +385,46 @@ export default class DateClearDateSettlement extends Component {
                                             <td>
                                                 <Input
 
-                                                    value={item.esrcb === str || item.esrcb ===  0   ? null : item.esrcb}
+                                                    value={item.esrcb === str || item.esrcb === 0 ? null : item.esrcb}
                                                     onChange={this.infoKuang("esrcb", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-
-                                                    value={item.esycb === str || item.esycb ===  0   ? null : item.esycb}
+                                                    onKeyUp={this.mustNumber.bind(this)}
+                                                    value={item.esycb === str || item.esycb === 0 ? null : item.esycb}
                                                     onChange={this.infoKuang("esycb", index).bind(this)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-
-                                                    value={item.ssrdh === strFour || item.ssrdh ===  0   ? null : item.ssrdh}
+                                                    onKeyUp={this.mustNumber.bind(this)}
+                                                    value={item.ssrdh === strFour || item.ssrdh === 0 ? null : item.ssrdh}
                                                     onChange={this.infoKuang("ssrdh", index).bind(this)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.ssydh === strFour || item.ssydh ===  0   ? null : item.ssydh}
-
+                                                    value={item.ssydh === strFour || item.ssydh === 0 ? null : item.ssydh}
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                     onChange={this.infoKuang("ssydh", index).bind(this)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-                                                    value={item.ssrcb === str || item.ssrcb ===  0   ? null : item.ssrcb}
+                                                    value={item.ssrcb === str || item.ssrcb === 0 ? null : item.ssrcb}
                                                     onChange={this.infoKuang("ssrcb", index).bind(this)}
-
+                                                    onKeyUp={this.mustNumber.bind(this)}
                                                 />
                                             </td>
                                             <td>
                                                 <Input
-
-                                                    value={item.ssycb === str || item.ssycb ===  0   ? null : item.ssycb}
+                                                    onKeyUp={this.mustNumber.bind(this)}
+                                                    value={item.ssycb === str || item.ssycb === 0 ? null : item.ssycb}
                                                     onChange={this.infoKuang("ssycb", index).bind(this)}
 
                                                 />

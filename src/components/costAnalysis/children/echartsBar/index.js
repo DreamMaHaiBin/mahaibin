@@ -11,11 +11,11 @@ export default function EchartsBar(props) {
     function getOption(props) {
         let option = {
             title: {
-                text: '2020年烧结产量',
+                text: '2021年球团成本',
                 x: 'center'
             },
             legend: {
-                data: ['OFO订单量', '小米订单量', '华为订单量'],
+                data: ['产量', '一球', '二球'],
 
                 width: 'auto',
                 height: 'auto',
@@ -25,23 +25,23 @@ export default function EchartsBar(props) {
                 trigger: 'axis',
             },
             xAxis: {
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月','八月','九月','十月','十一月','十二月']
             },
             yAxis: {
                 type: 'value'
             },
             series: [
                 {
-                    name: 'OFO订单量',
+                    name: '产量',
                     type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
                     data: [1000, 2000, 1500, 3000, 2000, 1200, 800],
 
                 }, {
-                    name: '小米订单量',
+                    name: '一球',
                     type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
                     data: [150, 230, 224, 218, 135, 147, 260],
                 }, {
-                    name: '华为订单量',
+                    name: '二球',
                     type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
                     data: [150, 200, 200, 2218, 1135, 2347, 1260],
                 }

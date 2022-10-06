@@ -16,13 +16,13 @@ class CostAnalysis extends Component {
             <div className="const-analysis-body">
                 <OneTable componentName={this.state.sinterCostAnalysisname}/>
                 <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname} index={2}/>
                 <EchartsBar componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname} index={3}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname} index={4}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname } index={5}/>
                 <EchartsPie componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname}/>
+                <ChangLiang componentName={this.state.sinterCostAnalysisname} index={6}/>
             </div>
         )
     }
