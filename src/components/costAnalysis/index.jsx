@@ -8,7 +8,13 @@ class CostAnalysis extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            sinterCostAnalysisname: '烧结'
+            sinterCostAnalysisname: {
+                planNumber1:16580,
+                planNumber2:950,
+                complete1:16820,
+                complete2:946,
+                name:"烧结"
+            }
         }
     }
     render() {

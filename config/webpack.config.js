@@ -26,7 +26,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
-const px2rem = require('postcss-px2rem-exclude');
+// const px2rem = require('postcss-px2rem-exclude');
 const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
@@ -55,7 +55,6 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
-
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
   // In development, we always serve from the root. This makes config easier.
@@ -104,9 +103,15 @@ module.exports = function(webpackEnv) {
               },
               stage: 3,
             }),
-            px2rem({
-              remUnit: 54,exclude: /node_modules/i
-            }),
+            require('postcss-pxtorem')({
+              rootValue: 16,
+              selectorBlackList: [], //过滤
+              propList: ['*'],
+              exclude: /node_modules/i  // 过滤掉node_modules 文件夹下面的样式
+            }),  
+            // px2rem({
+            //   remUnit: 54,exclude: /node_modules/i
+            // }),
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json
             // which in turn let's users customize the target behavior as per their needs.

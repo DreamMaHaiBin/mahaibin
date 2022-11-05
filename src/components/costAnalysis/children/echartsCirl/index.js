@@ -86,13 +86,13 @@ export default function EchartsPie (props) {
                           align: 'center'
                         },
                         rate: {
-                          width: 40,
+                          // width: 40,
                           align: 'right',
                           padding: [0, 10, 0, 0]
                         },
                         rateHead: {
                           color: '#333',
-                          width: 40,
+                          // width: 40,
                           align: 'center',
                           padding: [0, 10, 0, 0]
                         }

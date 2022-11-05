@@ -48,7 +48,7 @@ export default function ChangLiang(props) {
                 }, {
                     name: '二球',
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: mockEchartsDataList.seriesData.data2
+                    data: mockEchartsDataList.seriesData.data3
                 }
             ]
         }

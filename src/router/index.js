@@ -36,28 +36,6 @@ import { Router, Route, Switch } from 'react-router-dom';
 // import {  Route, Switch } from 'react-router-dom';
 import zhCN from 'antd/lib/locale-provider/zh_CN.js';
 import { ConfigProvider } from 'antd';
-// import loadable from "../components/util/loadable.jsx"
-// const ShuJuKu1 = loadable(()=>import('../components/shuJuKu/shujuku1.js'))
-// const ShuJuKu2 = loadable(()=>import('../components/shuJuKu/shujuku2.js'))
-// const ShuJuKu3 = loadable(()=>import('../components/shuJuKu/shujuku3.js'))
-// const ShuJuKu4 = loadable(()=>import('../components/shuJuKu/shujuku4.js'))
-// const ShuJuKu5 = loadable(()=>import('../components/shuJuKu/shujuku5.js'))
-// const ShuJuKu6 = loadable(()=>import('../components/shuJuKu/shujuku6.js'))
-// const Solvent = loadable(()=>import('../components/shuJuKu/solvent.js'))
-// const Waste = loadable(()=>import('../components/shuJuKu/waste.js'))
-// const Compare = loadable(()=>import('../components/xingjiaobi/compare'))
-// const Budget = loadable(()=>import('../components/budget/budget'))
-// const BlastFurnace = loadable(()=>import('../components/budget/gaolu'))
-// const Pelletizing = loadable(()=>import('../components/budget/qiutuan'))
-// const Optimization = loadable(()=>import('../components/optimization/optimization'))
-// const Pelletsoptimization = loadable(()=>import('../components/Pelletsoptimization/index'))
-// const Coalblending = loadable(()=>import('../components/coalblending/index'))
-// const Indexptimization = loadable(()=>import('../components/optimizationdesign/index'))
-// const Abc = loadable(()=>import('../components/xingjiaobi/qiutuan'))
-// const Bcd = loadable(()=>import('../components/xingjiaobi/rululiao'))
-// const Cde = loadable(()=>import('../components/xingjiaobi/hululiao'))
-// const Coke = loadable(()=>import('../components/xingjiaobi/coke'))
-// const Braize = loadable(()=>import('../components/xingjiaobi/braize'))
 
 //路由组件  负责写路径
 class Index extends Component {
@@ -66,46 +44,46 @@ class Index extends Component {
             <div>
                 <ConfigProvider locale={zhCN}>
                     <Switch>
-                        <AuthRoute path="/index/one" component={ShuJuKu1} />
-                        <AuthRoute path="/index/two" component={ShuJuKu2} />
-                        <AuthRoute path="/index/three" component={ShuJuKu3} />
-                        <AuthRoute path="/index/four" component={ShuJuKu4} />
-                        <AuthRoute path="/index/five" component={ShuJuKu5} />
-                        <AuthRoute path="/index/six" component={ShuJuKu6} />
-                        <AuthRoute path="/index/solvent" component={Solvent} />
-                        <AuthRoute path="/index/Waste" component={Waste} />
-                        <AuthRoute path="/index/compare" component={Compare} />
-                        <AuthRoute path="/index/bePutInAFurnace" component={Abc} />
-                        <AuthRoute path="/index/rulu" component={Bcd} />
-                        <AuthRoute path="/index/ToProtectTheCharge" component={Cde} />
-                        <AuthRoute path="/index/braize" component={Braize} />
-                        <AuthRoute path="/index/coke" component={Coke} />
-                        <AuthRoute path="/index/budget" component={Budget} />
-                        <AuthRoute path="/index/pelletizing" component={Pelletizing} />
-                        <AuthRoute path="/index/blastFurnace" component={BlastFurnace} />
-                        <AuthRoute path="/index/optimization" component={Optimization} />
+                        <Route path="/index/one" component={ShuJuKu1} />
+                        <Route path="/index/two" component={ShuJuKu2} />
+                        <Route path="/index/three" component={ShuJuKu3} />
+                        <Route path="/index/four" component={ShuJuKu4} />
+                        <Route path="/index/five" component={ShuJuKu5} />
+                        <Route path="/index/six" component={ShuJuKu6} />
+                        <Route path="/index/solvent" component={Solvent} />
+                        <Route path="/index/Waste" component={Waste} />
+                        <Route path="/index/compare" component={Compare} />
+                        <Route path="/index/bePutInAFurnace" component={Abc} />
+                        <Route path="/index/rulu" component={Bcd} />
+                        <Route path="/index/ToProtectTheCharge" component={Cde} />
+                        <Route path="/index/braize" component={Braize} />
+                        <Route path="/index/coke" component={Coke} />
+                        <Route path="/index/budget" component={Budget} />
+                        <Route path="/index/pelletizing" component={Pelletizing} />
+                        <Route path="/index/blastFurnace" component={BlastFurnace} />
+                        <Route path="/index/optimization" component={Optimization} />
 
 
-                        <AuthRoute path="/index/budget/out" component={Budget} />
-                        <AuthRoute path="/index/blastFurnace/out" component={BlastFurnace} />
-                        <AuthRoute path="/index/pelletizing/out" component={Pelletizing} />
+                        <Route path="/index/budget/out" component={Budget} />
+                        <Route path="/index/blastFurnace/out" component={BlastFurnace} />
+                        <Route path="/index/pelletizing/out" component={Pelletizing} />
 
-                        <AuthRoute path="/index/Pelletsoptimization" component={Pelletsoptimization} />
-                        <AuthRoute path="/index/GaoLublastfurnace" component={Indexptimization} />
-                        <AuthRoute path="/index/coalblending" component={Coalblending} />
+                        <Route path="/index/Pelletsoptimization" component={Pelletsoptimization} />
+                        <Route path="/index/GaoLublastfurnace" component={Indexptimization} />
+                        <Route path="/index/coalblending" component={Coalblending} />
 
 
-                        <AuthRoute path="/index/sinteringoffline" component={ShaojieLiXian} />
-                        <AuthRoute path="/index/pelletoffline" component={QiuTuanLiXian} />
-                        <AuthRoute path="/index/furnaceoffline" component={GaoLuLiXian} />
+                        <Route path="/index/sinteringoffline" component={ShaojieLiXian} />
+                        <Route path="/index/pelletoffline" component={QiuTuanLiXian} />
+                        <Route path="/index/furnaceoffline" component={GaoLuLiXian} />
                         {/* 日清日结 */}
-                        <AuthRoute path="/index/sinterDateClear" component={DateClearDateSettlement} />
-                        <AuthRoute path="/index/costDateClear" component={DateClearDateSettlementPellet} />
-                        <AuthRoute path="/index/furnaceDateClear" component={DateClearDateSettlementFurnace} />
+                        <Route path="/index/sinterDateClear" component={DateClearDateSettlement} />
+                        <Route path="/index/costDateClear" component={DateClearDateSettlementPellet} />
+                        <Route path="/index/furnaceDateClear" component={DateClearDateSettlementFurnace} />
                         {/* 成本分析 */}
-                        <AuthRoute path="/index/sinterCostAnalysis" component={CostAnalysis} />
-                        <AuthRoute path="/index/pelletCostAnalysis" component={PelletCostAnalysis} />
-                        <AuthRoute path="/index/furnaceCostAnalysis" component={FurnaceCostAnalysis} />
+                        <Route path="/index/sinterCostAnalysis" component={CostAnalysis} />
+                        <Route path="/index/pelletCostAnalysis" component={PelletCostAnalysis} />
+                        <Route path="/index/furnaceCostAnalysis" component={FurnaceCostAnalysis} />
                     </Switch>
 
                 </ConfigProvider>

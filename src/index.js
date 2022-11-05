@@ -8,8 +8,8 @@ import './index.css';
 import App from './App';
 import 'moment/locale/zh-cn';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
-import {ConfigProvider} from 'antd'
-import "lib-flexible"
+import {ConfigProvider} from 'antd';
+import './components/util/rem.js'
 if (!window.Promise) {
         window.Promise = Promise;
        }

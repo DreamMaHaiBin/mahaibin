@@ -8,7 +8,15 @@ class FurnaceCostAnalysis extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            FurnaceCostAnalysisName: '高炉'
+            FurnaceCostAnalysisName: {
+                planNumber1:22800,
+                planNumber2:520,
+                planNumber3:3580,
+                complete1:22950,
+                complete2:512,
+                complete3:3575,
+                name:"高炉"
+            }
         }
     }
     render() {

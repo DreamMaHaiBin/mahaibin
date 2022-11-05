@@ -8,7 +8,13 @@ class PelletCostAnalysis extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            PelletCostAnalysisName: '球团'
+            PelletCostAnalysisName: {
+                planNumber1:9800,
+                planNumber2:1024,
+                complete1:9850,
+                complete2:980,
+                name:"球团"
+            }
         }
     }
     render() {
