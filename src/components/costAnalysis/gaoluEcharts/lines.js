@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../tables.scss'
+import '../children/tables.scss'
 //导入折线图
 import 'echarts/lib/chart/line';  //折线图是line,饼图改为pie,柱形图改为bar
 import 'echarts/lib/component/tooltip';
@@ -7,27 +7,30 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
-import {mockEchartsDataList} from '../../../util/mockData'
 
-export default function ChangLiang(props) { 
+export default function GaoLuLines(props) { 
 
     const index = props.index
     function getOption() {
         const {componentName, data, xAxis, legend, titleName } = props
         console.log(componentName)
-        let clData = []
-        let esData = []
-        let ssData = []
-        let zcbData = []
-        let escbData = []
-        let sscbData = []
+        let zclData = []
+        let yglData = []
+        let eglData = []
+        let sglData = []
+        let rhData= []
+        let jbData = []
+        let mbData = []
+        let jdbData = []
         data.forEach(element => {
-            clData.push(element.zcl)
-            esData.push(element.escl)
-            ssData.push(element.sscl)
-            zcbData.push(componentName === '产量' ? element.zcb : element.wccb )
-            escbData.push(componentName === '产量' ? element.escb : element.escbb )
-            sscbData.push(componentName === '产量' ? element.sscb : element.sscbb )
+            zclData.push(element.zcl)
+            yglData.push(element.yglcl)
+            eglData.push(element.eglcl)
+            sglData.push(element.sglcl)
+            rhData.push(componentName === '产量' ? element.rlb : element.rlb )
+            jbData.push(componentName === '产量' ? element.jhrlb : element.jhrlb )
+            mbData.push(componentName === '产量' ? element.jhrlb : element.jhrlb )
+            jdbData.push(componentName === '产量' ? element.jhrlb : element.jhrlb )
         });
         console.log(data)
         let option = {
@@ -55,15 +58,19 @@ export default function ChangLiang(props) {
                 {
                     name: legend[0],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? clData : zcbData,
+                    data: componentName === '产量' ? zclData : rhData,
                 }, {
                     name: legend[1],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? esData : escbData
+                    data: componentName === '产量' ? yglData : rhData
                 }, {
                     name: legend[2],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? ssData : sscbData
+                    data: componentName === '产量' ? eglData : rhData
+                }, {
+                    name: legend[3],
+                    type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+                    data: componentName === '产量' ? sglData : rhData
                 }
             ]
         }

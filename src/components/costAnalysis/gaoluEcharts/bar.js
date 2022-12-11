@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../tables.scss'
+import '../children/tables.scss'
 //导入折线图
 import 'echarts/lib/chart/bar';  //折线图是line,饼图改为pie,柱形图改为bar
 import 'echarts/lib/component/tooltip';
@@ -7,16 +7,18 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
-export default function EchartsBar(props) {
+export default function GaoLuBar(props) {
     function getOption() {
         const {componentName, data, xAxis, legend, titleName } = props
-        let zcbData = []
-        let escbData = []
-        let sscbData = []
+        let zclData = []
+        let yglclData = []
+        let eglclData = []
+        let sglclData = []
         data.forEach(element => {
-            zcbData.push(element.zcb)
-            escbData.push(element.escb)
-            sscbData.push(element.sscb)
+            zclData.push(element.zcl)
+            yglclData.push(element.yglcl)
+            eglclData.push(element.eglcl)
+            sglclData.push(element.sglcl)
         });
         let option = {
             title: {
@@ -43,16 +45,20 @@ export default function EchartsBar(props) {
                 {
                     name: legend[0],
                     type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: zcbData,
+                    data: zclData,
 
                 }, {
                     name: legend[1],
                     type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: escbData,
+                    data: yglclData,
                 }, {
                     name: legend[2],
                     type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: sscbData,
+                    data: eglclData,
+                }, {
+                    name: legend[3],
+                    type: 'bar',   //这块要定义type类型，柱形图是bar,饼图是pie
+                    data: sglclData,
                 }
             ]
         }

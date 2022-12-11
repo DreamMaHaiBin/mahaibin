@@ -7,27 +7,17 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
-import {mockEchartsDataList} from '../../../util/mockData'
 
-export default function ChangLiang(props) { 
+export default function ChenBen(props) { 
 
-    const index = props.index
     function getOption() {
         const {componentName, data, xAxis, legend, titleName } = props
         console.log(componentName)
-        let clData = []
-        let esData = []
-        let ssData = []
-        let zcbData = []
         let escbData = []
         let sscbData = []
         data.forEach(element => {
-            clData.push(element.zcl)
-            esData.push(element.escl)
-            ssData.push(element.sscl)
-            zcbData.push(componentName === '产量' ? element.zcb : element.wccb )
-            escbData.push(componentName === '产量' ? element.escb : element.escbb )
-            sscbData.push(componentName === '产量' ? element.sscb : element.sscbb )
+            escbData.push( componentName === '烧结' ? element.yqcbb : element.yqcbb )
+            sscbData.push(componentName === '烧结' ? element.eqcbb : element.eqcbb )
         });
         console.log(data)
         let option = {
@@ -55,15 +45,11 @@ export default function ChangLiang(props) {
                 {
                     name: legend[0],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? clData : zcbData,
+                    data: escbData,
                 }, {
                     name: legend[1],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? esData : escbData
-                }, {
-                    name: legend[2],
-                    type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? ssData : sscbData
+                    data: escbData
                 }
             ]
         }
