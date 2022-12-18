@@ -6,6 +6,7 @@ import GaoLuLines from './gaoluEcharts//lines'
 import EchartsPie from './children/echartsCirl'
 import { data } from "../util/datas";
 import { getMonthLength } from '../util/commonFunction'
+import SelectEcharts from './children/chanliang1/selectCharts'
 import './index.scss'
 class FurnaceCostAnalysis extends Component {
     constructor(props) {
@@ -22,6 +23,8 @@ class FurnaceCostAnalysis extends Component {
             xAxis: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
             Twolegend: ['全厂成本','原料',"冶炼费"],
             Threelegend: ['燃耗',"焦比","煤比","焦丁比"],
+            endLegend: ['进口粉','麦克粉',"巴卡"],
+            nineLegend: ['金属料合计','钛精粉',"迁钢返矿"],
             DateXAxis: [],
             titleName: {
                 oneName: '2022高炉产量',
@@ -29,8 +32,15 @@ class FurnaceCostAnalysis extends Component {
                 threeName: '2022高炉成本',
                 fourName: '7月高炉成本',
                 fiveName: '燃料比',
-            }
+                sixName: '价格趋势',
+                sevenName: '单耗趋势',
+                eightName: '球团成本构成'
+            },
+            nameList: ['glname', 'glname1', 'glname2', 'glname3'],
+            dhNameList: ['gldhname', 'gldhname1', 'gldhname2', 'gldhname3']
         }
+        this.getNameData()
+        this.getConsumptionData()
     }
     componentDidMount(){
         // axios.get('/api/cbfxry/').then(res => {
@@ -64,6 +74,100 @@ class FurnaceCostAnalysis extends Component {
         }
         return date
     }
+    getNameData() {
+        // axios({
+        //     method: 'get',
+        //     url: '/api/cbfxsjjgqs/',
+        //     data: {
+        //         name: ''
+        //     },
+        //     headers: {
+        //         Authorization: sessionStorage.getItem("token")
+        //     }
+        // }).then(res => {
+        //     var data = ['name', 'name1', 'name2', 'name3']
+        //     this.setState({
+        //         nameList: res.data
+        //     })
+        // }).catch((error) => {
+            // var data = ['name', 'name1', 'name2', 'name3']
+            // this.setState({
+            //     nameList: data
+            // })
+        // })
+    }
+    // 价格单耗趋势名称
+    getConsumptionData(){
+                // axios({
+        //     method: 'get',
+        //     url: '/api/cbfxsjdhqs/',
+        //     data: {
+        //         name: ''
+        //     },
+        //     headers: {
+        //         Authorization: sessionStorage.getItem("token")
+        //     }
+        // }).then(res => {
+        //     var data = ['name', 'name1', 'name2', 'name3']
+        //     this.setState({
+        //         nameList: res.data
+        //     })
+        // }).catch((error) => {
+            // var data = ['name', 'name1', 'name2', 'name3']
+            // this.setState({
+            //     nameList: data
+            // })
+        // })
+    }
+    // 价格趋势名称
+    cantFatherData(val){
+        console.log(val)
+       // axios({
+        //     method: 'get',
+        //     url: '/api/cbfxsjjgqs/',
+        //     data: {
+        //         name: val
+        //     },
+        //     headers: {
+        //         Authorization: sessionStorage.getItem("token")
+        //     }
+        // }).then(res => {
+        //     var data = ['name', 'name1', 'name2', 'name3']
+        //     this.setState({
+        //         nameList: res.data
+        //     })
+        // }).catch((error) => {
+            // var data = ['name', 'name1', 'name2', 'name3']
+            // this.setState({
+            //     nameList: data
+            // })
+        // })
+    }
+    // 时间选择
+    childDateTime(startTime,endTime){
+    console.log(startTime,startTime)
+        // axios({
+        //     method: 'get',
+        //     url: '/api/cbfxsjjgqs/',
+        //     data: {
+        //         startTime: val,
+        //         endTime: val,
+        //     },
+        //     headers: {
+        //         Authorization: sessionStorage.getItem("token")
+        //     }
+        // }).then(res => {
+        //     var data = ['name', 'name1', 'name2', 'name3']
+        //     this.setState({
+        //         nameList: res.data
+        //     })
+        // }).catch((error) => {
+            // var data = ['name', 'name1', 'name2', 'name3']
+            // this.setState({
+            //     nameList: data
+            // })
+        // })
+    }
     render() {
         return (
             <div className="const-analysis-body">
@@ -73,13 +177,27 @@ class FurnaceCostAnalysis extends Component {
                 <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.Twolegend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName}/>
                 <GaoLuLines  data={this.state.glDateYield} componentName={'成本'}  xAxis={this.state.xAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fourName}/>
                 <GaoLuLines  data={this.state.glDateYield} componentName={'成本'}  xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName}/>
-                {/*<ChangLiang componentName={this.state.FurnaceCostAnalysisName}/>
-                <EchartsBar componentName={this.state.FurnaceCostAnalysisName}/>
-                <ChangLiang componentName={this.state.FurnaceCostAnalysisName}/>
-                <ChangLiang componentName={this.state.FurnaceCostAnalysisName}/>
-                <ChangLiang componentName={this.state.FurnaceCostAnalysisName}/>
-                <EchartsPie componentName={this.state.FurnaceCostAnalysisName}/>
-                <ChangLiang componentName={this.state.FurnaceCostAnalysisName}/> */}
+                <SelectEcharts 
+                data={this.state.glMonthYield} 
+                componentName={'产量'} 
+                xAxis={this.state.xAxis} 
+                legend={this.state.endLegend} 
+                titleName={this.state.titleName.sixName}
+                nameList={this.state.nameList} 
+                cantFatherData={this.cantFatherData}
+                childDateTime ={this.childDateTime }
+                />
+                <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName}/>
+                <SelectEcharts 
+                data={this.state.glMonthYield} 
+                componentName={'产量'} 
+                xAxis={this.state.xAxis} 
+                legend={this.state.nineLegend} 
+                 titleName={this.state.titleName.sevenName}
+                 nameList={this.state.dhNameList} 
+                 cantFatherData={this.cantFatherData}
+                 childDateTime ={this.childDateTime }
+                 />
             </div>
         )
     }

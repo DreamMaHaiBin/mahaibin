@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../tables.scss'
 //导入折线图
 import 'echarts/lib/chart/line';  //折线图是line,饼图改为pie,柱形图改为bar
@@ -9,15 +9,14 @@ import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 import { Select, DatePicker } from 'antd';
 import moment from 'moment';
-
+import axios from 'axios';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 export default function SelectEcharts(props) {
-
-    const index = props.index
+    const { componentName, data, xAxis, legend, titleName, nameList,dhNameList } = props
+    console.log(nameList)
     function getOption() {
-        const { componentName, data, xAxis, legend, titleName } = props
-        console.log(componentName)
+        // console.log(componentName)
         let clData = []
         let esData = []
         let ssData = []
@@ -32,7 +31,7 @@ export default function SelectEcharts(props) {
             escbData.push(componentName === '产量' ? element.escb : element.escbb)
             sscbData.push(componentName === '产量' ? element.sscb : element.sscbb)
         });
-        console.log(data)
+        // console.log(data)
         let option = {
             title: {
                 text: titleName,
@@ -50,9 +49,30 @@ export default function SelectEcharts(props) {
             xAxis: {
                 data: xAxis
             },
+            grid: {
+                // top: '0%',
+                left: '15%',//原来是10%，修改为20%
+                // right: '2%',
+                // bottom: '24%',
+              },
             yAxis: {
-                type: 'value',
-
+                type: 'value',   
+                axisLabel :{
+                    interval:0
+                  },
+                axisLabel: {
+                    color: '#444343',
+                    formatter: function (value, index) {
+                    //     console.log(value)
+                    //   // value大于1000时除以1000并拼接k，小于1000按原格式显示
+                    // //   if (value >= 1000) {
+                    // //     value = value / 1000 + 'k';
+                    // //   } else if (value < 1000) {
+                    // //     value;
+                    // //   }
+                    return value >= 1000 ? value >= 10000 ?  value / 10000 + 'W' :  value / 1000 + 'K' : value
+                    },
+                  },
             },
             series: [
                 {
@@ -72,31 +92,41 @@ export default function SelectEcharts(props) {
         }
         return option
     }
-    const [n, setN] = useState(0)
-    function handleChange(value) {
-        console.log(`selected ${value}`);
-    }
+
+    // function handleChange(value) {
+    //     console.log(`${value}`)
+    //     props.cantFatherData(value)
+    // }
     function onChange(dates, dateStrings) {
-        console.log('From: ', dates[0], ', to: ', dates[1]);
-        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+
+        props.childDateTime(dateStrings[0],dateStrings[1])
     }
     return (
         <div className='children-two-echarts'>
             <div className='children-two-echarts-select'>
                 <label>名称</label>
-                <Select defaultValue="lucy" style={{ width: 80 }} onChange={handleChange}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                <Select defaultValue="" style={{ width: 80 }} onChange={(value)=>{props.cantFatherData(value)}}>
+                    {
+                        (nameList || []).map((obj,index)=>{
+                            return(
+                                <Option value={obj} key={index}>{obj}</Option>
+                            )
+                        })
+                    }
                 </Select>
-                <label style={{marginLeft:"5px"}}>时间</label>
+                <label style={{ marginLeft: "5px" }}>时间</label>
                 <RangePicker
                     ranges={{
-                        Today: [moment(), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        "今天":[moment(), moment()],
+                        '本月': [moment().startOf('month'), moment().endOf('month')],
                     }}
+                    showTime={{
+                        hideDisabledOptions: true,
+                        defaultValue: [moment('00:00:00',), moment('11:59:59')],
+                      }}
+                    format="YYYY-MM-DD"
                     onChange={onChange}
-                    style={{width:'200px'}}
+                    style={{ width: '200px' }}
                 />
             </div>
             <ReactEcharts option={getOption()} />

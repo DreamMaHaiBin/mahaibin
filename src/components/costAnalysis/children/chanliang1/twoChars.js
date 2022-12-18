@@ -37,9 +37,30 @@ export default function ChenBen(props) {
             xAxis: {
                 data: xAxis
             },
+            grid: {
+                // top: '0%',
+                left: '15%',//原来是10%，修改为20%
+                // right: '2%',
+                // bottom: '24%',
+              },
             yAxis: {
-                type: 'value',
-                
+                type: 'value',   
+                axisLabel :{
+                    interval:0
+                  },
+                axisLabel: {
+                    color: '#444343',
+                    formatter: function (value, index) {
+                    //     console.log(value)
+                    //   // value大于1000时除以1000并拼接k，小于1000按原格式显示
+                    // //   if (value >= 1000) {
+                    // //     value = value / 1000 + 'k';
+                    // //   } else if (value < 1000) {
+                    // //     value;
+                    // //   }
+                    return value >= 1000 ? value >= 10000 ?  value / 10000 + 'W' :  value / 1000 + 'K' : value
+                    },
+                  },
             },
             series: [
                 {

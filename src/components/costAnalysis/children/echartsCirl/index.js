@@ -27,7 +27,13 @@ export default function EchartsPie (props) {
               left: 'center',
               data: ['精矿粉', '迁钢返矿', '迁钢废料', '溶剂', '燃烧及动力', '制造费']
             },
-            series: [
+            grid: {
+              top: '10%',
+              left: '15%',//原来是10%，修改为20%
+              // right: '2%',
+              bottom: '0%',
+            },
+            series: [ 
               {
                 type: 'pie',
                 radius: '65%',
