@@ -3,6 +3,7 @@ import OneTable from './children/oneTable'
 import ChangLiang from './children/chanliang1'
 import EchartsBar from './children/echartsBar'
 import ChenBen from './children/chanliang1/twoChars'
+import SelectEcharts from './children/chanliang1/selectCharts'
 import EchartsPie from './children/echartsCirl'
 import axios from "axios"
 import './index.scss'
@@ -31,6 +32,9 @@ class CostAnalysis extends Component {
                 threeName: '2022烧结成本',
                 fourName: '7月烧结成本',
                 fiveName: '含铁料占成本比',
+                sixName: '价格趋势',
+                sevenName: '单耗趋势',
+                eightName: '烧结成本构成'
             }
         
         }
@@ -75,9 +79,9 @@ class CostAnalysis extends Component {
                 <EchartsBar data={this.state.sjMonthYield} componentName={'成本'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName}/>
                 <ChangLiang data={this.state.sjDateYield} componentName={'成本'} xAxis={this.state.DateXAxis} legend={this.state.Twolegend} titleName={this.state.titleName.fourName}/>
                 <ChenBen data={this.state.sjDateYield} componentName={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName}/>
-                {/*  <ChangLiang componentName={this.state.sinterCostAnalysisname } index={5}/>
-                <EchartsPie componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname} index={6}/> */}
+                <SelectEcharts data={this.state.sjMonthYield} componentName={'产量'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.sixName}/>
+                <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName}/>
+                <SelectEcharts data={this.state.sjMonthYield} componentName={'产量'} xAxis={this.state.xAxis} legend={this.state.legend}  titleName={this.state.titleName.sevenName}/>
             </div>
         )
     }

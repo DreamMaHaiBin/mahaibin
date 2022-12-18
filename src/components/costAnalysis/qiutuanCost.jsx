@@ -7,6 +7,7 @@ import { getMonthLength } from '../util/commonFunction'
 import ChenBen from './children/chanliang1/twoChars'
 import { data } from "../util/datas";
 import './index.scss'
+import SelectEcharts from './children/chanliang1/selectCharts'
 class PelletCostAnalysis extends Component {
     constructor(props) {
         super(props)
@@ -20,6 +21,7 @@ class PelletCostAnalysis extends Component {
             sjDateCost: [], // 球团日成本
             xAxis: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
             legend: ['产量','一球',"二球"],
+            endLegend: ['大石河商品粉','水滴粉',"承德低钛粉"],
             Twolegend: ['铁前总成本','一球成本',"二球成本"],
             Threelegend: ['一球',"二球"],
             DateXAxis: [],
@@ -29,6 +31,9 @@ class PelletCostAnalysis extends Component {
                 threeName: '2022球团成本',
                 fourName: '7月球团成本',
                 fiveName: '含铁料占成本比',
+                sixName: '价格趋势',
+                sevenName: '单耗趋势',
+                eightName: '球团成本构成'
             }
         }
     }
@@ -72,9 +77,9 @@ class PelletCostAnalysis extends Component {
                 <EchartsBar data={this.state.sjMonthYield} componentName={'成本'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName}/>
                 <ChangLiang data={this.state.sjDateYield} componentName={'成本'} xAxis={this.state.DateXAxis} legend={this.state.Twolegend} titleName={this.state.titleName.fourName}/>
                 <ChenBen data={this.state.sjDateYield} componentName={'球团'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName}/>
-                {/*  <ChangLiang componentName={this.state.sinterCostAnalysisname } index={5}/>
-                <EchartsPie componentName={this.state.sinterCostAnalysisname}/>
-                <ChangLiang componentName={this.state.sinterCostAnalysisname} index={6}/> */}
+                <SelectEcharts data={this.state.sjMonthYield} componentName={'产量'} xAxis={this.state.xAxis} legend={this.state.endLegend} titleName={this.state.titleName.sixName}/>
+                <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName}/>
+                <SelectEcharts data={this.state.sjMonthYield} componentName={'产量'} xAxis={this.state.xAxis} legend={this.state.endLegend}  titleName={this.state.titleName.sevenName}/>
             </div>
         )
     }

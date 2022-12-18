@@ -3,7 +3,7 @@
     align-items: center;
     .one-sinter-table {
         width: 349px;
-        height: 200px;
+        height: 300px;
         border: 1px solid #333;
 
         .one-sinter-tr-one {
@@ -20,5 +20,15 @@
 
 .children-two-echarts {
     width: 349px;
-    height: 300px;
+    height: 400px;
+}
+.children-two-echarts-select{
+    // display: flex;
+    // align-items: center;
+    label{
+        margin-right: 5px;
+        &:nth-child(2){
+            margin-left: 5px;
+        }
+    }
 }

@@ -8,10 +8,11 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 export default function EchartsPie (props) {
-    function getOption(props) {
+    function getOption() {
+      const {componentName, data, xAxis, legend, titleName } = props
         let option = {
             title: {
-              text: '9月球团成本构成',
+              text: titleName,
               // subtext: 'Fake Data',
               left: 'center'
             },
