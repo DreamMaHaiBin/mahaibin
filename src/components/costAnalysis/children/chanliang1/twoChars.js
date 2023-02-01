@@ -11,13 +11,12 @@ import ReactEcharts from 'echarts-for-react';
 export default function ChenBen(props) { 
 
     function getOption() {
-        const {componentName, data, xAxis, legend, titleName } = props
-        console.log(componentName)
+        const {type, data, xAxis, legend, titleName } = props
         let escbData = []
         let sscbData = []
         data.forEach(element => {
-            escbData.push( componentName === '烧结' ? element.yqcbb : element.yqcbb )
-            sscbData.push(componentName === '烧结' ? element.eqcbb : element.eqcbb )
+            escbData.push(type === '烧结' ? element.escbb : element.yqcbb )
+            sscbData.push(type === '烧结' ? element.sscbb : element.eqcbb )
         });
         console.log(data)
         let option = {
@@ -29,7 +28,10 @@ export default function ChenBen(props) {
                 data: legend,
                 width: 'auto',
                 height: 'auto',
-                bottom: '20px'
+                bottom: '20px',
+                textStyle:{
+                    fontSize: '12px'
+                }
             },
             tooltip: {
                 trigger: 'axis',
@@ -58,7 +60,7 @@ export default function ChenBen(props) {
                     // //   } else if (value < 1000) {
                     // //     value;
                     // //   }
-                    return value >= 1000 ? value >= 10000 ?  value / 10000 + 'W' :  value / 1000 + 'K' : value
+                    return value +'%'
                     },
                   },
             },
@@ -70,7 +72,7 @@ export default function ChenBen(props) {
                 }, {
                     name: legend[1],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: escbData
+                    data: sscbData
                 }
             ]
         }
@@ -79,7 +81,7 @@ export default function ChenBen(props) {
     const [n, setN] = useState(0)
     return (
         <div className='children-two-echarts'>
-            <ReactEcharts option={getOption()} />
+            <ReactEcharts option={getOption()} notMerge={true} style={{height:350}}/>
         </div>
     )
 }

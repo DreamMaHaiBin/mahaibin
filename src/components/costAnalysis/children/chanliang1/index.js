@@ -10,11 +10,9 @@ import ReactEcharts from 'echarts-for-react';
 import {mockEchartsDataList} from '../../../util/mockData'
 
 export default function ChangLiang(props) { 
-
-    const index = props.index
     function getOption() {
-        const {componentName, data, xAxis, legend, titleName } = props
-        console.log(componentName)
+        const {componentName, data, xAxis, legend, titleName,type } = props
+        console.log(componentName,type)
         let clData = []
         let esData = []
         let ssData = []
@@ -23,23 +21,26 @@ export default function ChangLiang(props) {
         let sscbData = []
         data.forEach(element => {
             clData.push(element.zcl)
-            esData.push(element.escl)
-            ssData.push(element.sscl)
-            zcbData.push(componentName === '产量' ? element.zcb : element.wccb )
-            escbData.push(componentName === '产量' ? element.escb : element.escbb )
-            sscbData.push(componentName === '产量' ? element.sscb : element.sscbb )
+            esData.push(type === '球团' ? element.yqcl : element.escl)
+            ssData.push(type === '球团' ? element.eqcl : element.sscl)
+            zcbData.push(componentName === '成本' ? element.zcb : element.wccb )
+            escbData.push(componentName === '成本' ? type === '球团' ? element.yqcb : element.escb : type === '球团' ? element.yqcbb: element.escbb )
+            sscbData.push(componentName === '成本' ? type === '球团' ? element.eqcb : element.sscb : type === '球团' ? element.eqcbb :element.sscbb )
         });
         console.log(data)
         let option = {
             title: {
                 text: titleName,
-                x: 'center'
+                x: 'center',
             },
             legend: {
                 data: legend,
                 width: 'auto',
                 height: 'auto',
-                bottom: '20px'
+                bottom: '20px',
+                textStyle:{
+                    fontSize: '12px'
+                }
             },
             tooltip: {
                 trigger: 'axis',
@@ -73,6 +74,17 @@ export default function ChangLiang(props) {
                     },
                   },
             },
+            // dataZoom: [
+            //     {
+            //       type: 'inside',
+            //       start: 0,
+            //       end: 10
+            //     },
+            //     {
+            //       start: 0,
+            //       end: 10
+            //     }
+            //   ],
             series: [
                 {
                     name: legend[0],
@@ -94,7 +106,7 @@ export default function ChangLiang(props) {
     const [n, setN] = useState(0)
     return (
         <div className='children-two-echarts'>
-            <ReactEcharts option={getOption()} />
+            <ReactEcharts option={getOption()} notMerge={true} style={{height:350}}/>
         </div>
     )
 }

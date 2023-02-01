@@ -9,14 +9,14 @@ import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 export default function EchartsBar(props) {
     function getOption() {
-        const {componentName, data, xAxis, legend, titleName } = props
+        const {type, data, xAxis, legend, titleName } = props
         let zcbData = []
         let escbData = []
         let sscbData = []
         data.forEach(element => {
             zcbData.push(element.zcb)
-            escbData.push(element.escb)
-            sscbData.push(element.sscb)
+            escbData.push(type === "球团" ? element.yqcb : element.escb)
+            sscbData.push(type === "球团" ? element.eqcb : element.sscb)
         });
         let option = {
             title: {
@@ -28,7 +28,10 @@ export default function EchartsBar(props) {
 
                 width: 'auto',
                 height: 'auto',
-                bottom: '20px'
+                bottom: '20px',
+                textStyle:{
+                    fontSize: '12px'
+                }
             },
             tooltip: {
                 trigger: 'axis',
@@ -83,7 +86,7 @@ export default function EchartsBar(props) {
     const [n, setN] = useState(0)
     return (
         <div className='children-two-echarts'>
-            <ReactEcharts option={getOption()} />
+            <ReactEcharts option={getOption()} notMerge={true} style={{height:350}}/>
         </div>
     )
 }

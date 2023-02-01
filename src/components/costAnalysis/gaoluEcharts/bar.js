@@ -89,7 +89,7 @@ export default function GaoLuBar(props) {
     const [n, setN] = useState(0)
     return (
         <div className='children-two-echarts'>
-            <ReactEcharts option={getOption()} />
+            <ReactEcharts option={getOption()} notMerge={true} style={{height:350}}/>
         </div>
     )
 }

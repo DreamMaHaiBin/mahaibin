@@ -39,6 +39,7 @@ class Home extends Component {
                         theme="dark"
                         inlineCollapsed={this.state.collapsed}
                         className="steel-mill-home-Menu"
+                        defaultOpenKeys={['0']}
                     >
                         {
                             databaseList.map((obj, index) => {

@@ -9,45 +9,35 @@ import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 import { Select, DatePicker } from 'antd';
 import moment from 'moment';
-import axios from 'axios';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 export default function SelectEcharts(props) {
-    const { componentName, data, xAxis, legend, titleName, nameList,dhNameList } = props
-    console.log(nameList)
+    const { legend, titleName, nameList, echartsData,componentName } = props
     function getOption() {
-        // console.log(componentName)
-        let clData = []
-        let esData = []
-        let ssData = []
-        let zcbData = []
-        let escbData = []
-        let sscbData = []
-        data.forEach(element => {
-            clData.push(element.zcl)
-            esData.push(element.escl)
-            ssData.push(element.sscl)
-            zcbData.push(componentName === '产量' ? element.zcb : element.wccb)
-            escbData.push(componentName === '产量' ? element.escb : element.escbb)
-            sscbData.push(componentName === '产量' ? element.sscb : element.sscbb)
-        });
-        // console.log(data)
+        console.log(echartsData)
         let option = {
             title: {
                 text: titleName,
                 x: 'center'
             },
             legend: {
+                itemWidth: 5,
+                itemHeight: 2,
                 data: legend,
                 width: 'auto',
                 height: 'auto',
-                bottom: '20px'
+                bottom: '20px',
+                textStyle:{
+                    fontSize: '10px'
+                }
             },
             tooltip: {
                 trigger: 'axis',
             },
+            
             xAxis: {
-                data: xAxis
+                data: echartsData.length > 0 ? echartsData[0].XList : 2,
+
             },
             grid: {
                 // top: '0%',
@@ -74,21 +64,7 @@ export default function SelectEcharts(props) {
                     },
                   },
             },
-            series: [
-                {
-                    name: legend[0],
-                    type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? clData : zcbData,
-                }, {
-                    name: legend[1],
-                    type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? esData : escbData
-                }, {
-                    name: legend[2],
-                    type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? ssData : sscbData
-                }
-            ]
+            series: echartsData
         }
         return option
     }
@@ -98,14 +74,13 @@ export default function SelectEcharts(props) {
     //     props.cantFatherData(value)
     // }
     function onChange(dates, dateStrings) {
-
-        props.childDateTime(dateStrings[0],dateStrings[1])
+        props.childDateTime(dateStrings[0],dateStrings[1],componentName)
     }
     return (
         <div className='children-two-echarts'>
             <div className='children-two-echarts-select'>
                 <label>名称</label>
-                <Select defaultValue="" style={{ width: 80 }} onChange={(value)=>{props.cantFatherData(value)}}>
+                <Select defaultValue="" style={{ width: 80 }} onChange={(value)=>{props.cantFatherData(value,componentName)}}>
                     {
                         (nameList || []).map((obj,index)=>{
                             return(
@@ -129,7 +104,7 @@ export default function SelectEcharts(props) {
                     style={{ width: '200px' }}
                 />
             </div>
-            <ReactEcharts option={getOption()} />
+            <ReactEcharts option={getOption()}  notMerge={true} style={{height:350}}/>
         </div>
     )
 }

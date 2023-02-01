@@ -9,7 +9,7 @@ import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 export default function EchartsPie (props) {
     function getOption() {
-      const {componentName, data, xAxis, legend, titleName } = props
+      const { cirlData, legend, titleName } = props
         let option = {
             title: {
               text: titleName,
@@ -18,14 +18,17 @@ export default function EchartsPie (props) {
             },
             tooltip: {
               trigger: 'item',
-              formatter: '{a} <br/>{b} : {c} ({d}%)'
+              formatter: '<br/>{b} : {c} ({d}%)'
             },
             legend: {
-              bottom: -10,
-              itemWidth:10,
+              bottom: -5,
+              itemWidth: 10,
               itemHeight: 5,
               left: 'center',
-              data: ['精矿粉', '迁钢返矿', '迁钢废料', '溶剂', '燃烧及动力', '制造费']
+              data: legend,
+              textStyle:{
+                  fontSize: '12px'
+              }
             },
             grid: {
               top: '10%',
@@ -106,12 +109,7 @@ export default function EchartsPie (props) {
                       }
                     }
                   },
-                  { value: 735, name: '精矿粉' },
-                  { value: 510, name: '迁钢返矿' },
-                  { value: 434, name: '迁钢废料' },
-                  { value: 335, name: '溶剂' },
-                  { value: 335, name: '燃烧及动力' },
-                  { value: 335, name: '制造费' }
+                  ...cirlData
                 ],
                 emphasis: {
                   itemStyle: {
@@ -125,10 +123,9 @@ export default function EchartsPie (props) {
           };
         return option
     }
-    const [n, setN] = useState(0)
     return (
-        <div className='children-two-echarts'>
-            <ReactEcharts option={getOption()} />
+        <div className='children-two-echarts' style={{height:350}}>
+            <ReactEcharts option={getOption()} notMerge={true}  style={{height:350}}/>
         </div>
     )
 }

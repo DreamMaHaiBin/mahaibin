@@ -22,15 +22,25 @@ export default function GaoLuLines(props) {
         let jbData = []
         let mbData = []
         let jdbData = []
+        let qcdhqs = []//
+        let ygldhqs = []
+        let egldhqs = []
+        let sgldhqs = []
         data.forEach(element => {
             zclData.push(element.zcl)
             yglData.push(element.yglcl)
             eglData.push(element.eglcl)
             sglData.push(element.sglcl)
-            rhData.push(componentName === '产量' ? element.rlb : element.rlb )
-            jbData.push(componentName === '产量' ? element.jhrlb : element.jhrlb )
-            mbData.push(componentName === '产量' ? element.jhrlb : element.jhrlb )
-            jdbData.push(componentName === '产量' ? element.jhrlb : element.jhrlb )
+            rhData.push(element.rlb )
+            jbData.push(element.yglrlb)
+            mbData.push(element.eglrlb)
+            jdbData.push(element.sglrlb)
+            if(titleName === '单耗趋势'){
+                qcdhqs.push(element.dhqs)
+                ygldhqs.push(element.ygldhqs)
+                egldhqs.push(element.egldhqs)
+                sgldhqs.push(element.sgldhqs)
+            }
         });
         console.log(data)
         let option = {
@@ -79,19 +89,19 @@ export default function GaoLuLines(props) {
                 {
                     name: legend[0],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? zclData : rhData,
+                    data: componentName === '产量' ? zclData : componentName === '单耗趋势' ? qcdhqs : rhData,
                 }, {
                     name: legend[1],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? yglData : rhData
+                    data: componentName === '产量' ? yglData : componentName === '单耗趋势' ? ygldhqs: rhData
                 }, {
                     name: legend[2],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? eglData : rhData
+                    data: componentName === '产量' ? eglData : componentName === '单耗趋势' ? egldhqs : rhData
                 }, {
                     name: legend[3],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? sglData : rhData
+                    data: componentName === '产量' ? sglData : componentName === '单耗趋势' ? sgldhqs :rhData
                 }
             ]
         }
@@ -100,7 +110,7 @@ export default function GaoLuLines(props) {
     const [n, setN] = useState(0)
     return (
         <div className='children-two-echarts'>
-            <ReactEcharts option={getOption()} />
+            <ReactEcharts option={getOption()} notMerge={true} style={{height:350}} />
         </div>
     )
 }
