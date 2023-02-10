@@ -50,7 +50,13 @@ class FurnaceCostAnalysis extends Component {
                 eightName: '铁水成本构成'
             },
             nameList: [],
-            childrenJGName:[]
+            childrenJGName:[],
+            trendModalIsShow:false,
+            trendModalData: {},
+            chilereModalShow: false,
+            barModalIsShow:false,
+            modalData:{},
+            bigBarData:{},
         }
     }
     componentDidMount() {
@@ -260,15 +266,36 @@ class FurnaceCostAnalysis extends Component {
 
         })
     }
+    trendFunction(val, data) {
+        console.log(data)
+        this.setState({
+            trendModalIsShow: val,
+            trendModalData: data
+        })
+    }
+    showEchartsMOdal(val, data) {
+        console.log(data)
+        this.setState({
+            chilereModalShow: val,
+            modalData: data
+        })
+    }
+    showBigBar(val,data){
+        console.log(val)
+        this.setState({
+            barModalIsShow: val,
+            bigBarData: data
+        })
+    }
     render() {
         return (
             <div className="const-analysis-body">
                 <OneTable data={this.state.glYield} componentName={this.state.FurnaceCostAnalysisName} />
-                <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.legend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.oneName} />
-                <GaoLuLines data={this.state.glDateYield} componentName={'产量'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} />
-                <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.Twolegend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName} />
-                <GaoLuLines data={this.state.glMonthYield} componentName={'成本'} xAxis={this.state.xAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fourName} />
-                <GaoLuLines data={this.state.glDateYield} componentName={'成本'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} />
+                <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.legend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.oneName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
+                <GaoLuLines data={this.state.glDateYield} componentName={'产量'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.Twolegend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
+                <GaoLuLines data={this.state.glMonthYield} componentName={'成本'} xAxis={this.state.xAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <GaoLuLines data={this.state.glDateYield} componentName={'成本'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
                 <SelectEcharts
                     echartsData={this.state.sevenListData}
                     legend={this.state.sevenLegeng}
@@ -277,9 +304,12 @@ class FurnaceCostAnalysis extends Component {
                     cantFatherData={this.cantFatherData.bind(this)}
                     childDateTime={this.childDateTime.bind(this)}
                     componentName={'价格趋势'}
+                    isShow={this.state.trendModalIsShow}
+                    trendFunction={this.trendFunction.bind(this)} 
+                    trendData={this.state.trendModalData}
                 />
                 <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightlegend} cirlData={this.state.cirlData} />
-                <GaoLuLines data={this.state.nineListData} componentName={'单耗趋势'} xAxis={this.state.DateXAxis} legend={this.state.nineLegend} titleName={'单耗趋势'} />
+                <GaoLuLines data={this.state.nineListData} componentName={'单耗趋势'} xAxis={this.state.DateXAxis} legend={this.state.nineLegend} titleName={'单耗趋势'}  isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
             </div>
         )
     }

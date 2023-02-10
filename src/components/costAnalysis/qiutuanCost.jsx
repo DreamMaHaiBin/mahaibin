@@ -52,7 +52,13 @@ class PelletCostAnalysis extends Component {
             nameListDh: [],
             childrenJGName:[],
             childrenDHName:[],
-            dhNameList: ['qtdhname', 'qtdhname1', 'qtdhname2', 'qtdhname3']
+            dhNameList: ['qtdhname', 'qtdhname1', 'qtdhname2', 'qtdhname3'],
+            modalData: {},
+            chilereModalShow: false,
+            barModalIsShow: false,
+            linesProportionIsShow: false,
+            trendModalIsShow:false,
+            trendModalData: {}
         }
     }
     componentDidMount() {
@@ -375,17 +381,43 @@ class PelletCostAnalysis extends Component {
         })
 
     }
+
+    trendFunction(val, data) {
+        console.log(data)
+        this.setState({
+            trendModalIsShow: val,
+            trendModalData: data
+        })
+    }
+    showEchartsMOdal(val, data) {
+        console.log(data)
+        this.setState({
+            chilereModalShow: val,
+            modalData: data
+        })
+    }
+    showBigBar(val){
+        console.log(val)
+        this.setState({
+            barModalIsShow: val,
+        })
+    }
+    proportionData(val){
+        console.log(val)
+        this.setState({
+            linesProportionIsShow: val,
+        })
+    }
     render() {
         return (
             <div className="const-analysis-body">
                 <OneTable data={this.state.qtYield} componentName={this.state.sinterCostAnalysisname} />
-                <ChangLiang data={this.state.qtMonthYield} componentName={'产量'} type={'球团'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.oneName} />
-                <ChangLiang data={this.state.qtDateYield} componentName={'产量'} type={'球团'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} />
-                <EchartsBar data={this.state.qtMonthYield} componentName={'成本'} type={'球团'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName} />
-                <ChangLiang data={this.state.qtDateYield} componentName={'成本'} type={'球团'} xAxis={this.state.DateXAxis} legend={this.state.Twolegend} titleName={this.state.titleName.fourName} />
-                <ChenBen data={this.state.qtDateYield} type={'球团'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} />
+                <ChangLiang data={this.state.qtMonthYield} componentName={'产量'} type={'球团'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.oneName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <ChangLiang data={this.state.qtDateYield} componentName={'产量'} type={'球团'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <EchartsBar data={this.state.qtMonthYield} componentName={'成本'} type={'球团'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName} isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)}/>
+                <ChangLiang data={this.state.qtDateYield} componentName={'成本'} type={'球团'} xAxis={this.state.DateXAxis} legend={this.state.Twolegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <ChenBen data={this.state.qtDateYield} type={'球团'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.linesProportionIsShow} proportionData={this.proportionData.bind(this)}/>
                 <SelectEcharts
-
                     legend={this.state.sevenLegend}
                     titleName={'价格趋势'}
                     nameList={this.state.childrenJGName}
@@ -393,6 +425,9 @@ class PelletCostAnalysis extends Component {
                     cantFatherData={this.cantFatherData.bind(this)}
                     childDateTime={this.childDateTime.bind(this)}
                     componentName={'价格趋势'}
+                    isShow={this.state.trendModalIsShow}
+                    trendFunction={this.trendFunction.bind(this)} 
+                    trendData={this.state.trendModalData}
                 />
                 <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightlegend} cirlData={this.state.cirlData} />
                 <SelectEcharts
@@ -404,6 +439,9 @@ class PelletCostAnalysis extends Component {
                     cantFatherData={this.cantFatherData.bind(this)}
                     childDateTime={this.childDateTime.bind(this)}
                     componentName={'单耗趋势'}
+                    isShow={this.state.trendModalIsShow}
+                    trendFunction={this.trendFunction.bind(this)} 
+                    trendData={this.state.trendModalData}
                 />
             </div>
         )

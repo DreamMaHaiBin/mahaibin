@@ -32,6 +32,8 @@ class CostAnalysis extends Component {
             nineLegend: [],
             startTime: '',
             endTime: '',
+            modalData: {},
+            chilereModalShow: false,
             eightLegend: ['精矿粉', '迁钢返矿', '迁钢废料', '溶剂', '燃烧及动力', '制造费'],
             cirlData: [
                 { value: 510, name: '精矿粉' },
@@ -54,9 +56,13 @@ class CostAnalysis extends Component {
                 eightName: '烧结成本构成'
             },
             jgnameList: [],
-            childrenJGName:[],
-            childrenDHName:[],
-            dhNameList: []
+            childrenJGName: [],
+            childrenDHName: [],
+            dhNameList: [],
+            barModalIsShow: false,
+            linesProportionIsShow: false,
+            trendModalIsShow:false,
+            trendModalData: {}
         }
 
     }
@@ -83,38 +89,38 @@ class CostAnalysis extends Component {
     }
     // 获取初始化数据
     getInitData() {
-        // axios({
-        //     method: 'get',
-        //     url: '/api/cbfxry/',
-        //     headers: {
-        //         Authorization: sessionStorage.getItem("token")
-        //     }
-        // }).then((res) => {
-        //     const listData = res.data
+        axios({
+            method: 'get',
+            url: '/api/cbfxry/',
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res) => {
+            const listData = res.data
         // console.log(data)
-            const listData = data
-            listData.sjy.forEach(obj => {
-                this.state.sjMonthYield.push({ ...obj })
-            })
-            listData.sjr.forEach(obj => {
-                this.state.sjDateYield.push({ ...obj })
-            })
-            this.setState({
-                sjYield: listData.sjr[listData.sjr.length - 1],
-                sjMonthYield: this.state.sjMonthYield,
-                sjDateYield: this.state.sjDateYield,
-                DateXAxis: this.getMonthDate(this.state.sjDateYield[0].date),
-                titleName: {
-                    oneName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结产量',
-                    twoName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结产量',
-                    threeName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结成本',
-                    fourName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结成本',
-                    fiveName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月含铁料占成本比例',
-                    eightName: new Date(this.state.sjDateYield[0].date).getDate() + '日烧结成本构成'
-                }
-            })
-            // console.log(this.state.sjDateYield)
-        // })
+        // const listData = data
+        listData.sjy.forEach(obj => {
+            this.state.sjMonthYield.push({ ...obj })
+        })
+        listData.sjr.forEach(obj => {
+            this.state.sjDateYield.push({ ...obj })
+        })
+        this.setState({
+            sjYield: listData.sjr[listData.sjr.length - 1],
+            sjMonthYield: this.state.sjMonthYield,
+            sjDateYield: this.state.sjDateYield,
+            DateXAxis: this.getMonthDate(this.state.sjDateYield[0].date),
+            titleName: {
+                oneName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结产量',
+                twoName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结产量',
+                threeName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结成本',
+                fourName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结成本',
+                fiveName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月含铁料占成本比例',
+                eightName: new Date(this.state.sjDateYield[0].date).getDate() + '日烧结成本构成'
+            }
+        })
+        // console.log(this.state.sjDateYield)
+        })
     }
     getMonthDate(total) {
         let date = []
@@ -136,7 +142,7 @@ class CostAnalysis extends Component {
             this.setState({
                 childrenDHName: res.data.name
             })
-        }) 
+        })
     }
     // 初始化获取 价格趋势名称
     getNameDataJG() {
@@ -173,7 +179,7 @@ class CostAnalysis extends Component {
                 Authorization: sessionStorage.getItem("token")
             }
         }).then(res => {
- 
+
             var jgqsData = res.data.data
             // var jgqsData = [{ "date": "2023-01-06", "data": [{ "name": "1.自产精矿粉-低品", "qcdj": 1070.85 }, { "name": "2.自产精矿粉-高品", "qcdj": 1090.09 }, { "name": "3.大石河秘矿产粉", "qcdj": 0.0 }, { "name": "3.地方粉", "qcdj": 0.0 }, { "name": "地方铁精粉 高品", "qcdj": 1140.04 }, { "name": "马兰庄铁精粉", "qcdj": 0.0 }] }, { "date": "2023-01-07", "data": [{ "name": "1.自产精矿粉-低品", "qcdj": 1070.85 }, { "name": "2.自产精矿粉-高品", "qcdj": 1090.09 }, { "name": "3.大石河秘矿产粉", "qcdj": 0.0 }, { "name": "3.地方粉", "qcdj": 0.0 }, { "name": "地方铁精粉 高品", "qcdj": 1140.04 }, { "name": "马兰庄铁精粉", "qcdj": 0.0 }] }, { "date": "2023-01-08", "data": [{ "name": "1.自产精矿粉-低品", "qcdj": 1070.85 }, { "name": "2.自产精矿粉-高品", "qcdj": 1090.09 }, { "name": "3.大石河秘矿产粉", "qcdj": 0.0 }, { "name": "3.地方粉", "qcdj": 1140.04 }, { "name": "地方铁精粉 高品", "qcdj": 1140.04 }, { "name": "马兰庄铁精粉", "qcdj": 0.0 }] }, { "date": "2023-01-09", "data": [{ "name": "1.自产精矿粉-低品", "qcdj": 1070.85 }, { "name": "2.自产精矿粉-高品", "qcdj": 1090.09 }, { "name": "3.大石河秘矿产粉", "qcdj": 0.0 }, { "name": "3.地方粉", "qcdj": 1140.04 }, { "name": "地方铁精粉 高品", "qcdj": 1140.04 }, { "name": "马兰庄铁精粉", "qcdj": 0.0 }] }, { "date": "2023-01-10", "data": [{ "name": "1.自产精矿粉-低品", "qcdj": 1070.85 }, { "name": "2.自产精矿粉-高品", "qcdj": 1090.09 }, { "name": "3.大石河秘矿产粉", "qcdj": 0.0 }, { "name": "3.地方粉", "qcdj": 1140.04 }, { "name": "地方铁精粉 高品", "qcdj": 1140.04 }, { "name": "马兰庄铁精粉", "qcdj": 0.0 }] }] 
             var sevenName = []
@@ -206,34 +212,34 @@ class CostAnalysis extends Component {
                 let four = []
                 let five = []
                 let allArray = []
-                jgqsData.forEach((obj)=>{
+                jgqsData.forEach((obj) => {
                     sevenXAxis.push(`${obj.date.split('-')[2]}日`)
-                    obj.data.forEach((item,index)=>{
+                    obj.data.forEach((item, index) => {
                         sevenName.push(item.name)
-                        if(index== 0){
+                        if (index == 0) {
                             one.push(item.qcdj)
                         }
-                        if(index== 1){
+                        if (index == 1) {
                             two.push(item.qcdj)
                         }
-                        if(index== 2){
+                        if (index == 2) {
                             three.push(item.qcdj)
                         }
-                        if(index== 3){
+                        if (index == 3) {
                             four.push(item.qcdj)
                         }
-                        if(index== 4){
+                        if (index == 4) {
                             five.push(item.qcdj)
                         }
                     })
                 })
-                let listAll= [one,two,three,four,five]
-                for(let i=0;i<5;i++){
+                let listAll = [one, two, three, four, five]
+                for (let i = 0; i < 5; i++) {
                     allArray.push({
                         name: sevenName[i],
-                        type : 'line',
+                        type: 'line',
                         XList: sevenXAxis,
-                        data:listAll[i]
+                        data: listAll[i]
                     })
                 }
                 this.setState({
@@ -241,7 +247,7 @@ class CostAnalysis extends Component {
                     sevenListData: allArray
                 })
             }
-   
+
         })
 
     }
@@ -287,34 +293,34 @@ class CostAnalysis extends Component {
                 let four = []
                 let five = []
                 let allArray = []
-                DHData.forEach((obj)=>{
+                DHData.forEach((obj) => {
                     nineXAxis.push(`${obj.date.split('-')[2]}日`)
-                    obj.data.forEach((item,index)=>{
+                    obj.data.forEach((item, index) => {
                         nineName.push(item.name)
-                        if(index== 0){
+                        if (index == 0) {
                             one.push(item.qcrdh)
                         }
-                        if(index== 1){
+                        if (index == 1) {
                             two.push(item.qcrdh)
                         }
-                        if(index== 2){
+                        if (index == 2) {
                             three.push(item.qcrdh)
                         }
-                        if(index== 3){
+                        if (index == 3) {
                             four.push(item.qcrdh)
                         }
-                        if(index== 4){
+                        if (index == 4) {
                             five.push(item.qcrdh)
                         }
                     })
                 })
-                let listAll= [one,two,three,four,five]
-                for(let i=0;i<5;i++){
+                let listAll = [one, two, three, four, five]
+                for (let i = 0; i < 5; i++) {
                     allArray.push({
                         name: nineName[i],
-                        type : 'line',
+                        type: 'line',
                         XList: nineXAxis,
-                        data:listAll[i]
+                        data: listAll[i]
                     })
                 }
                 this.setState({
@@ -322,7 +328,7 @@ class CostAnalysis extends Component {
                     nineListData: allArray
                 })
             }
-          
+
         })
 
     }
@@ -335,11 +341,11 @@ class CostAnalysis extends Component {
                 if (this.state.jgnameList.length > 0 && this.state.startTime && this.state.endTime) {
                     this.setState({
                         sevenLegend: [],
-                        sevenListData: [], 
-                    },()=>{
+                        sevenListData: [],
+                    }, () => {
                         this.jgqsPostData()
                     })
-                    
+
                 }
             })
 
@@ -351,10 +357,10 @@ class CostAnalysis extends Component {
                     this.setState({
                         nineLegend: [],
                         nineListData: []
-                    },()=>{
+                    }, () => {
                         this.dhqsPostData()
                     })
-                   
+
                 }
 
             })
@@ -371,8 +377,8 @@ class CostAnalysis extends Component {
                 if (this.state.jgnameList.length > 0 && this.state.startTime && this.state.endTime) {
                     this.setState({
                         sevenLegend: [],
-                        sevenListData: [], 
-                    },()=>{
+                        sevenListData: [],
+                    }, () => {
                         this.jgqsPostData()
                     })
                 }
@@ -381,7 +387,7 @@ class CostAnalysis extends Component {
                     this.setState({
                         nineLegend: [],
                         nineListData: []
-                    },()=>{
+                    }, () => {
                         this.dhqsPostData()
                     })
                 }
@@ -389,15 +395,41 @@ class CostAnalysis extends Component {
         })
 
     }
+    trendFunction(val, data) {
+        console.log(data)
+        this.setState({
+            trendModalIsShow: val,
+            trendModalData: data
+        })
+    }
+    showEchartsMOdal(val, data) {
+        console.log(data)
+        this.setState({
+            chilereModalShow: val,
+            modalData: data
+        })
+    }
+    showBigBar(val){
+        console.log(val)
+        this.setState({
+            barModalIsShow: val,
+        })
+    }
+    proportionData(val){
+        console.log(val)
+        this.setState({
+            linesProportionIsShow: val,
+        })
+    }
     render() {
         return (
             <div className="const-analysis-body">
                 <OneTable data={this.state.sjYield} componentName={this.state.sinterCostAnalysisname} />
-                <ChangLiang data={this.state.sjMonthYield} componentName={'产量'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.oneName} />
-                <ChangLiang data={this.state.sjDateYield} componentName={'产量'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} />
-                <EchartsBar data={this.state.sjMonthYield} componentName={'成本'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName} />
-                <ChangLiang data={this.state.sjDateYield} componentName={'成本'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.fivelegend} titleName={this.state.titleName.fourName} />
-                <ChenBen data={this.state.sjDateYield} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} />
+                <ChangLiang data={this.state.sjMonthYield} componentName={'产量'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.oneName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <ChangLiang data={this.state.sjDateYield} componentName={'产量'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+                <EchartsBar data={this.state.sjMonthYield} componentName={'成本'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName} isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)}/>
+                <ChangLiang data={this.state.sjDateYield} componentName={'成本'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.fivelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                <ChenBen data={this.state.sjDateYield} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.linesProportionIsShow} proportionData={this.proportionData.bind(this)} />
                 <SelectEcharts
                     legend={this.state.sevenLegend}
                     titleName={'价格趋势'}
@@ -406,6 +438,9 @@ class CostAnalysis extends Component {
                     cantFatherData={this.cantFatherData.bind(this)}
                     childDateTime={this.childDateTime.bind(this)}
                     componentName={'价格趋势'}
+                    isShow={this.state.trendModalIsShow}
+                    trendFunction={this.trendFunction.bind(this)} 
+                    trendData={this.state.trendModalData}
                 />
                 <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightLegend} cirlData={this.state.cirlData} />
                 <SelectEcharts
@@ -416,6 +451,9 @@ class CostAnalysis extends Component {
                     cantFatherData={this.cantFatherData.bind(this)}
                     childDateTime={this.childDateTime.bind(this)}
                     componentName={'单耗趋势'}
+                    isShow={this.state.trendModalIsShow}
+                    trendFunction={this.trendFunction.bind(this)} 
+                    trendData={this.state.trendModalData}
                 />
             </div>
         )

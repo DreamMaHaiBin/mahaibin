@@ -7,9 +7,11 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
+import { Icon,Modal } from 'antd';
 export default function EchartsBar(props) {
     function getOption() {
-        const {type, data, xAxis, legend, titleName } = props
+        const {type, data, xAxis, legend, titleName,isShow } = props
+        console.log(isShow)
         let zcbData = []
         let escbData = []
         let sscbData = []
@@ -83,10 +85,33 @@ export default function EchartsBar(props) {
         }
         return option
     }
-    const [n, setN] = useState(0)
+    function clickIcon(){
+        props.showBigBar(true)
+     }
+     function handleOk(){
+         props.showBigBar(false)
+     }
+     function handleOkCel(){
+         props.showBigBar(false)
+     }
     return (
         <div className='children-two-echarts'>
             <ReactEcharts option={getOption()} notMerge={true} style={{height:350}}/>
+            <Icon type="fullscreen" className="echarts-icon" onClick={clickIcon}/>
+            <Modal
+                visible={props.isShow}
+                onOk={handleOk}
+                cancelText={false}
+                okText="关闭"
+                closable={false}
+                onCancel={handleOkCel}
+                centered
+                bodyStyle={{height:600,width:800}}
+                footer={null}
+            >
+                <Icon type="close" style={{position:'absolute',right:-30,top:-30,color:'#ffffff',fontSize: 20, cursor: 'pointer'}} onClick={handleOkCel}/>
+                <ReactEcharts option={getOption()} notMerge={true}  style={{height:500,width:900,left:-100}} />
+            </Modal>
         </div>
     )
 }

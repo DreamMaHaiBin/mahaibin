@@ -7,7 +7,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
-
+import { Icon,Modal } from 'antd';
 export default function ChenBen(props) { 
 
     function getOption() {
@@ -53,13 +53,6 @@ export default function ChenBen(props) {
                 axisLabel: {
                     color: '#444343',
                     formatter: function (value, index) {
-                    //     console.log(value)
-                    //   // value大于1000时除以1000并拼接k，小于1000按原格式显示
-                    // //   if (value >= 1000) {
-                    // //     value = value / 1000 + 'k';
-                    // //   } else if (value < 1000) {
-                    // //     value;
-                    // //   }
                     return value +'%'
                     },
                   },
@@ -78,10 +71,33 @@ export default function ChenBen(props) {
         }
         return option
     }
-    const [n, setN] = useState(0)
+    function clickIcon(){
+        props.proportionData(true)
+     }
+     function handleOk(){
+         props.proportionData(false)
+     }
+     function handleOkCel(){
+         props.proportionData(false)
+     }
     return (
         <div className='children-two-echarts'>
             <ReactEcharts option={getOption()} notMerge={true} style={{height:350}}/>
+            <Icon type="fullscreen" className="echarts-icon" onClick={clickIcon}/>
+            <Modal
+                visible={props.isShow}
+                onOk={handleOk}
+                cancelText={false}
+                okText="关闭"
+                closable={false}
+                onCancel={handleOkCel}
+                centered
+                bodyStyle={{height:600,width:800}}
+                footer={null}
+            >
+                <Icon type="close" style={{position:'absolute',right:-30,top:-30,color:'#ffffff',fontSize: 20, cursor: 'pointer'}} onClick={handleOkCel}/>
+                <ReactEcharts option={getOption()} notMerge={true}  style={{height:500,width:900,left:-100}} />
+            </Modal>
         </div>
     )
 }
