@@ -95,15 +95,15 @@ export default function GaoLuLines(props) {
                 }, {
                     name: legend[1],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? yglData : componentName === '单耗趋势' ? ygldhqs: rhData
+                    data: componentName === '产量' ? yglData : componentName === '单耗趋势' ? ygldhqs: jbData
                 }, {
                     name: legend[2],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? eglData : componentName === '单耗趋势' ? egldhqs : rhData
+                    data: componentName === '产量' ? eglData : componentName === '单耗趋势' ? egldhqs : mbData
                 }, {
                     name: legend[3],
                     type: 'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-                    data: componentName === '产量' ? sglData : componentName === '单耗趋势' ? sgldhqs :rhData
+                    data: componentName === '产量' ? sglData : componentName === '单耗趋势' ? sgldhqs : jdbData
                 }
             ]
         }

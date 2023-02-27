@@ -27,13 +27,12 @@ class FurnaceCostAnalysis extends Component {
             Twolegend: ['全厂成本', '原料', "冶炼费"],
             // Threelegend: ['燃耗', "焦比", "煤比", "焦丁比"],
             Threelegend: ['高炉燃料比', "1#高炉", "2#高炉", "3#高炉"],
-            fourlegendName: ["全厂成本", "原料", "冶炼费"],
+            fourlegendName: ["全厂成本", "1#成本", "2#成本","3#成本"],
             endLegend: ['进口粉', '麦克粉', "巴卡"],
             sevenLegend: [],
             sevenListData: [],
             nineListData: [],
             nineLegend: ["全厂", "1#高炉", "2#高炉", "3#高炉"],
-            startTime: "",
             startTime: "",
             DateXAxis: [],
             cirlData: [
@@ -115,7 +114,7 @@ class FurnaceCostAnalysis extends Component {
                     threeName: new Date(dataOne[0].date).getFullYear() + '年铁水成本',
                     fourName: new Date(dataOne[0].date).getFullYear() + '年燃料比',
                     fiveName: (new Date(dataTwo[0].date).getMonth() + 1) + '月燃料比',
-                    eightName: new Date(dataOne[0].date).getFullYear() + '年' + (new Date(dataTwo[0].date).getMonth() + 1) + "月" + '铁水成本构成'
+                    eightName: new Date(dataOne[0].date).getFullYear() + '年' + (new Date(dataTwo[0].date).getMonth() + 1) + "月铁水成本构成"
                 }
             })
         })
@@ -328,7 +327,7 @@ class FurnaceCostAnalysis extends Component {
                 <OneTable data={this.state.glYield} componentName={this.state.FurnaceCostAnalysisName} />
                 <GaoLuBar componentName={'产量'} legend={this.state.legend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.oneName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
                 <GaoLuLines componentName={'产量'} data={this.state.glDateYield} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} childrenModalData={this.state.modalData}/>
-                <GaoLuBar componentName={'成本'} legend={this.state.Twolegend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
+                <GaoLuBar componentName={'成本'} legend={this.state.fourlegendName} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
                 <GaoLuLines componentName={'燃料比'} data={this.state.glMonthYield} xAxis={this.state.xAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} childrenModalData={this.state.modalData}/>
                 <GaoLuLines componentName={'燃料比'} data={this.state.glDateYield} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} childrenModalData={this.state.modalData}/>
                 <SelectEcharts
