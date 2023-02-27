@@ -14,7 +14,14 @@
         td {
             // width: 33.3%;
             border: 1px solid #cbcbcb;
-            text-align: center;
+            text-align: center; 
+            .text-ipnut {
+                border: none;
+                display: inline-block;
+                height: 100%;
+                width: 100%;
+                text-align: center;
+            }
         }
     }
 }

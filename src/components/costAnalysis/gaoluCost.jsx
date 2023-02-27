@@ -9,6 +9,7 @@ import axios from "axios"
 import { getMonthLength } from '../util/commonFunction'
 import SelectEcharts from './children/chanliang1/selectCharts'
 import { JGQSDATA, DHQS } from '../util/jgqsData'
+import { Button } from 'antd'
 import './index.scss'
 class FurnaceCostAnalysis extends Component {
     constructor(props) {
@@ -50,13 +51,15 @@ class FurnaceCostAnalysis extends Component {
                 eightName: '铁水成本构成'
             },
             nameList: [],
-            childrenJGName:[],
-            trendModalIsShow:false,
+            childrenJGName: [],
+            trendModalIsShow: false,
             trendModalData: {},
             chilereModalShow: false,
-            barModalIsShow:false,
-            modalData:{},
-            bigBarData:{},
+            barModalIsShow: false,
+            modalData: {},
+            bigBarData: {},
+            jhcb:"",
+            jhrlb:""
         }
     }
     componentDidMount() {
@@ -163,10 +166,10 @@ class FurnaceCostAnalysis extends Component {
             var sevenName = []
             var sevenXAxis = []
             if (this.state.nameList.length > 0 && this.state.startTime && this.state.endTime) {
-             
+
                 jgqsData.forEach((obj, index) => {
                     sevenName.push(obj.name)
-                    if(obj.data && obj.data.length > 0){
+                    if (obj.data && obj.data.length > 0) {
                         obj.data = obj.data.map(item => {
                             if (index === 0) {
                                 sevenXAxis.push(`${item.date.split('-')[2]}日`)
@@ -176,49 +179,49 @@ class FurnaceCostAnalysis extends Component {
                         obj.XList = sevenXAxis
                         obj.type = 'line'
                     }
-    
+
                 })
                 this.setState({
                     sevenLegend: sevenName,
-                sevenListData: jgqsData
+                    sevenListData: jgqsData
                 })
 
-            }else{
+            } else {
                 let one = []
                 let two = []
                 let three = []
                 let four = []
                 let five = []
                 let allArray = []
-                jgqsData.forEach((obj)=>{
+                jgqsData.forEach((obj) => {
                     sevenXAxis.push(`${obj.date.split('-')[2]}日`)
-                    obj.data.forEach((item,index)=>{
+                    obj.data.forEach((item, index) => {
                         sevenName.push(item.name)
-                        if(index== 0){
+                        if (index == 0) {
                             one.push(item.qcdj)
-                            
+
                         }
-                        if(index== 1){
+                        if (index == 1) {
                             two.push(item.qcdj)
                         }
-                        if(index== 2){
+                        if (index == 2) {
                             three.push(item.qcdj)
                         }
-                        if(index== 3){
+                        if (index == 3) {
                             four.push(item.qcdj)
                         }
-                        if(index== 4){
+                        if (index == 4) {
                             five.push(item.qcdj)
                         }
                     })
                 })
-                let listAll= [one,two,three,four,five]
-                for(let i=0;i<5;i++){
+                let listAll = [one, two, three, four, five]
+                for (let i = 0; i < 5; i++) {
                     allArray.push({
                         name: sevenName[i],
-                        type : 'line',
+                        type: 'line',
                         XList: sevenXAxis,
-                        data:listAll[i]
+                        data: listAll[i]
                     })
                 }
                 this.setState({
@@ -226,7 +229,7 @@ class FurnaceCostAnalysis extends Component {
                     sevenListData: allArray
                 })
             }
-         
+
         })
 
     }
@@ -238,12 +241,12 @@ class FurnaceCostAnalysis extends Component {
             if (this.state.nameList.length > 0 && this.state.startTime && this.state.endTime) {
                 this.setState({
                     sevenLegend: [],
-                        sevenListData: []
-                    
-                },()=>{
+                    sevenListData: []
+
+                }, () => {
                     this.jgqsPostData()
                 })
-               
+
             }
         })
     }
@@ -257,9 +260,9 @@ class FurnaceCostAnalysis extends Component {
             if (this.state.nameList.length > 0 && this.state.startTime && this.state.endTime) {
                 this.setState({
                     sevenLegend: [],
-                        sevenListData: []
-                    
-                },()=>{
+                    sevenListData: []
+
+                }, () => {
                     this.jgqsPostData()
                 })
             }
@@ -280,36 +283,69 @@ class FurnaceCostAnalysis extends Component {
             modalData: data
         })
     }
-    showBigBar(val,data){
+    showBigBar(val, data) {
         console.log(val)
         this.setState({
             barModalIsShow: val,
             bigBarData: data
         })
     }
+    postFatherData(val){
+        this.setState({
+            jhcb: val
+        })
+    }
+    postFatherDataJHRLB(val){
+        this.setState({
+            jhrlb: val
+        })
+    }
+    saveTableData() {
+        axios({
+            method: 'post',
+            url: '/api/saveTableCb/',
+            data: {
+               type: 3,
+               jhcb: this.state.jhcb ? this.state.jhcb : this.state.glYield.jhcb,
+               jhrl: this.state.jhrlb ? this.state.jhrlb : this.state.glYield.jhrlb
+            },
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res)=>{
+            message.success("保存成功")
+        }).catch((error)=>{
+            message.error("保存失败，请稍后再试")
+        })
+    }
     render() {
         return (
-            <div className="const-analysis-body">
-                <OneTable data={this.state.glYield} componentName={this.state.FurnaceCostAnalysisName} />
-                <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.legend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.oneName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
-                <GaoLuLines data={this.state.glDateYield} componentName={'产量'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
-                <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.Twolegend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName}  isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData}/>
-                <GaoLuLines data={this.state.glMonthYield} componentName={'成本'} xAxis={this.state.xAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
-                <GaoLuLines data={this.state.glDateYield} componentName={'成本'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
-                <SelectEcharts
-                    echartsData={this.state.sevenListData}
-                    legend={this.state.sevenLegeng}
-                    titleName={'价格趋势'}
-                    nameList={this.state.childrenJGName}
-                    cantFatherData={this.cantFatherData.bind(this)}
-                    childDateTime={this.childDateTime.bind(this)}
-                    componentName={'价格趋势'}
-                    isShow={this.state.trendModalIsShow}
-                    trendFunction={this.trendFunction.bind(this)} 
-                    trendData={this.state.trendModalData}
-                />
-                <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightlegend} cirlData={this.state.cirlData} />
-                <GaoLuLines data={this.state.nineListData} componentName={'单耗趋势'} xAxis={this.state.DateXAxis} legend={this.state.nineLegend} titleName={'单耗趋势'}  isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
+            <div>
+                <div className="const-analysis-body-header">
+                    <Button className="const-analysis-body-header-save" onClick={this.saveTableData.bind(this)}>保存</Button>
+                </div>
+                <div className="const-analysis-body">
+                    <OneTable data={this.state.glYield} componentName={this.state.FurnaceCostAnalysisName} postFatherDataJHRLB={this.postFatherDataJHRLB.bind(this)} postFatherData={this.postFatherData.bind(this)}/>
+                    <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.legend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.oneName} isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData} />
+                    <GaoLuLines data={this.state.glDateYield} componentName={'产量'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                    <GaoLuBar componentName={this.state.FurnaceCostAnalysisName} legend={this.state.Twolegend} data={this.state.glMonthYield} xAxis={this.state.xAxis} titleName={this.state.titleName.threeName} isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} barModalData={this.state.bigBarData} />
+                    <GaoLuLines data={this.state.glMonthYield} componentName={'成本'} xAxis={this.state.xAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                    <GaoLuLines data={this.state.glDateYield} componentName={'成本'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                    <SelectEcharts
+                        echartsData={this.state.sevenListData}
+                        legend={this.state.sevenLegeng}
+                        titleName={'价格趋势'}
+                        nameList={this.state.childrenJGName}
+                        cantFatherData={this.cantFatherData.bind(this)}
+                        childDateTime={this.childDateTime.bind(this)}
+                        componentName={'价格趋势'}
+                        isShow={this.state.trendModalIsShow}
+                        trendFunction={this.trendFunction.bind(this)}
+                        trendData={this.state.trendModalData}
+                    />
+                    <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightlegend} cirlData={this.state.cirlData} />
+                    <GaoLuLines data={this.state.nineListData} componentName={'单耗趋势'} xAxis={this.state.DateXAxis} legend={this.state.nineLegend} titleName={'单耗趋势'} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                </div>
             </div>
         )
     }

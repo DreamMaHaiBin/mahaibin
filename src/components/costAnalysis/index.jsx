@@ -10,6 +10,7 @@ import './index.scss'
 import { data } from "../util/datas";
 import { JGQSDATA, DHQS } from '../util/jgqsData'
 import { getMonthLength } from '../util/commonFunction'
+import { Button, message } from 'antd'
 
 class CostAnalysis extends Component {
     constructor(props) {
@@ -61,8 +62,9 @@ class CostAnalysis extends Component {
             dhNameList: [],
             barModalIsShow: false,
             linesProportionIsShow: false,
-            trendModalIsShow:false,
-            trendModalData: {}
+            trendModalIsShow: false,
+            trendModalData: {},
+            jhcb:''
         }
 
     }
@@ -97,29 +99,29 @@ class CostAnalysis extends Component {
             }
         }).then((res) => {
             const listData = res.data
-        // console.log(data)
-        // const listData = data
-        listData.sjy.forEach(obj => {
-            this.state.sjMonthYield.push({ ...obj })
-        })
-        listData.sjr.forEach(obj => {
-            this.state.sjDateYield.push({ ...obj })
-        })
-        this.setState({
-            sjYield: listData.sjr[listData.sjr.length - 1],
-            sjMonthYield: this.state.sjMonthYield,
-            sjDateYield: this.state.sjDateYield,
-            DateXAxis: this.getMonthDate(this.state.sjDateYield[0].date),
-            titleName: {
-                oneName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结产量',
-                twoName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结产量',
-                threeName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结成本',
-                fourName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结成本',
-                fiveName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月含铁料占成本比例',
-                eightName: new Date(this.state.sjDateYield[0].date).getDate() + '日烧结成本构成'
-            }
-        })
-        // console.log(this.state.sjDateYield)
+            // console.log(data)
+            // const listData = data
+            listData.sjy.forEach(obj => {
+                this.state.sjMonthYield.push({ ...obj })
+            })
+            listData.sjr.forEach(obj => {
+                this.state.sjDateYield.push({ ...obj })
+            })
+            this.setState({
+                sjYield: listData.sjr[listData.sjr.length - 1],
+                sjMonthYield: this.state.sjMonthYield,
+                sjDateYield: this.state.sjDateYield,
+                DateXAxis: this.getMonthDate(this.state.sjDateYield[0].date),
+                titleName: {
+                    oneName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结产量',
+                    twoName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结产量',
+                    threeName: new Date(this.state.sjMonthYield[0].date).getFullYear() + '年烧结成本',
+                    fourName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月烧结成本',
+                    fiveName: (new Date(this.state.sjDateYield[0].date).getMonth() + 1) + '月含铁料占成本比例',
+                    eightName: new Date(this.state.sjDateYield[0].date).getDate() + '日烧结成本构成'
+                }
+            })
+            // console.log(this.state.sjDateYield)
         })
     }
     getMonthDate(total) {
@@ -216,19 +218,19 @@ class CostAnalysis extends Component {
                     sevenXAxis.push(`${obj.date.split('-')[2]}日`)
                     obj.data.forEach((item, index) => {
                         sevenName.push(item.name)
-                        if (index == 0) {
+                        if (index === 0) {
                             one.push(item.qcdj)
                         }
-                        if (index == 1) {
+                        if (index === 1) {
                             two.push(item.qcdj)
                         }
-                        if (index == 2) {
+                        if (index === 2) {
                             three.push(item.qcdj)
                         }
-                        if (index == 3) {
+                        if (index === 3) {
                             four.push(item.qcdj)
                         }
-                        if (index == 4) {
+                        if (index === 4) {
                             five.push(item.qcdj)
                         }
                     })
@@ -409,52 +411,81 @@ class CostAnalysis extends Component {
             modalData: data
         })
     }
-    showBigBar(val){
+    showBigBar(val) {
         console.log(val)
         this.setState({
             barModalIsShow: val,
         })
     }
-    proportionData(val){
+    proportionData(val) {
         console.log(val)
         this.setState({
             linesProportionIsShow: val,
         })
     }
+    postFatherData(val){
+        console.log(val)
+        this.setState({
+            jhcb: val
+        })
+    }
+
+    saveTableData(){
+        axios({
+            method: 'post',
+            url: '/api/saveTableCb/',
+            data: {
+               type: 1,
+               jhcb: this.state.jhcb ? this.state.jhcb : this.state.sjYield.jhcb
+            },
+            headers: {
+                Authorization: sessionStorage.getItem("token")
+            }
+        }).then((res)=>{
+            message.success("保存成功")
+        }).catch((error)=>{
+            message.error("保存失败，请稍后再试")
+        })
+    }
     render() {
         return (
-            <div className="const-analysis-body">
-                <OneTable data={this.state.sjYield} componentName={this.state.sinterCostAnalysisname} />
-                <ChangLiang data={this.state.sjMonthYield} componentName={'产量'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.oneName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
-                <ChangLiang data={this.state.sjDateYield} componentName={'产量'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData}/>
-                <EchartsBar data={this.state.sjMonthYield} componentName={'成本'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName} isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)}/>
-                <ChangLiang data={this.state.sjDateYield} componentName={'成本'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.fivelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
-                <ChenBen data={this.state.sjDateYield} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.linesProportionIsShow} proportionData={this.proportionData.bind(this)} />
-                <SelectEcharts
-                    legend={this.state.sevenLegend}
-                    titleName={'价格趋势'}
-                    nameList={this.state.childrenJGName}
-                    echartsData={this.state.sevenListData}
-                    cantFatherData={this.cantFatherData.bind(this)}
-                    childDateTime={this.childDateTime.bind(this)}
-                    componentName={'价格趋势'}
-                    isShow={this.state.trendModalIsShow}
-                    trendFunction={this.trendFunction.bind(this)} 
-                    trendData={this.state.trendModalData}
-                />
-                <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightLegend} cirlData={this.state.cirlData} />
-                <SelectEcharts
-                    legend={this.state.nineLegend}
-                    titleName={'单耗趋势'}
-                    nameList={this.state.childrenDHName}
-                    echartsData={this.state.nineListData}
-                    cantFatherData={this.cantFatherData.bind(this)}
-                    childDateTime={this.childDateTime.bind(this)}
-                    componentName={'单耗趋势'}
-                    isShow={this.state.trendModalIsShow}
-                    trendFunction={this.trendFunction.bind(this)} 
-                    trendData={this.state.trendModalData}
-                />
+            <div>
+                <div className="const-analysis-body-header">
+                    <Button className="const-analysis-body-header-save" onClick={this.saveTableData.bind(this)}>保存</Button>
+                </div>
+                <div className="const-analysis-body">
+                    <OneTable data={this.state.sjYield} componentName={this.state.sinterCostAnalysisname} postFatherData={this.postFatherData.bind(this)}/>
+                    <ChangLiang data={this.state.sjMonthYield} componentName={'产量'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.legend} titleName={this.state.titleName.oneName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                    <ChangLiang data={this.state.sjDateYield} componentName={'产量'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.legend} titleName={this.state.titleName.twoName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                    <EchartsBar data={this.state.sjMonthYield} componentName={'成本'} type={'烧结'} xAxis={this.state.xAxis} legend={this.state.Twolegend} titleName={this.state.titleName.threeName} isShow={this.state.barModalIsShow} showBigBar={this.showBigBar.bind(this)} />
+                    <ChangLiang data={this.state.sjDateYield} componentName={'成本'} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.fivelegend} titleName={this.state.titleName.fourName} isShow={this.state.chilereModalShow} showEchartsMOdal={this.showEchartsMOdal.bind(this)} chilrenModalData={this.state.modalData} />
+                    <ChenBen data={this.state.sjDateYield} type={'烧结'} xAxis={this.state.DateXAxis} legend={this.state.Threelegend} titleName={this.state.titleName.fiveName} isShow={this.state.linesProportionIsShow} proportionData={this.proportionData.bind(this)} />
+                    <SelectEcharts
+                        legend={this.state.sevenLegend}
+                        titleName={'价格趋势'}
+                        nameList={this.state.childrenJGName}
+                        echartsData={this.state.sevenListData}
+                        cantFatherData={this.cantFatherData.bind(this)}
+                        childDateTime={this.childDateTime.bind(this)}
+                        componentName={'价格趋势'}
+                        isShow={this.state.trendModalIsShow}
+                        trendFunction={this.trendFunction.bind(this)}
+                        trendData={this.state.trendModalData}
+                    />
+                    <EchartsPie componentName={this.state.sinterCostAnalysisname} titleName={this.state.titleName.eightName} legend={this.state.eightLegend} cirlData={this.state.cirlData} />
+                    <SelectEcharts
+                        legend={this.state.nineLegend}
+                        titleName={'单耗趋势'}
+                        nameList={this.state.childrenDHName}
+                        echartsData={this.state.nineListData}
+                        cantFatherData={this.cantFatherData.bind(this)}
+                        childDateTime={this.childDateTime.bind(this)}
+                        componentName={'单耗趋势'}
+                        isShow={this.state.trendModalIsShow}
+                        trendFunction={this.trendFunction.bind(this)}
+                        trendData={this.state.trendModalData}
+                    />
+                </div>
             </div>
         )
     }

@@ -1165,7 +1165,7 @@ export default class QiuTuan extends Component {
                                 type="text"
                                 disabled
                                 onChange={this.handleGetInputValue("m").bind(this)}
-                                value={1}
+                                value={96}
                             />
                             <label>球团可变加工费 元/吨</label>
                             <Input
