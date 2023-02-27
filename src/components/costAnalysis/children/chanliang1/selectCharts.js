@@ -128,7 +128,7 @@ export default function SelectEcharts(props) {
     function onChange(dates, dateStrings) {
         props.childDateTime(dateStrings[0],dateStrings[1],componentName)
     }
-    const {  nameList,componentName,trendData } = props
+    const {  nameList,componentName,trendData ,echartsData} = props
     return (
         <div className='children-two-echarts'>
             <div className='children-two-echarts-select'>
@@ -173,7 +173,7 @@ export default function SelectEcharts(props) {
                 <Icon type="close" style={{position:'absolute',right:-30,top:-30,color:'#ffffff',fontSize: 20, cursor: 'pointer'}} onClick={handleOkCel}/>
               
                 {
-                  JSON.stringify(trendData).length > 2 ?  <ReactEcharts option={modalGetOption()} notMerge={true}  style={{height:500,width:900,left:-100}} /> : ''
+                  JSON.stringify(trendData).length > 2 ?  <ReactEcharts option={modalGetOption()} notMerge={echartsData.length <= 5 ? false : true}  style={{height:500,width:900,left:-100}} /> : ''
                 }
             </Modal>
         </div>

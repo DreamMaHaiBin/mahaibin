@@ -44,7 +44,7 @@ class FurnaceCostAnalysis extends Component {
                 oneName: '2022高炉产量',
                 twoName: '7月高炉产量',
                 threeName: '2022高炉成本',
-                fourName: '7月高炉成本',
+                fourName: '年燃料比',
                 fiveName: '燃料比',
                 sixName: '价格趋势',
                 sevenName: '单耗趋势',
@@ -82,15 +82,15 @@ class FurnaceCostAnalysis extends Component {
         })
     }
     getInitData() {
-        axios({
-            method: 'get',
-            url: '/api/cbfxry/',
-            headers: {
-                Authorization: sessionStorage.getItem("token")
-            }
-        }).then((res) => {
-            // const listData = data
-            var listData = res.data
+        // axios({
+        //     method: 'get',
+        //     url: '/api/cbfxry/',
+        //     headers: {
+        //         Authorization: sessionStorage.getItem("token")
+        //     }
+        // }).then((res) => {
+            const listData = data
+            // var listData = res.data
             var dataOne = []//nineListData
             var dataTwo = []
             var dataThree = []
@@ -118,7 +118,7 @@ class FurnaceCostAnalysis extends Component {
                     eightName: new Date(dataOne[0].date).getFullYear() + '年' + (new Date(dataTwo[0].date).getMonth() + 1) + "月" + '铁水成本构成'
                 }
             })
-        })
+        // })
     }
     getMonthDate(total) {
         let date = []

@@ -25,15 +25,19 @@ export default function GaoLuLines(props) {
         let egldhqs = []
         let sgldhqs = []
         data.forEach(element => {
-            zclData.push(element.zcl)
-            yglData.push(element.yglcl)
-            eglData.push(element.eglcl)
-            sglData.push(element.sglcl)
-            rhData.push(element.rlb )
-            jbData.push(element.yglrlb)
-            mbData.push(element.eglrlb)
-            jdbData.push(element.sglrlb)
-            if(titleName === '单耗趋势'){
+            if(componentName === '产量'){
+                zclData.push(element.zcl)
+                yglData.push(element.yglcl)
+                eglData.push(element.eglcl)
+                sglData.push(element.sglcl)
+            }
+            if(componentName === "燃料比"){
+                rhData.push(element.rlb )
+                jbData.push(element.yglrlb)
+                mbData.push(element.eglrlb)
+                jdbData.push(element.sglrlb)
+            }
+            if(componentName === '单耗趋势'){
                 qcdhqs.push(element.dhqs)
                 ygldhqs.push(element.ygldhqs)
                 egldhqs.push(element.egldhqs)
@@ -106,7 +110,7 @@ export default function GaoLuLines(props) {
         return option
     }
     function modalGetOption() {
-        const {componentName, data, xAxis, legend, titleName } = chilrenModalData
+        const {componentName, data, xAxis, legend, titleName } = childrenModalData
         console.log(componentName)
         let zclData = []
         let yglData = []
@@ -129,7 +133,7 @@ export default function GaoLuLines(props) {
             jbData.push(element.yglrlb)
             mbData.push(element.eglrlb)
             jdbData.push(element.sglrlb)
-            if(titleName === '单耗趋势'){
+            if(titleName === '焦比趋势'){
                 qcdhqs.push(element.dhqs)
                 ygldhqs.push(element.ygldhqs)
                 egldhqs.push(element.egldhqs)
@@ -202,7 +206,7 @@ export default function GaoLuLines(props) {
         return option
     }
     function clickIcon(){
-        props.showEchartsMOdal(true,props)
+        props.showEchartsMOdal(true, props)
      }
      function handleOk(){
          props.showEchartsMOdal(false, {})
@@ -210,7 +214,7 @@ export default function GaoLuLines(props) {
      function handleOkCel(){
          props.showEchartsMOdal(false, {})
      }
-     const {chilrenModalData} = props
+     const {childrenModalData} = props
     return (
         <div className='children-two-echarts'>
             <ReactEcharts option={getOption()} notMerge={true} style={{height:350}} />
@@ -229,7 +233,7 @@ export default function GaoLuLines(props) {
                 <Icon type="close" style={{position:'absolute',right:-30,top:-30,color:'#ffffff',fontSize: 20, cursor: 'pointer'}} onClick={handleOkCel}/>
               
                 {
-                  JSON.stringify(chilrenModalData).length > 2 ?  <ReactEcharts option={modalGetOption()} notMerge={true}  style={{height:500,width:900,left:-100}} /> : ''
+                  JSON.stringify(childrenModalData).length > 2 ?  <ReactEcharts option={modalGetOption()} notMerge={true}  style={{height:500,width:900,left:-100}} /> : ''
                 }
             </Modal>
         </div>

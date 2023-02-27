@@ -16,10 +16,10 @@ export default function GaoLuBar(props) {
         let eglclData = []
         let sglclData = []
         data.forEach(element => {
-            zclData.push(element.zcl)
-            yglclData.push(element.yglcl)
-            eglclData.push(element.eglcl)
-            sglclData.push(element.sglcl)
+            zclData.push(componentName === '成本' ? element.zcb : element.zcl)
+            yglclData.push(componentName === '成本' ? element.yglcb : element.yglcl)
+            eglclData.push(componentName === '成本' ? element.eglcb : element.eglcl)
+            sglclData.push(componentName === '成本' ? element.sglcb : element.sglcl)
         });
         let option = {
             title: {
